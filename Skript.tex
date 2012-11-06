@@ -39,7 +39,7 @@
 \section{SIMO Systems}
 \subsubsection*{Remarks}
 \begin{itemize}
-	\item In SIMO Systems only coding and diversity gains can be exploited
+	\item In SIMO Systems only \underline{coding} and \underline{diversity} \underline{gains} can be exploited (no multiplexing gains)
 	\item To realize these gains diversity combining has to be performed
 	\item Diversity combining schemes vary in complexity and performance
 	\item There are \underline{many} diversity combining schemes. Here we consider:
@@ -54,7 +54,7 @@
 	\end{figure}		
 	
 	\begin{itemize}
-		\item how to choose combining weights \begin{math}w_n\end{math}?
+		\item how to choose combining weights $w_n$?
 		\item what performance (e.g. error rate, outage probability) is achieved?
 		\item what \underline{diversity} and coding/combining gain is achieved?
 	\end{itemize}
@@ -79,23 +79,22 @@ Consider an equivalent system:
 	\mathcal{E}\{|x^2|\} &= \epsilon_s; & \mathcal{E}\{|n^2|\} &= \sigma_n^2; & \mathcal{E}\{|h|^2\} &= 1
 \end{align*}
 \begin{itemize}
-	\item Instantaneous SNR: \begin{math}\gamma_t = \frac{\epsilon_s}{\sigma_n^2}\times |h|^2  \end{math}
-\item Average SNR: \begin{math}\bar{\gamma}_t = \mathcal{E}\{y_t\} = \frac{\epsilon_s}{\sigma_n^2}\end{math}
+	\item Instantaneous SNR: $\gamma_t = \frac{\epsilon_s}{\sigma_n^2}\times |h|^2$
+\item Average SNR: $\bar{\gamma}_t = \mathcal{E}\{\gamma_t\} = \frac{\epsilon_s}{\sigma_n^2}$
 \end{itemize}
 \paragraph{Bit and Symbol Error Rate}
 \begin{itemize}
-	\item The Bit and Symbol Error Rate of many modulation schemes can be expressed for given \begin{math} y_t\end{math} as:
+	\item The Bit and Symbol Error Rate of many modulation schemes can be expressed for given $\gamma_t$ as:
 \end{itemize}
 \begin{align*}
-	P_e(y_t) = aQ\bigl\{ \sqrt{b\gamma_t}\bigr\}
+	P_e(\gamma_t) = aQ\bigl\{ \sqrt{b\gamma_t}\bigr\}
 \end{align*}
 where:
 \begin{itemize}
-	\item \begin{math} Q(x) = \frac{1}{\sqrt{2\pi}}\times\int_{x}^{\infty} e^{-\frac{t^2}{2}}~dt
-	\end{math}
-	\item \begin{math}P_e(\gamma_t) \end{math} may be exact or approximation
-	\item BPSK: exact with \begin{math} a = 1, b = 2\end{math}
-	\item M-ary QAM: tight approximation with \begin{math} a = 4\bigl (1-\frac{1}{\sqrt{M}}\bigr ), b =  \frac{3}{M - 1}   \end{math}
+	\item $Q(x) = \frac{1}{\sqrt{2\pi}}\times\int_{x}^{\infty} e^{-\frac{t^2}{2}}~dt$
+	\item $P_e(\gamma_t)$ may be exact result or approximation
+	\item BPSK: exact with $a = 1, b = 2$
+	\item M-ary QAM: tight approximation with $a = 4\bigl (1-\frac{1}{\sqrt{M}}\bigr ), b =  \frac{3}{M - 1}$
 \end{itemize}
 \begin{math} \bigl ({\small Einschub: Gray-Code: {BER} = \frac{1}{\log_2M} \times {SER} }\bigr ) \end{math}
 \begin{itemize}
@@ -103,26 +102,26 @@ where:
 			\begin{align*} 
 			Q(x) = \frac{1}{\pi}\int_{0}^{\frac{\pi}{2}} e^{-\frac{x^2}{2sin^2\theta}}~d\theta
 			\end{align*}
-			\begin{math}\rightarrow\end{math} Integral limits are fixed and don't depend on integration variables!
+			$\rightarrow$ Integral limits are fixed and do not depend on integration variables!
 	\item Average error probability
 		\begin{align*} 
 		P_e = \mathcal{E}\bigl \{P_e(\gamma_t)\bigr \} = \int_{0}^{\infty}aQ\bigr (\sqrt{bx}\bigl )p_{\gamma_t}(x)~dx
 		\end{align*}
 		\begin{itemize}
 			\item Integral may be difficult to solve analytically
-			\item Integral has infinite support \begin{math} \rightarrow \end{math} numerical evaluation difficult
+			\item Integral has infinite support $\rightarrow$ numerical evaluation difficult
 		\end{itemize}
-	\item Using alternate representation of Q-function we get:
+	\item Using alternative representation of Q-function we get:
 		\begin{align*}
 			P_e &= \int_{0}^{\infty}\frac{a}{\pi}\int_{0}^{\frac{\pi}{2}}e^{-\frac{bx}{2sin^2\theta}}p_{\gamma_t}(x)~d\theta ~dx\\
 			&= \frac{a}{\pi}\int_{0}^{\frac{\pi}{2}}\int_{0}^{\infty}p_{\gamma_t}(x)e^{-\frac{b}{2sin^2\theta}}~dx~d\theta &= \frac{a}{\pi}\int_{0}^{\frac{\pi}{2}}M_{\gamma_t}\bigl ( \frac{b}{2sin^2\theta} \bigr )~d\theta
 		\end{align*}
 where:
 		\begin{itemize}
-				\item \begin{math}M_{\gamma_t}(s) = \int_{0}^{\infty}p_{\gamma_t}(x)e^{-sx}~dx \end{math} is the Laplace transform of \begin{math} p_{\gamma_t}\end{math}	
-				\item \begin{math}M_{\gamma_t}(-s)\end{math} is the so called Moment Generation Function (MGF) of \begin{math}p_{\gamma_t}\end{math}
-				\item Here, we will also refer to \begin{math}M_{\gamma_t}(s)\end{math} as MGF
-				\item \begin{math}M_{\gamma_t}(s)\end{math} is sometimes easier to obtain than \begin{math}p_{\gamma_t}\end{math}
+				\item $M_{\gamma_t}(s) = \int_{0}^{\infty}p_{\gamma_t}(x)e^{-sx}~dx$ is the Laplace transform of $p_{\gamma_t}$	
+				\item $M_{\gamma_t}(-s)$ is the so called Moment Generation Function (MGF) of $p_{\gamma_t}$
+				\item Here, we will also refer to $M_{\gamma_t}(s)$ as MGF
+				\item $M_{\gamma_t}(s)$ is sometimes easier to obtain than $p_{\gamma_t}$
 				\item The above integral can be easily evaluated numerically because of the finite integral limits
 			\end{itemize}
 \end{itemize}
