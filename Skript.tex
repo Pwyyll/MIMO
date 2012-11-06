@@ -79,21 +79,21 @@ Consider an equivalent system:
 	\mathcal{E}\{|x^2|\} &= \epsilon_s; & \mathcal{E}\{|n^2|\} &= \sigma_n^2; & \mathcal{E}\{|h|^2\} &= 1
 \end{align*}
 \begin{itemize}
-	\item Instantaneous SNR: \begin{math}y_t = \frac{\epsilon_s}{\sigma_n^2}\times |h|^2  \end{math}
-\item Average SNR: \begin{math}\bar{y}_t = \mathcal{E}\{y_t\} = \frac{\epsilon_s}{\sigma_n^2}\end{math}
+	\item Instantaneous SNR: \begin{math}\gamma_t = \frac{\epsilon_s}{\sigma_n^2}\times |h|^2  \end{math}
+\item Average SNR: \begin{math}\bar{\gamma}_t = \mathcal{E}\{y_t\} = \frac{\epsilon_s}{\sigma_n^2}\end{math}
 \end{itemize}
 \paragraph{Bit and Symbol Error Rate}
 \begin{itemize}
 	\item The Bit and Symbol Error Rate of many modulation schemes can be expressed for given \begin{math} y_t\end{math} as:
 \end{itemize}
 \begin{align*}
-	P_e(y_t) = aQ\bigl\{ \sqrt{by_t}\bigr\}
+	P_e(y_t) = aQ\bigl\{ \sqrt{b\gamma_t}\bigr\}
 \end{align*}
 where:
 \begin{itemize}
 	\item \begin{math} Q(x) = \frac{1}{\sqrt{2\pi}}\times\int_{x}^{\infty} e^{-\frac{t^2}{2}}~dt
 	\end{math}
-	\item \begin{math}P_e(y_t) \end{math} may be exact or approximation
+	\item \begin{math}P_e(\gamma_t) \end{math} may be exact or approximation
 	\item BPSK: exact with \begin{math} a = 1, b = 2\end{math}
 	\item M-ary QAM: tight approximation with \begin{math} a = 4\bigl (1-\frac{1}{\sqrt{M}}\bigr ), b =  \frac{3}{M - 1}   \end{math}
 \end{itemize}
@@ -106,7 +106,7 @@ where:
 			\begin{math}\rightarrow\end{math} Integral limits are fixed and don't depend on integration variables!
 	\item Average error probability
 		\begin{align*} 
-		P_e = \mathcal{E}\bigl \{P_e(y_t)\bigr \} = \int_{0}^{\infty}aQ\bigr (\sqrt{bx}\bigl )p_{\gamma_t}(x)~dx
+		P_e = \mathcal{E}\bigl \{P_e(\gamma_t)\bigr \} = \int_{0}^{\infty}aQ\bigr (\sqrt{bx}\bigl )p_{\gamma_t}(x)~dx
 		\end{align*}
 		\begin{itemize}
 			\item Integral may be difficult to solve analytically
