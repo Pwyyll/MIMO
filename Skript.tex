@@ -168,7 +168,7 @@ where:
 	\gamma _t &= \frac{\epsilon _s \Bigl | \sum_{n = 1}^{N_R}h_nw_n\Bigr |^2 }{\sigma _n^2 \sum_{N = 1}^{N_R}|w_n|^2}
 \end{align*}
 where \begin{math} w_n\end{math} depends on the particular combining scheme.
-\subsection{MRC}
+\subsection{MRC (Maximum Ratio Combining)}
 \begin{itemize}
 	\item what weight \begin{math}w_n\end{math} maximize \begin{math}\gamma _t\end{math}?
 	\begin{itemize}
@@ -229,7 +229,24 @@ where \begin{math} w_n\end{math} depends on the particular combining scheme.
 	P_{out} &= \int_{0}^{\gamma _T}p_{\gamma _t}(x)~dx = \frac{1}{\bar{\gamma}^{N_R}}\int_{0}^{\gamma _T}\frac{x^{N_R-1}}{(N_R - 1)!}e^{-\frac{x}{\bar{\gamma}}}~dx \\ &= 1- e^{-\frac{\gamma _T}{\bar{\gamma}}}\cdot \sum_{n = 1}^{N_R}\frac{\bigl (\frac{\gamma _T}{\bar{\gamma}}\bigr )^n}{(n - 1)!}
 \end{align*}
 \begin{itemize}
-	\item Approximation (Taylor series): \begin{math} \bar{\gamma}\rightarrow \infty : -e^{-\frac{x}{\bar{\gamma}}} = 1 - \frac{x}{\bar{\gamma}} + O(\frac{1}{\bar{\gamma}})\end{math}\; where a function \begin{math}f(x) \text{ is } O(x) \text{ if } \lim_{x\to\infty}\frac{f(x)}{x} = 0\end{math}. 
+	\item Approximation (Taylor series): $\bar{\gamma}\rightarrow \infty : -e^{-\frac{x}{\bar{\gamma}}} = 1 - \frac{x}{\bar{\gamma}} + O(\frac{1}{\bar{\gamma}})$\; where a function $f(x) \text{ is } O(x) \text{ if } \lim\limits_{x\to\infty}\frac{f(x)}{x} = 0$.
+\begin{align*}
+	\Rightarrow P_{out}=\frac{1}{\gamma^{N_R}}\int\limits_0^{\gamma_T}\frac{x^{N_R-1}}{(N_R-1)!}\left(1-\frac{x}{\bar{\gamma}}+O\left(\frac{1}{\bar{\gamma}}\right)\right)
+\end{align*}
+	\item Diversity and coding gain can also be defined for $P_{out}$
+\end{itemize}
+
+\subsection{EGC (Equal Gain Combining)}
+
+\paragraph*{Combining Weights}
+\begin{itemize}
+	\item For MRC, both, the amplitudes and phases of the channel gains $h_n=|h_n|e^{j\varphi_n}$ have to be known (or estimated in practice)
+	\item In EGC it is assumed that only the phases are known and weights $w_n=e^{-j\varphi_n}$ are used.
+\begin{align*}
+	\Rightarrow \gamma_t &=\dfrac{\mathcal{E}_s}{\sigma_n^2}\dfrac{\left|\sum\limits_{n=1}^{N_R}|h_n|e^{j\varphi_n}e^{-j\varphi_n}\right|^2}{\sum\limits^{N_R}_{n=1}\left|e^{-j\varphi_n}\right|^2}\\
+	&=\frac{\mathcal{E}_s}{\sigma_n^2}\frac{1}{N_R}\left(\sum\limits^{N_R}_{n=1}|h_n|\right)^2\\
+	&=\frac{1}{N_R}\left(\sum\limits_{n=1}^{N_R}\sqrt{\gamma_n}\right)^2;\text{  with  }\gamma_n=\frac{\mathcal{E}_s}{\sigma_n^2}|h_n|^2
+\end{align*}
 \end{itemize}
 
 \end{document}
