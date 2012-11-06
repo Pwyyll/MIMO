@@ -248,5 +248,21 @@ where \begin{math} w_n\end{math} depends on the particular combining scheme.
 	&=\frac{1}{N_R}\left(\sum\limits_{n=1}^{N_R}\sqrt{\gamma_n}\right)^2;\text{  with  }\gamma_n=\frac{\mathcal{E}_s}{\sigma_n^2}|h_n|^2
 \end{align*}
 \end{itemize}
+\paragraph*{Performance Analysis}
+\begin{itemize}
+	\item i.i.d. case \\
+	$\Rightarrow$ $\sqrt{\gamma_n}$ is Rayleigh distributed\\
+	$\Rightarrow$ Exact analysis is much more difficult than for MRC $\Rightarrow$ see book by Simon\&Alouini p.341
+	\item Approximate result
+\begin{align*}
+	P_e=\frac{a}{2}\left[1-\sqrt{\frac{2b\bar{\gamma}}{5+2b\bar{\gamma}}}\sum\limits_{n=0}^{N_R-1}\frac{\left(\! \begin{array}{c} 2n \\ n \end{array} \!\right) }{4^n(1+\frac{2}{5}b\bar{\gamma})^n}\right]
+\end{align*}
+	\item high SNR\\
+	$\Rightarrow$ use high SNR analysis of Wang\&Giannakis, 2003\\
+	$\Rightarrow$ at high SNR, only pdf of $\gamma_n$ around $0$ is relevant for performance
+\begin{align*}
+	\Rightarrow \overset{\text{Rayleigh}}{p_\gamma(x)} = \frac{1}{\bar{\gamma}}e^{-\frac{x}{\bar{\gamma}}}\overset{\text{Taylor Serie}}{=}\frac{1}{\bar{\gamma}}+O\left(\frac{1}{\bar{\gamma}}\right)\text{ as } x \to 0
+\end{align*}
+\end{itemize}
 
 \end{document}
