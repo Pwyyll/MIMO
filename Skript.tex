@@ -35,6 +35,10 @@
 	% frame=single,
 % }
 
+% Definition von römischen Zahlen
+\newcommand{\rom}[1]{$\underline{\overline{\text{#1}}}$} 
+
+
 \begin{document}
 \section{SIMO Systems}
 \subsubsection*{Remarks}
@@ -243,8 +247,8 @@ where \begin{math} w_n\end{math} depends on the particular combining scheme.
 	\item For MRC, both, the amplitudes and phases of the channel gains $h_n=|h_n|e^{j\varphi_n}$ have to be known (or estimated in practice)
 	\item In EGC it is assumed that only the phases are known and weights $w_n=e^{-j\varphi_n}$ are used.
 \begin{align*}
-	\Rightarrow \gamma_t &=\dfrac{\mathcal{E}_s}{\sigma_n^2}\dfrac{\left|\sum\limits_{n=1}^{N_R}|h_n|e^{j\varphi_n}e^{-j\varphi_n}\right|^2}{\sum\limits^{N_R}_{n=1}\left|e^{-j\varphi_n}\right|^2}\\
-	&=\frac{\mathcal{E}_s}{\sigma_n^2}\frac{1}{N_R}\left(\sum\limits^{N_R}_{n=1}|h_n|\right)^2\\
+	\Rightarrow \gamma_t &=\dfrac{\mathcal{E}_s}{\sigma_n^2}\dfrac{\left|\sum\limits_{n=1}^{N_R}|h_n|e^{j\varphi_n}e^{-j\varphi_n}\right|^2}{\sum\limits^{N_R}_{n=1}\left|e^{-j\varphi_n}\right|^2}
+	=\frac{\mathcal{E}_s}{\sigma_n^2}\frac{1}{N_R}\left(\sum\limits^{N_R}_{n=1}|h_n|\right)^2\\
 	&=\frac{1}{N_R}\left(\sum\limits_{n=1}^{N_R}\sqrt{\gamma_n}\right)^2;\text{  with  }\gamma_n=\frac{\mathcal{E}_s}{\sigma_n^2}|h_n|^2
 \end{align*}
 \end{itemize}
@@ -258,11 +262,86 @@ where \begin{math} w_n\end{math} depends on the particular combining scheme.
 	P_e=\frac{a}{2}\left[1-\sqrt{\frac{2b\bar{\gamma}}{5+2b\bar{\gamma}}}\sum\limits_{n=0}^{N_R-1}\frac{\left(\! \begin{array}{c} 2n \\ n \end{array} \!\right) }{4^n(1+\frac{2}{5}b\bar{\gamma})^n}\right]
 \end{align*}
 	\item high SNR\\
-	$\Rightarrow$ use high SNR analysis of Wang\&Giannakis, 2003\\
+	$\Rightarrow$ use high SNR analysis of Wang\;\&\;Giannakis, 2003\\
 	$\Rightarrow$ at high SNR, only pdf of $\gamma_n$ around $0$ is relevant for performance
 \begin{align*}
 	\Rightarrow \overset{\text{Rayleigh}}{p_\gamma(x)} = \frac{1}{\bar{\gamma}}e^{-\frac{x}{\bar{\gamma}}}\overset{\text{Taylor Serie}}{=}\frac{1}{\bar{\gamma}}+O\left(\frac{1}{\bar{\gamma}}\right)\text{ as } x \to 0
 \end{align*}
+	\item need pdf $\gamma _t$: ($\gamma _n$ bekannt, $\rightarrow$ ges.: Wurzel, etc.)\\ (cumulative distribution function of $\sqrt{\gamma _n}$ (cdf))
+	\begin{align*}
+	% 1. Formel
+		P_{\sqrt{\gamma}}(x) &= Pr\bigl\{\sqrt{\gamma}\leq x \bigr\} =  Pr\bigl\{\gamma\leq x^2 \bigr\} = P_{\gamma}(x^2) = \text{cdf of}\;\gamma\\
+	% 2. Formel
+		\rightarrow P_{\sqrt{\gamma}}(x) &= \frac{d}{dx}P_{\sqrt{\gamma}}(x) = 2x\cdot p_{\gamma}(x^2) = \frac{2x}{\bar{\gamma}} + O\bigl(\frac{1}{\bar{\gamma}}\bigr)\\
+	% 3. Formel
+		\rightarrow M_{\sqrt{\gamma}}(s) &= \mathcal{L}\bigl\{p_{\sqrt{\gamma}}(x)\bigr\} = \frac{2}{\bar{\gamma}}\cdot \frac{1}{s^2} + O\bigl(\frac{1}{\bar{\gamma}}\bigr)\\
+	% 4. Formel
+		\sqrt{\gamma _t} &= \sum_{n = 1}^{N_R}\frac{\sqrt{\gamma _n}}{N_R}\\
+	% 5. Formel
+		 M_{\sqrt{\gamma _t}}(s) &= \mathcal{E}\Bigl\{exp({-s\sqrt{\gamma _t}})\Bigr\} = \mathcal{E}\Bigl\{exp({-\frac{s}{\sqrt{N_R}}\cdot \sum_{n = 1}^{N_R}\sqrt{\gamma _n}})\Bigr\} = \Bigl(\mathcal{E}\Bigl\{exp(-\frac{s}{\sqrt{N_R}}\cdot \sqrt{\gamma _n}\Bigr\}\Bigr)^{N_R}\\
+	% 6. Formel
+		 &= \Bigl( M_{\sqrt{\gamma}}\bigl(\frac{s}{\sqrt{N_R}}\bigr) \Bigr)^{N_R} = \Bigl(\frac{2}{\bar{\gamma}}\cdot \frac{N_R}{s^2}\Bigr)^{N_R} + O\Bigl(\frac{1}{\bar{\gamma}\cdot N_R}\Bigr)\\
+	% 7. Formel
+		p_{\sqrt{\gamma _t}}(x) &= \mathcal{L} ^{-1}\Bigl\{M_{\sqrt{\gamma _t}}(s)\Bigr\} = \Bigl(\frac{2N_R}{\bar{\gamma}}\Bigr)^{N_R}\cdot \frac{x^{2N_R-1}}{(2N_R-1)!} + O\Bigl(	\frac{1}{\bar{\gamma}N_R}\Bigr)\\
+	% 8. Formel
+		P_{\gamma _t}(x) &= Pr\bigl\{\gamma _t\leq x	\bigr\} =  Pr\bigl\{\sqrt{\gamma _t}\leq \sqrt{x}\bigr\} = P_{\sqrt\gamma _t}(\sqrt{x}) \rightarrow \text{cdf of } \sqrt{\gamma _t}\\
+	% 9. Formel
+		p_{\gamma _t}(x) &= \frac{d}{dx}P_{\gamma _t}(x) = \frac{1}{2\sqrt{x}}\cdot p_{\gamma _t}(\sqrt{x}) = \frac{1}{2}\Bigl(\frac{2N_R}{\bar{\gamma}} \Bigr)^{N_R}\cdot \frac{x^{N_R-1}}{(2N_R-1)!} + O\bigl(\bar{\gamma}^{-N_R}\bigr)\\
+	% 10. Formel
+		\rightarrow M_{\gamma _t}(s) &= \mathcal{L}\bigl\{p_{\gamma _t}(x)\bigr\} = \frac{1}{2}\Bigl( \frac{2N_R}{\bar{\gamma}}\Bigr)^{N_R}\cdot \frac{(N_R - 1)!}{(2N_R -1)!~b^{N_R}} + O\bigl(\bar{\gamma}^{-N_R}\bigr)\\
+	% 11. Formel
+		P_e &= \frac{a}{\pi}\int_{0}^{\frac{\pi}{2}}M_{\gamma _t}\Bigl(\frac{b}{2\sin^2\theta}\Bigr)~d\theta = \frac{a}{2\pi}\Bigl(\frac{2N_R}{\bar{\gamma}} \Bigr)^{N_R}\cdot\frac{(N_R-1)!}{(2N_R-1)}\cdot\frac{2^{N_R}}{b^{N_R}}\int_{0}^{\frac{\pi}{2}}\sin^{2N_R}\theta \\ \qquad +\; O\bigl(\bar{\gamma}^{-N_R}\bigr) \\
+		&= \frac{aN_R^{N_R}}{2b^{N_R}\cdot N_R!}\cdot\frac{1}{\bar{\gamma}^{N_R}} + O\bigl(\bar{\gamma}^{-N_R}\bigr) \overset{!}{=} \Bigl(\frac{1}{G_c\bar{\gamma}}\Bigr)^{G_d}\\
+		\text{where: }\sin^{2N_R}\theta~d\theta &= \frac{\pi}{2^{2N_R+1}}\begin{pmatrix}2N_R & N_R	\end{pmatrix} = \frac{\pi(2N_R)!}{2^{2N_R + 1}(N_R!)^2}
+	\end{align*}
+	\begin{itemize}
+		\item[] $\Longrightarrow \text{Diversity gain: } G_d = N_R$
+		\item[] $\Longrightarrow \text{Combining gain: } G_c = \frac{b}{N_R}\Bigl( \frac{2N_R!}{a}\Bigr)^{\frac{1}{N_R}}$
+		\item[] vergleiche auch Blatt mit Kurven \rom{III} und \rom{IV}
+	\end{itemize}
 \end{itemize}
+A similar asymptotic analysis can be conducted for the outage probability.
+\subsection{SC (Selection Combining)}
+\paragraph*{Combining weights}
+	\begin{itemize}
+		\item only the strongest branch is chosen
+		\item strongest branch: $\hat{n} = \underset{n}{\text{argmax}} \gamma _n \longrightarrow \gamma _t = \gamma _{\hat{n}}$
+		\item only on RF receiver chain required $\rightarrow$\; saves hardware complexity 
+	\end{itemize}
+\paragraph*{Performance analysis}
+	\begin{itemize}
+		\item cdf of: $\gamma _t$
+			\begin{align*}
+				P_{\gamma _t}(x) &= Pr\bigl\{\gamma _{\hat{n}} \leq x\bigr\} = Pr\bigl\{\gamma _1 \leq x \cap \gamma _2 \leq x \cap \dots \gamma _{N_R} \leq x\bigr\}\\
+				&\overset{(IID)}{=} \Bigl(Pr\bigl\{\gamma _n \leq x\bigr\}\Bigr)^{N_R} = \Bigl( P_{\gamma}(x)\Bigr)^{N_R}
+			\end{align*}
+		\item pdf:
+			\begin{align*}
+				p_{\gamma _t}(x) &= \frac{d}{dx}P_{\gamma _t}(x) = N_R\bigl(P_{\gamma}(x)\bigr)^{N_R-1}\cdot p_{\gamma}(x)\\
+				\text{where: }\qquad p_{\gamma _t}(x) &= \frac{1}{\bar{\gamma}}e^{-\frac{x}{\bar{\gamma}}};\quad x\geq 0\\
+				P_{\gamma}(x) &= \int_{0}^{x}p_{\gamma}8x)~dx = 1 - e^{-\frac{x}{\bar{\gamma}}};\quad x\geq 0\\
+				\rightarrow p_{\gamma _t}(x) &= \frac{N_R}{\bar{\gamma}}\bigl( 1 - e^{-\frac{x}{\bar{\gamma}}}\bigr)^{N_R-1}e^{-\frac{x}{\bar{\gamma}}};\quad x\geq 0
+			\end{align*}
+	\end{itemize}
+\paragraph*{Error probability}
+	\begin{itemize}
+		\item direct approach $\rightarrow$ closed-form solution possible
+		\item MGF approach
+		\begin{itemize}
+			\item Binomial expansion\\
+			\begin{align*}
+				p_{\gamma _t}(x) &= \frac{N_R}{\bar{\gamma}}e^{-\frac{x}{\bar{\gamma}}}\sum_{n = 0}^{N_R - 1}\begin{pmatrix} N_R - 1 \\ n\end{pmatrix} 1^{N_R - 1 - n}\Bigl( -e^{-\frac{x}{\bar{\gamma}}}\Bigr)^n \\
+				&= \frac{N_R}{\bar{\gamma}}\sum_{n = 0}^{N_R - 1}\begin{pmatrix}N_R - 1 \\ n\end{pmatrix}\cdot (-1)^{n}e^{-\frac{x(n + 1)}{\bar{\gamma}}};\quad	x \geq 0
+			\end{align*}
+			\item MGF\\
+			\begin{align*}
+				M_{\gamma _t}(s) = \frac{N_R}{\bar{\gamma}}\sum_{n = 0}^{N_R - 1}\begin{pmatrix}N_R - 1\\n\end{pmatrix}(-1)^{n}\frac{1}{s + \frac{n+1}{\bar{\gamma}}}
+			\end{align*}
+			\item 
+			\begin{align*}
+				P_e = \frac{a}{\pi}\int_{0}^{\frac{\pi}{2}}M_{\gamma _t}\Bigl(\frac{b}{2\sin^2\theta}\Bigr)~d\theta = \frac{aN_R}{\pi\bar{\gamma}}\sum_{n = 0}^{N_R - 1}\begin{pmatrix}N_R - 1\\ n\end{pmatrix} (-1)^{n}\int_{0}^{\frac{\pi}{2}}\frac{d\theta}{\frac{b}{2\sin^2\theta} + \frac{n + 1}{\bar{\gamma}}}\\ \rightarrow\text{can be evaluated numerically}				
+			\end{align*}
+		\end{itemize}
+	\end{itemize}
 
 \end{document}
