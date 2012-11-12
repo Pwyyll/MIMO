@@ -267,22 +267,28 @@ where \begin{math} w_n\end{math} depends on the particular combining scheme.
 \begin{align*}
 	\Rightarrow \overset{\text{Rayleigh}}{p_\gamma(x)} = \frac{1}{\bar{\gamma}}e^{-\frac{x}{\bar{\gamma}}}\overset{\text{Taylor Serie}}{=}\frac{1}{\bar{\gamma}}+O\left(\frac{1}{\bar{\gamma}}\right)\text{ as } x \to 0
 \end{align*}
-	\item need pdf $\gamma _t$: ($\gamma _n$ bekannt, $\rightarrow$ ges.: Wurzel, etc.)\\ (cumulative distribution function of $\sqrt{\gamma _n}$ (cdf))
+	\item need pdf $\gamma _t$: ($\gamma _n$ bekannt, $\rightarrow$ ges.: Wurzel, etc.)\\ (cumulative distribution function of $\sqrt{\gamma}\;(\overset{\text{i.i.d}}{=}\sqrt{\gamma_n}) $ (cdf))
 	\begin{align*}
 	% 1. Formel
 		P_{\sqrt{\gamma}}(x) &= Pr\bigl\{\sqrt{\gamma}\leq x \bigr\} =  Pr\bigl\{\gamma\leq x^2 \bigr\} = P_{\gamma}(x^2) = \text{cdf of}\;\gamma\\
 	% 2. Formel
 		\rightarrow p_{\sqrt{\gamma}}(x) &= \frac{d}{dx}P_{\sqrt{\gamma}}(x) = 2x\cdot p_{\gamma}(x^2) = \frac{2x}{\bar{\gamma}} + O\bigl(\frac{1}{\bar{\gamma}}\bigr)\\
+	\end{align*}
+	\item Laplace Transformation to MGF
+	\begin{align*}
 	% 3. Formel
 		\rightarrow M_{\sqrt{\gamma}}(s) &= \mathcal{L}\bigl\{p_{\sqrt{\gamma}}(x)\bigr\} = \frac{2}{\bar{\gamma}}\cdot \frac{1}{s^2} + O\bigl(\frac{1}{\bar{\gamma}}\bigr)\\
 	% 4. Formel
 		\sqrt{\gamma _t} &= \sum_{n = 1}^{N_R}\frac{\sqrt{\gamma _n}}{N_R}\\
 	% 5. Formel
-		 M_{\sqrt{\gamma _t}}(s) &= \mathcal{E}\Bigl\{exp({-s\sqrt{\gamma _t}})\Bigr\} = \mathcal{E}\Bigl\{exp({-\frac{s}{\sqrt{N_R}}\cdot \sum_{n = 1}^{N_R}\sqrt{\gamma _n}})\Bigr\} = \Bigl(\mathcal{E}\Bigl\{exp(-\frac{s}{\sqrt{N_R}}\cdot \sqrt{\gamma _n}\Bigr\}\Bigr)^{N_R}\\
+		 M_{\sqrt{\gamma _t}}(s) &= \mathcal{E}\Bigl\{\mathrm{exp}({-s\sqrt{\gamma _t}})\Bigr\} = \mathcal{E}\Bigl\{\mathrm{exp}({-\frac{s}{\sqrt{N_R}}\cdot \sum_{n = 1}^{N_R}\sqrt{\gamma _n}})\Bigr\} = \Bigl(\mathcal{E}\Bigl\{\mathrm{exp}(-\frac{s}{\sqrt{N_R}}\cdot \sqrt{\gamma _n}\Bigr\}\Bigr)^{N_R}\\
 	% 6. Formel
-		 &= \Bigl( M_{\sqrt{\gamma}}\bigl(\frac{s}{\sqrt{N_R}}\bigr) \Bigr)^{N_R} = \Bigl(\frac{2}{\bar{\gamma}}\cdot \frac{N_R}{s^2}\Bigr)^{N_R} + O\Bigl(\frac{1}{\bar{\gamma}\cdot N_R}\Bigr)\\
+		 &= \Bigl( M_{\sqrt{\gamma}}\bigl(\frac{s}{\sqrt{N_R}}\bigr) \Bigr)^{N_R} = \Bigl(\frac{2}{\bar{\gamma}}\cdot \frac{N_R}{s^2}\Bigr)^{N_R} + O\Bigl(\frac{1}{\bar{\gamma}^{N_R}}\Bigr)\\
+	\end{align*}
+	\item inverse Laplace Transform
+	\begin{align*}
 	% 7. Formel
-		p_{\sqrt{\gamma _t}}(x) &= \mathcal{L} ^{-1}\Bigl\{M_{\sqrt{\gamma _t}}(s)\Bigr\} = \Bigl(\frac{2N_R}{\bar{\gamma}}\Bigr)^{N_R}\cdot \frac{x^{2N_R-1}}{(2N_R-1)!} + O\Bigl(	\frac{1}{\bar{\gamma}N_R}\Bigr)\\
+		p_{\sqrt{\gamma _t}}(x) &= \mathcal{L} ^{-1}\Bigl\{M_{\sqrt{\gamma _t}}(s)\Bigr\} = \Bigl(\frac{2N_R}{\bar{\gamma}}\Bigr)^{N_R}\cdot \frac{x^{2N_R-1}}{(2N_R-1)!} + O\Bigl(	\frac{1}{\bar{\gamma}^{N_R}}\Bigr)\\
 	% 8. Formel
 		P_{\gamma _t}(x) &= Pr\bigl\{\gamma _t\leq x	\bigr\} =  Pr\bigl\{\sqrt{\gamma _t}\leq \sqrt{x}\bigr\} = P_{\sqrt\gamma _t}(\sqrt{x}) \rightarrow \text{cdf of } \sqrt{\gamma _t}\\
 	% 9. Formel
@@ -290,6 +296,9 @@ where \begin{math} w_n\end{math} depends on the particular combining scheme.
 	% 10. Formel
 		\rightarrow M_{\gamma _t}(s) &= \mathcal{L}\bigl\{p_{\gamma _t}(x)\bigr\} = \frac{1}{2}\Bigl( \frac{2N_R}{\bar{\gamma}}\Bigr)^{N_R}\cdot \frac{(N_R - 1)!}{(2N_R -1)!~b^{N_R}} + O\bigl(\bar{\gamma}^{-N_R}\bigr)\\
 	% 11. Formel
+	\end{align*}
+	\item Error Probability:
+	\begin{align*}
 		P_e &= \frac{a}{\pi}\int_{0}^{\frac{\pi}{2}}M_{\gamma _t}\Bigl(\frac{b}{2\sin^2\theta}\Bigr)~d\theta = \frac{a}{2\pi}\Bigl(\frac{2N_R}{\bar{\gamma}} \Bigr)^{N_R}\cdot\frac{(N_R-1)!}{(2N_R-1)}\cdot\frac{2^{N_R}}{b^{N_R}}\int_{0}^{\frac{\pi}{2}}\sin^{2N_R}\theta \\ \qquad +\; O\bigl(\bar{\gamma}^{-N_R}\bigr) \\
 		&= \frac{aN_R^{N_R}}{2b^{N_R}\cdot N_R!}\cdot\frac{1}{\bar{\gamma}^{N_R}} + O\bigl(\bar{\gamma}^{-N_R}\bigr) \overset{!}{=} \Bigl(\frac{1}{G_c\bar{\gamma}}\Bigr)^{G_d}\\
 		\text{where: }\sin^{2N_R}\theta~d\theta &= \frac{\pi}{2^{2N_R+1}}\begin{pmatrix}2N_R & N_R	\end{pmatrix} = \frac{\pi(2N_R)!}{2^{2N_R + 1}(N_R!)^2}
