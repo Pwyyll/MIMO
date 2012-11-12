@@ -254,7 +254,7 @@ where \begin{math} w_n\end{math} depends on the particular combining scheme.
 \end{itemize}
 \paragraph*{Performance Analysis}
 \begin{itemize}
-	\item i.i.d. case \\
+	\item IID case \\
 	$\Rightarrow$ $\sqrt{\gamma_n}$ is Rayleigh distributed\\
 	$\Rightarrow$ Exact analysis is much more difficult than for MRC $\Rightarrow$ see book by Simon\;\&\;Alouini p.341
 	\item Approximate result
@@ -270,7 +270,7 @@ where \begin{math} w_n\end{math} depends on the particular combining scheme.
 	\item need pdf $\gamma _t$: ($\gamma _n$ bekannt, $\rightarrow$ ges.: Wurzel, etc.)\\ (cumulative distribution function of $\sqrt{\gamma}\;(\overset{\text{i.i.d}}{=}\sqrt{\gamma_n}) $ (cdf))
 	\begin{align*}
 	% 1. Formel
-		P_{\sqrt{\gamma}}(x) &= Pr\bigl\{\sqrt{\gamma}\leq x \bigr\} =  Pr\bigl\{\gamma\leq x^2 \bigr\} = P_{\gamma}(x^2) = \text{cdf of}\;\gamma\\
+		P_{\sqrt{\gamma}}(x) &= \text{Pr}\bigl\{\sqrt{\gamma}\leq x \bigr\} = \text{Pr}\bigl\{\gamma\leq x^2 \bigr\} = P_{\gamma}(x^2) = \text{cdf of}\;\gamma\\
 	% 2. Formel
 		\rightarrow p_{\sqrt{\gamma}}(x) &= \frac{d}{dx}P_{\sqrt{\gamma}}(x) = 2x\cdot p_{\gamma}(x^2) = \frac{2x}{\bar{\gamma}} + O\bigl(\frac{1}{\bar{\gamma}}\bigr)\\
 	\end{align*}
@@ -290,7 +290,7 @@ where \begin{math} w_n\end{math} depends on the particular combining scheme.
 	% 7. Formel
 		p_{\sqrt{\gamma _t}}(x) &= \mathcal{L} ^{-1}\Bigl\{M_{\sqrt{\gamma _t}}(s)\Bigr\} = \Bigl(\frac{2N_R}{\bar{\gamma}}\Bigr)^{N_R}\cdot \frac{x^{2N_R-1}}{(2N_R-1)!} + O\Bigl(	\frac{1}{\bar{\gamma}^{N_R}}\Bigr)\\
 	% 8. Formel
-		P_{\gamma _t}(x) &= Pr\bigl\{\gamma _t\leq x	\bigr\} =  Pr\bigl\{\sqrt{\gamma _t}\leq \sqrt{x}\bigr\} = P_{\sqrt\gamma _t}(\sqrt{x}) \rightarrow \text{cdf of } \sqrt{\gamma _t}\\
+		P_{\gamma _t}(x) &= \text{Pr}\bigl\{\gamma _t\leq x	\bigr\} =  \text{Pr}\bigl\{\sqrt{\gamma _t}\leq \sqrt{x}\bigr\} = P_{\sqrt\gamma _t}(\sqrt{x}) \rightarrow \text{cdf of } \sqrt{\gamma _t}\\
 	% 9. Formel
 		p_{\gamma _t}(x) &= \frac{d}{dx}P_{\gamma _t}(x) = \frac{1}{2\sqrt{x}}\cdot p_{\gamma _t}(\sqrt{x}) = \frac{1}{2}\Bigl(\frac{2N_R}{\bar{\gamma}} \Bigr)^{N_R}\cdot \frac{x^{N_R-1}}{(2N_R-1)!} + O\bigl(\bar{\gamma}^{-N_R}\bigr)\\
 	% 10. Formel
@@ -327,14 +327,14 @@ A similar asymptotic analysis can be conducted for the outage probability.
 	\begin{itemize}
 		\item cdf of: $\gamma _t$
 			\begin{align*}
-				P_{\gamma _t}(x) &= Pr\bigl\{\gamma _{\hat{n}} \leq x\bigr\} = Pr\bigl\{\gamma _1 \leq x \cap \gamma _2 \leq x \cap \dots \gamma _{N_R} \leq x\bigr\}\\
-				&\overset{(IID)}{=} \Bigl(Pr\bigl\{\gamma _n \leq x\bigr\}\Bigr)^{N_R} = \Bigl( P_{\gamma}(x)\Bigr)^{N_R}
+				P_{\gamma _t}(x) &= \text{Pr}\bigl\{\gamma _{\hat{n}} \leq x\bigr\} = \text{Pr}\bigl\{\gamma _1 \leq x \cap \gamma _2 \leq x \cap \dots \gamma _{N_R} \leq x\bigr\}\\
+				&\overset{(IID)}{=} \Bigl(\text{Pr}\bigl\{\gamma _n \leq x\bigr\}\Bigr)^{N_R} = \Bigl( P_{\gamma}(x)\Bigr)^{N_R}
 			\end{align*}
 		\item pdf:
 			\begin{align*}
 				p_{\gamma _t}(x) &= \frac{d}{dx}P_{\gamma _t}(x) = N_R\bigl(P_{\gamma}(x)\bigr)^{N_R-1}\cdot p_{\gamma}(x)\\
 				\text{where: }\qquad p_{\gamma _t}(x) &= \frac{1}{\bar{\gamma}}e^{-\frac{x}{\bar{\gamma}}};\quad x\geq 0\\
-				P_{\gamma}(x) &= \int_{0}^{x}p_{\gamma}8x)~dx = 1 - e^{-\frac{x}{\bar{\gamma}}};\quad x\geq 0\\
+				P_{\gamma}(x) &= \int_{0}^{x}p_{\gamma}(x)~dx = 1 - e^{-\frac{x}{\bar{\gamma}}};\quad x\geq 0\\
 				\rightarrow p_{\gamma _t}(x) &= \frac{N_R}{\bar{\gamma}}\bigl( 1 - e^{-\frac{x}{\bar{\gamma}}}\bigr)^{N_R-1}e^{-\frac{x}{\bar{\gamma}}};\quad x\geq 0
 			\end{align*}
 	\end{itemize}
