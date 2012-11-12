@@ -298,12 +298,18 @@ where \begin{math} w_n\end{math} depends on the particular combining scheme.
 	% 11. Formel
 	\end{align*}
 	\item Error Probability:
-	\begin{align*}
-		P_e &= \frac{a}{\pi}\int_{0}^{\frac{\pi}{2}}M_{\gamma _t}\Bigl(\frac{b}{2\sin^2\theta}\Bigr)~d\theta = \frac{a}{2\pi}\Bigl(\frac{2N_R}{\bar{\gamma}} \Bigr)^{N_R}\cdot\frac{(N_R-1)!}{(2N_R-1)}\cdot\frac{2^{N_R}}{b^{N_R}}\int_{0}^{\frac{\pi}{2}}\sin^{2N_R}\theta \\ \qquad +\; O\bigl(\bar{\gamma}^{-N_R}\bigr) \\
-		&= \frac{aN_R^{N_R}}{2b^{N_R}\cdot N_R!}\cdot\frac{1}{\bar{\gamma}^{N_R}} + O\bigl(\bar{\gamma}^{-N_R}\bigr) \overset{!}{=} \Bigl(\frac{1}{G_c\bar{\gamma}}\Bigr)^{G_d}\\
-		\text{where: }\sin^{2N_R}\theta~d\theta &= \frac{\pi}{2^{2N_R+1}}\begin{pmatrix}2N_R & N_R	\end{pmatrix} = \frac{\pi(2N_R)!}{2^{2N_R + 1}(N_R!)^2}
-	\end{align*}
-	\begin{itemize}
+\begin{align*}
+        P_e&=\frac{a}{\pi}\int\limits_0^{\frac{\pi}{2}}M_{\gamma_t}\left(\frac{b}{2\sin^2(\theta)}\right)\mathrm{d}\theta\\
+        &=\frac{a}{\pi}\frac{1}{2}\left(\frac{2N_R}{\bar{\gamma}}\right)^{N_R}\frac{(N_R-1)!}{(2N_R-1)!}
+        \frac{2^{N_R}}{b^{N_R}}
+        \underbrace{\int\limits_0^{\frac{\pi}{2}}\sin^{2N_R}(\theta)\mathrm{d}\theta}_
+        {\frac{\pi}{2^{2N_R+1}}\binom{2N_R}{N_R}=\frac{\pi(2N_R)!}{2^{2N_R+1}(N_R!)^2}}
+        +O\left(\frac{1}{\bar{\gamma}^{N_R}}\right)\\
+        &= \frac{aN_R^{N_R}}{2b^{N_R}N_R!}\frac{1}{\bar{\gamma}^{N_R}}+O\left(\frac{1}{\bar{\gamma}^{N_R}}\right)
+        \overset{!}{=}\left(\frac{1}{G_c}\right)^{G_d}
+\end{align*}
+
+\begin{itemize}
 		\item[] $\Longrightarrow \text{Diversity gain: } G_d = N_R$
 		\item[] $\Longrightarrow \text{Combining gain: } G_c = \frac{b}{N_R}\Bigl( \frac{2N_R!}{a}\Bigr)^{\frac{1}{N_R}}$
 		\item[] vergleiche auch Blatt mit Kurven \rom{III} und \rom{IV}
