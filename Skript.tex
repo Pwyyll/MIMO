@@ -350,34 +350,36 @@ A similar asymptotic analysis can be conducted for the outage probability.
 			\end{align*}
 			\item MGF\\
 			\begin{align*}
-				M_{\gamma _t}(s) = \frac{N_R}{\bar{\gamma}}\sum_{n = 0}^{N_R - 1}\begin{pmatrix}N_R - 1\\n\end{pmatrix}(-1)^{n}\frac{1}{s + \frac{n+1}{\bar{\gamma}}}
+				M_{\gamma_t}(s) = \frac{N_R}{\bar{\gamma}}\sum_{n = 0}^{N_R - 1}\begin{pmatrix}N_R - 1\\n\end{pmatrix}(-1)^{n}\frac{1}{s + \frac{n+1}{\bar{\gamma}}}
 			\end{align*}
 			\item 
 			\begin{align*}
 				P_e = \frac{a}{\pi}\int_{0}^{\frac{\pi}{2}}M_{\gamma _t}\Bigl(\frac{b}{2\sin^2\theta}\Bigr)~d\theta = \frac{aN_R}{\pi\bar{\gamma}}\sum_{n = 0}^{N_R - 1}\begin{pmatrix}N_R - 1\\ n\end{pmatrix} (-1)^{n}\int_{0}^{\frac{\pi}{2}}\frac{\mathrm{d}\theta}{\frac{b}{2\sin^2\theta} + \frac{n + 1}{\bar{\gamma}}}\\ \rightarrow\text{can be evaluated numerically}				
 			\end{align*}
 		\item high SNR approach $\Rightarrow \; \bar{\gamma}\rightarrow\infty$
-			\begin{align*}
-			p_{\gamma_t}&=\frac{N_R}{\bar{\gamma}}\left[1-\mathrm{exp}\left(-\frac{x}{\bar{\gamma}}\right)\right]^{N_R-1}\mathrm{exp}\left(-\frac{x}{\bar{\gamma}}\right)\\
-				&\overset{\bar{\gamma} \rightarrow \infty}}{=} \frac{N_R}{\bar{\gamma}}\left[1-\left(1-\frac{x}{\bar{\gamma}}+O\left(\bar{\gamma}^{-1}\right)\right]^{N_R-1}\left(1-\frac{x}{\bar{\gamma}}+O\left(\bar{\gamma}^{-1}\right)\right)\\
-			&=\frac{N_R}{\bar{\gamma}^{N_R}}x^{N_R-1}+o\left(\bar{\gamma}^{-N_R}\right)
-			\end{align*}
-		\item MGF:
-			\begin{align*}
-			M_{\gamma_t}(s)=\frac{N_R}{\bar{\gamma}^{N_R}}\frac{(N_R-1)!}{s^{N_R}}+O\left(\bar{\gamma}^{-N_R}\right)
-			\left[\rightarrow P_e&=\frac{a}{\pi}\int\limits^{\frac{\pi}{2}}_0 M_{\gamma_t}\left(\frac{b}{2\sin^2(\theta)}\right)\mathrm{d}\theta\right]
-			&=\frac{a(2N_R)!}{b^{N_R}2^{N_R+1}N_R!}\frac{1}{\bar{\gamma}^{N_R}}+O\left(\bar{\gamma}^{-N_R}\right)
-			\end{align*}
-		\begin{itemize}
-			\item[] $\Longrightarrow \text{Diversity gain: } G_d = N_R$
-			\item[] $\Longrightarrow \text{Combining gain: } G_c = 2b\left(\frac{2N_R!}{a(2N_R)!}\right)^{\frac{1}{N_R}}$
+%			\begin{align*}
+%			p_{\gamma_t}&=\frac{N_R}{\bar{\gamma}}\left[1-\mathrm{exp}\left(-\frac{x}{\bar{\gamma}}\right)\right]^{N_R-1}\mathrm{exp}\left(-\frac{x}{\bar{\gamma}}\right)\\
+%				&\overset{\bar{\gamma} \rightarrow \infty}{=} \frac{N_R}{\bar{\gamma}}\left[1-\left(1-\frac{x}{\bar{\gamma}}+O\left(\bar{\gamma}^{-1}\right)\right]^{N_R-1}\left(1-\frac{x}{\bar{\gamma}}+O\left(\bar{\gamma}^{-1}\right)\right)\\
+%			&=\frac{N_R}{\bar{\gamma}^{N_R}}x^{N_R-1}+o\left(\bar{\gamma}^{-N_R}\right)
+%			\end{align*}
+%		\item MGF:
+%			\begin{align*}
+%			M_{\gamma_t}(s)=\frac{N_R}{\bar{\gamma}^{N_R}}\frac{(N_R-1)!}{s^{N_R}}+O\left(\bar{\gamma}^{-N_R}\right)
+%			\left[\rightarrow P_e&=\frac{a}{\pi}\int\limits^{\frac{\pi}{2}}_0 M_{\gamma_t}\left(\frac{b}{2\sin^2(\theta)}\right)\mathrm{d}\theta\right]
+%			&=\frac{a(2N_R)!}{b^{N_R}2^{N_R+1}N_R!}\frac{1}{\bar{\gamma}^{N_R}}+O\left(\bar{\gamma}^{-N_R}\right)
+%			\end{align*}
+%		\begin{itemize}
+%			\item[] $\Longrightarrow \text{Diversity gain: } G_d = N_R$
+%			\item[] $\Longrightarrow \text{Combining gain: } G_c = 2b\left(\frac{2N_R!}{a(2N_R)!}\right)^{\frac{1}{N_R}}$
 			%\item[] vergleiche auch Blatt mit Kurven \rom{III} und \rom{IV}
+%		\end{itemize}
+%		\item Outage Probability
+%		\begin{align*}
+%			P_{out}=\mathrm{Pr}\{\gamma_{\hat{n}} \leq \gamma_T \}=P_{\gamma_\hat{n}}(\gamma_T=\left[1-\mathrm{exp}\left(-\frac{\gamma_T}{\bar{\gamma}}\left)\left]^{N_R}\\
+%			\text{high SNR: } P_{out}&=\left(\frac{\gamma_T}{\bar{\gamma}}\right)^{N_R}+O\left(\bar{\gamma}^{-N_R}\left)
+%		\end{align*}
 		\end{itemize}
-		\item Outage Probability
-		\begin{align*}
-			P_{out}=\mathrm{Pr}\{\gamma_{\hat{n}} \leq \gamma_T \}=P_{\gamma_\hat{n}}(\gamma_T}=\left[1-\mathrm{exp}\left(-\frac{\gamma_T}{\bar{\gamma}}\left)\left]^{N_R}\\
-			\text{high SNR: } P_{out}&=\left(\frac{\gamma_T}{\bar{\gamma}}\right)^{N_R}+O\left(\bar{\gamma}^{-N_R}\left)
-		\end{align*}
 	\end{itemize}
+
 
 \end{document}
