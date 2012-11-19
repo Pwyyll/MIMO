@@ -425,5 +425,39 @@ A similar asymptotic analysis can be conducted for the outage probability.
 \begin{itemize}	
 	\item Assume we simply send the same signal over all $N_T$ transmit antennas
 \end{itemize}
-
+\input{MISO_NAIVE.pstex_t}
+\begin{itemize}
+	\item Transmit power: $\mathcal{E}\left\{\left|\frac{1}{\sqrt{N_T}}x\right|^2+,\dots,\left|\frac{1}{\sqrt{N_T}}x\right|^2\right\}=\mathcal{E}\left\{N_T\frac{1}{N_T}|x|^2\right\}=\mathcal{E}_s$
+	\item Received signal: $y=\frac{1}{\sqrt{N_T}}\sum\limits_{n=1}^{N_T}h_n\cdot x+n$
+	\item Rayleigh fading: $h_n$ are zero mean complex gaussian random variables\\
+	$\rightarrow$ $h$ is also zero mean complex gaussian
+	\item i.i.d.:
+	\begin{itemize}
+		\item $\mathcal{E}\{|h_n|^2\}=1\;\forall n$
+		\item $\mathcal{E}\{|h|^2\}=\frac{1}{N_T}\mathcal{E}\left\{\left|\sum\limits_{n=1}^{N_T}h_n\right|^2\right\}=\frac{1}{N_T}\mathcal{E}\left\{\sum\limits^{N_T}_{n=1}|h_n|^2\right\}=1$
+		\item statistical properties of h are independent of $N_T$
+		\item the multiple transmit antennas have no benefit at all
+		\item \underline{more sophisticated transmitter designs necessary}
+	\end{itemize}
+\end{itemize}
+\subsection{Full CSI Available at the Transmitter}
+\begin{itemize}
+	\item $h_n, n \in \{1,\dots,N_T\}$ is known at the transmitter
+	\item Perform ``precoding'' (beamforming) with coefficients $w_n$
+\end{itemize}
+\input{MISO_CSI.pstex_t}
+\begin{itemize}
+	\item Transmit Power: Two constraints maybe considered
+	\begin{itemize}
+		\item Average transmit power constraint
+		\begin{align*}
+		P_{av}=\mathcal{E}\left\{\sum\limits^{N_T}_{n=1}|w_n^*x|^2\right\}=\sum\limits_{n=1}^{N_T}|w_n|^2\underbrace{\mathcal{E}\{|x|^2\}}_{\mathcal{E}_s}=\mathcal{E}_s \Rightarrow \sum\limits^{N_T}_{n=1}|w_n|^2=1
+		\end{align*}
+		\item Power constraint for each transmit antenna
+		\begin{align*}
+		\rightarrow |w_n|=\frac{1}{\sqrt{N_T}} \qquad \rightarrow P_{av}=\mathcal{E}_s
+		\end{align*}
+	\end{itemize}
+	\item Recveived signal: $y=\underbrace{\sum\limits^{N_T}_{n=1}w^*_nh_n}_{h}x+n$ (equivalent SISO channel)
+\end{itemize}
 \end{document}
