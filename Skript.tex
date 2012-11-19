@@ -383,6 +383,27 @@ A similar asymptotic analysis can be conducted for the outage probability.
 		\end{align*}
 		\end{itemize}
 	\end{itemize}
+\subsection{Comparison}
+	\begin{itemize}
+		\item Diversity Gain:\\
+			MRC, EGC and SC all achieve the maximum possible diversity gain of $G_d=N_R$
+		\item Combining Gain:\\
+			The combining gains of MRC, EGC and SC are different\\
+			MRC/EGC:
+			\begin{align*}
+			\frac{G_C^{EGC}}{G_C^{MRC}}=\frac{\frac{1}{2b}\left(\frac{a}{2}\binom{2N_R}{N_R}\right)^{\frac{1}{N_R}}}{\frac{N_R}{b}\left(\frac{a}{2}\frac{1}{N_R!}\right)^{\frac{1}{N_R}}}
+			=\frac{[(2N_R)!]^{\frac{1}{N_R}}}{2N_R(N_R)^{\frac{1}{N_R}}}\leq 1\\
+			\end{align*}
+			(independent of a or b which are modulation parameters, only depends on number of antennas)
+			\begin{align*}
+				N_R \gg 1: \qquad N_R!\approx \sqrt{2\pi}e^{-N_R}N_R^{N_R+\frac{1}{2}}\qquad(Stirling)
+			\end{align*}
+			\begin{align*}
+				\left.\frac{G_C^{EGC}}{G_C^{MRC}}\right|_{N_R\gg1}
+				=\frac{\left(\sqrt{2\pi}e^{-2N_R}(2N_R)^{2N_R+\frac{1}{2}}\right)^{\frac{1}{N_R}}}{2N_R\left(\sqrt{2\pi}e^{-N_R}N_R^{N_R+\frac{1}{2}}\right)^{\frac{1}{N_R}}}
+				=\frac{2\cdot2^{\frac{1}{2N_R}}}{2}\overset{N_R\rightarrow\infty}{\rightarrow}\frac{2}{e}\equiv -1.3\mathrm{dB}
+			\end{align*}
+	\end{itemize}
 
 
 \end{document}
