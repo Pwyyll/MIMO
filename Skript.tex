@@ -462,17 +462,17 @@ A similar asymptotic analysis can be conducted for the outage probability.
 \end{itemize}
 \subsubsection{Maximum Ratio Transmission (MRT)}
 \begin{itemize}
-	\item we have only the average power constraint: $ \sum\limits_{n = 1}^{N_T} |w_n| = 1 $
-	\item SNR:  \scalebox{1.3}[1.3]{$\gamma	 _t = \frac{\epsilon _s|h|^2}{\sigma _n^2} = \frac{\epsilon _s|\sum\limits_{n = 1}^{N_T}w_n^*\cdot h_n |^2}{\sigma _n^2} $} 
+	\item we have only the average power constraint: $ \sum\limits_{n = 1}^{N_T} |w_n|^2 = 1 $
+	\item SNR:  \scalebox{1.3}[1.3]{$\gamma	 _t = \frac{\mathcal{E}_s|h|^2}{\sigma _n^2} = \frac{\mathcal{E}_s\left|\sum\limits_{n = 1}^{N_T}w_n^*\cdot h_n \right|^2}{\sigma _n^2} $} 
 	\item Maximize SNR under constraint $ \sum\limits _{n = 1}^{N_T}|w_n|^2 = 1 $
 	\item constraint optimization problem $\rightarrow $ Lagrange method
 		\begin{align*}
-			L = \frac{\epsilon _s}{\sigma _n^2}\Bigl | \sum_{n = 1}^{N_T}w_n^*\cdot h_n \Bigr |^2 + \lambda\Bigl ( \sum_{n = 1}^{N_T}|w_n|^2 - 1\Bigr ); \quad \text{where: } \lambda = \text{Lagrange Multiplier}
+			L = \frac{\mathcal{E}_s}{\sigma _n^2}\left| \sum_{n = 1}^{N_T}w_n^*\cdot h_n \right |^2 + \lambda\left ( \sum_{n = 1}^{N_T}|w_n|^2 - 1\right ); \quad \text{where: } \lambda = \text{Lagrange Multiplier}
 		\end{align*}
 		$\Rightarrow$  Wirtinger Kalk\"ul: treat  $z$  and  $z^*$  as independent variables for differentiation:
 		\begin{align*}
-			\frac{\partial z^*}{\partial z} &= 0;\quad  \frac{\partial |z|^2}{\partial z} = \frac{\partial z\cdot z^*}{\partial z} = z\\
-			\frac{\partial x^2}{\partial x} &= 2x; \quad \frac{\partial (z^*)^2}{\partial z^*} = 2\cdot z^*;  \frac{\partial |z|^2}{\partial z} = z
+			\frac{\partial z^*}{\partial z} &= 0;\quad  \frac{\partial |z|^2}{\partial z} = \frac{\partial z\cdot z^*}{\partial z} = z^*\\
+			\frac{\partial x^2}{\partial x} &= 2x; \quad \frac{\partial (z^*)^2}{\partial z^*} = 2\cdot z^*;  \frac{\partial |z|^2}{\partial z} = z^*
 		\end{align*}
 		\begin{align*}
 			\frac{\partial L}{\partial w_m^*} = \frac{\epsilon _s}{\sigma _n^2}\Bigl ( \sum_{n = 1}^{N_T}w_n^*\cdot h_n\Bigr )^*h_m + \lambda w_m
@@ -480,15 +480,15 @@ A similar asymptotic analysis can be conducted for the outage probability.
 		\begin{itemize}
 			\item[$\rightarrow$] \scalebox{1.3}[1.3]{$   w_m =\underset{\text{const., independent of } m:=c}{\frac{\epsilon _s}{\sigma _n^2 \cdot \lambda}\Bigl ( \sum\limits_{n = 1}^{N_T}w_n^*h_n \Bigr )^*}h_m $}
 			\item[$\rightarrow$] \scalebox{1.3}[1.3]{$  w_m = c\cdot h_m$}
-			\item[$\rightarrow$] \scalebox{1.3}[1.3]{$ \sum\limits_{n = 1}^{N_T} |w_n|^2 = 1 \rightarrow c^2 = \frac{1}{\sum_{n = 1}^{N_T}|h_n|^2}  $}
-			\item[$\rightarrow$] \scalebox{1.3}[1.3]{$  w_n = \frac{h_n}{\sqrt{\sum_{n = 1}^{N_T}|h_n|^2}} \equiv $} MRT gains 
+			\item[$\rightarrow$] \scalebox{1.3}[1.3]{$ \sum\limits_{n = 1}^{N_T} |w_n|^2 = 1 \rightarrow c^2 = \frac{1}{\sum\limits_{n = 1}^{N_T}|h_n|^2}  $}
+			\item[$\rightarrow$] \scalebox{1.3}[1.3]{$  w_n = \frac{h_n}{\sqrt{\sum\limits_{n = 1}^{N_T}|h_n|^2}} \equiv $} MRT gains 
 		\end{itemize}
-		\item[$\rightarrow$] SNR \scalebox{1.3}[1.3]{$ = \frac{\epsilon _s}{\sigma _n^2}\Bigl | \sum\limits_{n = 1}^{N_T}\frac{|h_n|^2}{\sqrt{\sum_{n = 1}^{N_T}|h_m|^2}}\Bigr |^2 = \frac{\epsilon _s}{\sigma _n^2}\sum\limits_{n = 1}^{N_T}|h_n|^2 $}
+		\item[$\rightarrow$] SNR \scalebox{1.3}[1.3]{$ = \frac{\mathcal{E}_s}{\sigma _n^2}\Bigl | \sum\limits_{n = 1}^{N_T}\frac{|h_n|^2}{\sqrt{\sum_{n = 1}^{N_T}|h_m|^2}}\Bigr |^2 = \frac{\epsilon _s}{\sigma _n^2}\sum\limits_{n = 1}^{N_T}|h_n|^2 $}
 		\item[$\Rightarrow$] same SNR as for maximum ration combining (MRC)
-		\item[$\Rightarrow$] MRT with $N_R t_x $ antennas achieves the same performance as MRC with $N_T r_x $ antennas
-		\item[$\Rightarrow$] MRT/MIMO can be extended to $ N_T\times N_R $ MIMO systems
+		\item[$\Rightarrow$] MRT with $N_T$ transmit antennas achieves the same performance as MRC with $N_T$ receive antennas
+		\item[$\Rightarrow$] MRT/MRC can be extended to $ N_T\times N_R $ MIMO systems
 		\begin{itemize}
-			\item[$\rightarrow$] has the same performance as MRC with $N_TN_R\; r_x $ antennas and one $t_x $ antenna
+			\item[$\rightarrow$] has the same performance as MRC with $N_T\cdot N_R$ receive antennas and one transmit antenna
 		\end{itemize}
 	\end{itemize}
 \subsubsection*{Equal Gain Transmission (EGT)}
@@ -496,12 +496,12 @@ A similar asymptotic analysis can be conducted for the outage probability.
 	\item we employ gains: $w_n = \frac{1}{\sqrt{N_T}}\cdot \frac{h_n}{|h_m|} \rightarrow |w_n| = \frac{1}{\sqrt{N_T}} $
 	\item SNR:
 	\begin{align*}
-		\gamma _t &= \frac{\epsilon _s}{\sigma _n^2}\Bigl |\sum_{n = 1}^{N_T} w_n^*h_n\Bigr |^2\\
-		&= \frac{\epsilon _s}{\sigma _n^2}\Bigl |\sum_{n = 1}^{N_T}\frac{1}{\sqrt{N_T}\cdot \frac{|h_n|^2}{|h_n|}}\Bigr |^2 = \frac{1}{N_T}\cdot \frac{\epsilon _s}{\sigma _n^2}\Bigl |\sum_{n = 1}^{N_T}|h_n|\Bigr |^2\\
-		\gamma _n &= \frac{\epsilon _s}{\sigma _n^2}|h_n|^2\\
-		&\text{same SNR as for EGC} \rightarrow \gamma _t = \frac{1}{N_T}\Bigl | \sum_{n = 1}{N_T}\sqrt{\gamma _n} \Bigr |^2
+		\gamma _t &= \frac{\mathcal{E}_s}{\sigma _n^2}\left|\sum_{n = 1}^{N_T} w_n^*h_n \right |^2\\
+		&= \frac{\mathcal{E}_s}{\sigma _n^2}\left|\sum_{n = 1}^{N_T}\frac{1}{\sqrt{N_T}\cdot \frac{|h_n|^2}{|h_n|}} \right|^2 = \frac{1}{N_T}\cdot \frac{\mathcal{E}_s}{\sigma _n^2} \left|\sum_{n = 1}^{N_T}|h_n| \right|^2\\
+		\gamma _n &= \frac{\mathcal{E}_s}{\sigma _n^2}|h_n|^2\\
+		&\text{same SNR as for EGC} \rightarrow \gamma _t = \frac{1}{N_T} \left| \sum_{n = 1}{N_T}\sqrt{\gamma _n} \right|^2
 	\end{align*}
-	\item[$\rightarrow$] EGC with $ N_T\; t_x $  antennas achieves the same performance as EGC with $ N_T\; r_x $ antennas
+	\item[$\rightarrow$] EGC with $ N_T$ transmit antennas achieves the same performance as EGC with $ N_T$ receive antennas
 \end{itemize}
 \subsubsection*{Transmit Antennas Selection}
 \begin{itemize}
@@ -511,8 +511,8 @@ A similar asymptotic analysis can be conducted for the outage probability.
 			\begin{cases}
 \frac{h_n}{|h_n|},  & \text{if } n = \hat{n}\\
 0, & \text{otherwise}
-\end{cases} \text{where } \hat{n} = \underset{n}{argmax}|h_n|
+\end{cases} \text{where } \hat{n} = \underset{n}{\mathrm{argmax}}|h_n|
 		\end{align*}
-	\item antenna selection with $ N_T\; t_x $ antennas achieves the same performance as \textit{Selection Combining} with $ N_T\;r_x $ antennas
+	\item antenna selection with $ N_T$ transmit antennas achieves the same performance as \textit{Selection Combining} with $ N_T$ receive antennas
 \end{itemize}
 \end{document}
