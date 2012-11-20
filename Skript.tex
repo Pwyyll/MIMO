@@ -536,8 +536,22 @@ A similar asymptotic analysis can be conducted for the outage probability.
 			\item Space-time-trellis-codes (STTCs)\\
 			$\rightarrow$ $\mathbf{X}$ is obtained from scalar symbols $s_k$ through a trellis encoding process.\\
 			{\small[see: Tarokh, Seshadri, Calderbank: Space-time-codes for high datarate wireless communication: Performance criterions and coder construction; IEEE Trans. Inf. Theory 1998]}
-
+			\item here: We concentrate on space-time-block-codes (STBCs), but many results can be easily extended to space-time-trellis-codes
 		\end{itemize}
-	\item here: We concentrate on space-time-block-codes (STBCs), but many results can be easily extended to space-time-trellis-codes
+	\item STBCs:
+		\begin{itemize}
+			\item  $K$ $M$-ary scalar symbols (e.g. $M$-PSK symbols) are mapped to STBC matrices $\mathbf{X}$\\ 
+			$\mathbf{S}=[s_1,\dots ,s_K] \rightarrow \mathbf{X}$\\
+			$s_k\in \mathcal{A} \rightarrow x\in\mathcal{X}$ with $|\mathcal{X}|=M^K$
+			\item Example: ``Alamouti''-Code\\
+			\begin{align*}
+				\mathbf{X}=\frac{1}{\sqrt{2}}
+				\begin{pmatrix}
+					s_1 & s_2 \\
+					-s_2^* & s_1^*
+				\end{pmatrix}
+			\end{align*}
+			{\small[Alamouti: A simple transmit diversity technique for wireless communication, IEEE JSAC 1998]}
+		\end{itemize}
 \end{itemize}
 \end{document}
