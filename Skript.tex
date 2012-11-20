@@ -554,4 +554,17 @@ A similar asymptotic analysis can be conducted for the outage probability.
 			{\small[Alamouti: A simple transmit diversity technique for wireless communication, IEEE JSAC 1998]}
 		\end{itemize}
 \end{itemize}
+\subsubsection*{Optimal Detection}
+\begin{itemize}
+	\item Signal model:
+	\begin{align*}
+	\begin{pmatrix} y_1 \\ \vdots \\ y_T \end{pmatrix}&=\mathbf{X}\begin{pmatrix} h_1 \\ \vdots \\ h_{N_T} \end{pmatrix} + \begin{pmatrix} n_1 \\ \vdots \\ n_T \end{pmatrix}\\
+	\mathbf{y}&=\mathbf{X}\cdot\mathbf{h}+\mathbf{n}
+	\end{align*}
+	\item Optimal detection - ML-detection
+	\begin{itemize}
+		\item $\mathbf{h}$ is known at receiver
+		\item $\mathbf{n}$ is AWGN with $\mathcal{E}\{\mathbf{n}\cdot\mathbf{n^H}\}=\sigma_{\mathbf{n}}^2\cdots \mathbf{I}_{T\times T}$
+	\end{itemize}
+\end{itemize}
 \end{document}
