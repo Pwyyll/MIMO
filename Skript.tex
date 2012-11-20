@@ -565,6 +565,17 @@ A similar asymptotic analysis can be conducted for the outage probability.
 	\begin{itemize}
 		\item $\mathbf{h}$ is known at receiver
 		\item $\mathbf{n}$ is AWGN with $\mathcal{E}\{\mathbf{n}\cdot\mathbf{n^H}\}=\sigma_{\mathbf{n}}^2\cdots \mathbf{I}_{T\times T}$
+		\item $p(\mathbf{y}|\mathbf{x})$
+		\begin{align*}
+		&=\frac{1}{\pi^T|\sigma_n^2\mathbf{I}_{T\times T}|}\mathrm{exp}\left(-(\mathbf{y - xh})^H(\sigma_n^2\mathbf{I}_{T\times T})^{-1}(\mathbf{y-xh})\right)\\
+		&=\frac{1}{\pi^T\sigma_n^{2T}}\mathrm{exp}\left(-\frac{1}{\sigma_n^2}(\mathbf{y-xh})^H(\mathbf{y-xh})\right)=\frac{1}{\pi^T\sigma_n^{2T}}\mathrm{exp}\left(||\mathbf{y-xh}||^2\right)
+		\end{align*}
+		$\rightarrow$ the optimal estimate $\hat{\mathbf{X}}$ or equivalently the optimal estimate $\hat{\mathbf{s}}$ can be obtained as
+		\begin{align*}
+			\hat{\mathbf{s}}=\underset{\mathbf{s}\in\mathcal{A}^K}{\mathrm{argmax}}\;p(\mathbf{y|x})=\underset{\mathbf{s}\in\mathcal{A}^K}{\mathrm{argmin}}||\mathbf{y-hx}||^2
+		\end{align*}
+		\item Disadvantage: In general, metric $||\mathbf{y-hx}||^2$ has to be calculated $M^K$ times\\
+		$\rightarrow$ complexity increases exponentially with $K$
 	\end{itemize}
 \end{itemize}
 \end{document}
