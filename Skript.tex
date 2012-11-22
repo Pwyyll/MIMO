@@ -11,6 +11,8 @@
 \usepackage{amsmath}
 \usepackage{mathtools}
 \usepackage{amssymb}
+\usepackage{mathrsfs}
+\usepackage{empheq}
 \usepackage{titlesec}	
 %\usepackage{tabularx}
 %\usepackage{pdfpages}
@@ -578,4 +580,131 @@ A similar asymptotic analysis can be conducted for the outage probability.
 		$\rightarrow$ complexity increases exponentially with $K$
 	\end{itemize}
 \end{itemize}
+\subsubsection*{Types of STBCs}
+\begin{itemize}
+	\item Orthogonal STBCs (OSTBCs)
+	\begin{itemize}
+		\item OSTBCs are a special class of STBCs which allow independent detection of each $s_k \rightarrow$ only $K\cdot M$ metrics have to be evaluated
+		\item Rate STBCs: $R_{STBC} = \frac{K}{T}$
+		\item Examples:
+		\begin{itemize}
+			\item Alamouti Code  $(K = 2, T = 2) \rightarrow R_{STBC} = 1$
+			\begin{align*}
+				\textbf{X} &= \frac{1}{\sqrt{2}}\underset{\longleftrightarrow N_T}{\begin{pmatrix} s_1 & s_2 \\ -s_2^* & s_1^*	\end{pmatrix}}\updownarrow T\\
+				\rightarrow &\text{ only ``full rate ´´ OSTBC for complex } s_k
+			\end{align*}
+			\item $N_T = 3, K = 3, T = 4$
+			\begin{align*}
+				\textbf{X} = \frac{1}{\sqrt{3}}\begin{pmatrix*}[r]	s_1 & s_2 & s_3 \\ -s_2^*  & s_1^* & 0 \\ s_3^* & 0 & -s_3^*\\0 & -s_3^* & s_2^*\end{pmatrix*} \rightarrow R_{STBC} = \frac{K}{T} = \frac{3}{4}
+			\end{align*}
+		\end{itemize}
+		\item Orthogonality: $\textbf{X}^H\textbf{X} = {const}\cdot \textbf{I}_{N_T\times N_T}$
+		\item Independent detection of $s_1$ \& $s_2$ for Alamouti Code
+		\begin{align*}
+				\begin{pmatrix*}[r]y_1 \\y_2 
+			\end{pmatrix*} &= \frac{1}{\sqrt{2}}
+			\begin{pmatrix*}[r]	s_1 & s_2 \\-s_2^* & s_1^*
+			\end{pmatrix*}
+			\begin{pmatrix*}[r]h_1\\h_2
+			\end{pmatrix*} + 
+			\begin{pmatrix*}[r]n_1\\n_2
+			\end{pmatrix*}\\
+			\rightarrow 
+			\underbrace{
+			\begin{pmatrix*}[r]y_1\\y_2
+			\end{pmatrix*}}_{\tilde y} &= \frac{1}{\sqrt{2}}
+			\underbrace{
+			\begin{pmatrix*}[r]h_1 & h_2\\h_2^* & -h_1^*
+			\end{pmatrix*}}_{\tilde F}
+			\underbrace{
+			\begin{pmatrix*}[r]s_1\\s_2
+			\end{pmatrix*}}_{s} + 
+			\underbrace{
+			\begin{pmatrix*}[r]n_1\\n_2^*
+			\end{pmatrix*}}_{\tilde n}
+		\end{align*}
+		$\Bigl ( $ Anmerkung: \underline{nur } $\begin{pmatrix}s_1 \\s_2 \end{pmatrix} $ gew\"unscht, nicht: $s_1^*, s_2^* \Bigr ) $
+		\begin{align*}
+			\textbf{F}^H\textbf{F} = \frac{1}{2}\begin{pmatrix}h_1^* & h_2\\h_2^* & -h_1\end{pmatrix}\begin{pmatrix}h_1 & h_2\\h_2^* & -h_1^* \end{pmatrix} = \frac{1}{2}\begin{pmatrix} |h_1|^2 + |h_2|^2 & 0\\0 & |h_1|^2 + |h_2|^2\end{pmatrix}		 								
+		\end{align*}
+		\begin{itemize}
+			\item[$\rightarrow$] $\frac{\sqrt{2}}{\sqrt{|h_1|^2 + |h_2|^2}}\cdot \textbf{F} $ is unitary matrix 
+			\item[$\rightarrow$] $\frac{2}{|h_1|^2 + |h_2|^2}\cdot \textbf{F}^H\cdot \tilde{\textbf{y}} = \textbf{s} + \frac{2}{|h_1|^2 + |h_2|^2}\cdot \textbf{F}^H\cdot\tilde{\textbf{n}}$ \\  $\bigl ( \frac{2}{|h_1|^2 + |h_2|^2}\cdot \textbf{F}^H\cdot\tilde{\textbf{n}}$ is AWGN vector with covariance matrix $\frac{2\sigma_n^2}{|h_1|^2 + |h_2|^2}\cdot \textbf{I}_{T\times T} \bigr)$
+			\item[$\rightarrow$] ML decision: $\hat{\textbf{s}} = \underset{\textbf{s}}{\text{argmin}}\bigl | \bigl | \frac{2}{|h_1|^2 + |h_2|^2}\cdot \textbf{F}^H\cdot \tilde{\textbf{y}} - \textbf{s}\bigr |\bigr |^2 $
+			\item[$\rightarrow$] independent ML decoding 
+				\begin{align*}
+					\hat{s}_1 &= \underset{s_1}{\text{argmin}} \Bigl |s_1 - \frac{h_1^*y_1 + h_2y_2^*}{\frac{1}{\sqrt{2}}(|h_1|^2 + |h_2|^2)}\Bigr |\\ \hat{s}_2 & = \underset{s_2}{\text{argmin}}\Bigl |s_2 - \frac{h_1^*y_1 - h_2y_2^*}{\frac{1}{\sqrt{2}}(|h_1|^2 + |h_2|^2)}\Bigr|
+				\end{align*}
+		\end{itemize}
+		\item independent decoding property can be proved for all OSTBCs
+		\item low complexity is at the expanse of a rate-loss compared to other STBCs for $N_T > 2$
+		\item noncoherent STBCs (On-Off-Keying)
+		\begin{itemize}
+			\item[$\rightarrow$] Frequenzhopping
+			\item[$\rightarrow$] keine Kanalinformation aus vorher empfangenen Symbolen m\"oglich $\Rightarrow$ Kanal \"andert sich st\"andig: nur Entscheidung, ob Rauschen oder Signal $+$ Rauschen	
+		\end{itemize}
+		\item Decision-variables after combining
+		\begin{align*}
+			r_1 &= \sqrt{2}\frac{h_1^*y_1 + h_2y_2^*}{|h_1|^2 + |h_2|^2}\\
+			r_2 &= \sqrt{2}\frac{h_1^*y_1 - h_2y_2^*}{|h_1|^2 + |h_2|^2}
+\end{align*} 
+because of symmetry it suffices to consider $r_1$
+		\begin{align*}
+			r_1 &= \sqrt{2}\frac{h_1^*\bigl(\frac{1}{\sqrt{2}}s_1h_1 + \frac{1}{\sqrt{2}}h_2s_2 + n_1 \bigr) + h_2\bigl(-\frac{1}{\sqrt{2}}h_2s_1^* + \frac{1}{\sqrt{2}}h_1s_2^* + n_2\bigr)^*}{|h_1|^2 + |h_2|^2}\\ 
+			&= \sqrt{2}\frac{\frac{1}{\sqrt2} \bigl(|h_1|^2 + |h_2|^2\bigr) s_1 + h_1^*n_1 + h_2n_2^*} {|h_1|^2 + |h_2|^2}\\
+			&= 1\cdot s_1 + n
+		\end{align*}
+		where 
+		\begin{align*}
+			n &= \sqrt{2}\;\frac{h_1^*n_1 + h_2n_2^*}{|h_1|^2 + |h_2|^2}\\
+			\text{SNR} \rightarrow \gamma _t  &= \frac{\epsilon _s\cdot 1^2}{\sigma _{eq}^2}\quad \text{with}\quad \mathcal{E}\bigl\{ |s_1|^2\bigr\} = \epsilon _s\\ 	
+			\sigma _{eq}^2 &= 2\frac{|h_1|^2\sigma _n^2 + |h_2|^2\sigma _{eq}}{\bigl(|h_1|^2 + |h_2|^2\bigr)^2} = \frac{2\sigma _n^2}{|h_1|^2 + |h_2|^2}
+		\end{align*}
+		\item[$\rightarrow$] $\gamma _t = \frac{1}{2}\frac{\epsilon _s}{\sigma _n}\bigl ( |h_1|^2 + |h_2|^2\bigr)$
+		\item[$\rightarrow$] $\text{SNR}_{\text{Alamouti}} = \frac{1}{2}\text{SNR}_{\text{MRC}} = \frac{1}{2}\text{SNR}_{\text{MRT}}$
+		\item[$\rightarrow$] Alamouti code has diversity gain $G_d = 2$
+		\item[$\rightarrow$] Transmission with Alamouti STBC requires 3dB higher SNR to achieve same performance as MRT $\rightarrow$  3dB loss in coding gain $G_c$
+		\item[$\rightarrow$] Lack of CSI knowledge at transmitter ``costs´´ 3dB in power efficiency
+		\item[$\rightarrow$] General: 
+		\begin{itemize}
+			\item[$\cdot$] OSTBCs achieve a diversity gain of $G_d = N_T$ if only one receive antenna is available
+			\item[$\cdot$] if $ N_R $ receive antennas are available, MRC can be used at the receiver to yield a diversity gain of $\underline{G_d = N_TN_R}$
+		\end{itemize}
+	\end{itemize}
+\item Other STBCs:
+	\begin{itemize}
+		\item Quasi orthogonal STBCs
+		\begin{itemize}
+		\item Linear dispersion codes: designed to achieve high mutual information
+		\item Golden Code for $ N_T = N_R = 2$: achieves a rate of $R_{STBC} = 2 $ and full diversity of $ G_d = N_T, N_R = 4$
+		\item Differential STBCs: $\textbf{X}_k = \textbf{X}_{k-1}\cdot \textbf{D}_k $. $\textbf{X}_k $ is transmitted, $\textbf{D}_k $ is transmitted  
+			\item higher rate than OSTBCs
+			\item only subset of symbols have to be decoded jointly
+			\item Example: $K = N_T = T = 4$
+			\begin{align*}
+				\textbf{X} = \frac{1}{2}
+				\begin{pmatrix*}[r]
+					s_1 & s_2 & s_3 & s_4\\
+					-s_2^* & s_1^* & -s_4^* & s_3^*\\
+					-s_3^* & -s_4^* & s_1^* & s_2^*\\
+					s_4 & -s_3 & -s_2 & s_1
+				\end{pmatrix*}
+			\end{align*}
+			\item Anmerkung 1:  $\textbf{X} $ ist \"ahnlich zu Alamouti Code
+			\item Anmerkung 2: $\textbf{X}^H\textbf{X}$: viele Nicht-diagonal Elemente sind Null; die, die ungleich Null sind, zeigen, welche Symbole gemeinsam entschl\"usselt werden m\"ussen 		
+		\end{itemize}
+	\end{itemize}
+\end{itemize}
+\subsubsection*{Space Time Code Design}
+Given: 
+\begin{itemize}
+	\item Code  $\mathscr{\textbf{H}} = \bigl\{\textbf{X}_1,\dots ,\textbf{X}_{|\mathscr{\textbf{H}}}\bigr\}$
+	\item Channel: IID Rayleigh-fading: 
+	\begin{itemize}
+		\item $h_n \sim \text{CN}(0,1);\quad n \in \{1, 2, \dots , N_T \} $
+		\item AWGN $ n \sim \text{CN}(0,\sigma _n^2) $
+	\end{itemize}
+\end{itemize}
+Problem: How should we design codebook $\mathscr{H}$?
+
 \end{document}
