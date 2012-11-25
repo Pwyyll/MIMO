@@ -82,11 +82,11 @@
 Consider an equivalent system:
 \begin{align*}
 	y &= hx +n;\\
-	\mathcal{E}\{|x^2|\} &= \epsilon_s; & \mathcal{E}\{|n^2|\} &= \sigma_n^2; & \mathcal{E}\{|h|^2\} &= 1
+	\mathcal{E}\{|x^2|\} &= \mathcal{E}_s; & \mathcal{E}\{|n^2|\} &= \sigma_n^2; & \mathcal{E}\{|h|^2\} &= 1
 \end{align*}
 \begin{itemize}
-	\item Instantaneous SNR: $\gamma_t = \frac{\epsilon_s}{\sigma_n^2}\times |h|^2$
-\item Average SNR: $\bar{\gamma}_t = \mathcal{E}\{\gamma_t\} = \frac{\epsilon_s}{\sigma_n^2}$
+	\item Instantaneous SNR: $\gamma_t = \frac{\mathcal{E}_s}{\sigma_n^2}\times |h|^2$
+\item Average SNR: $\bar{\gamma}_t = \mathcal{E}\{\gamma_t\} = \frac{\mathcal{E}_s}{\sigma_n^2}$
 \end{itemize}
 \paragraph{Bit and Symbol Error Rate}
 \begin{itemize}
@@ -111,7 +111,7 @@ where:
 			$\rightarrow$ Integral limits are fixed and do not depend on integration variables!
 	\item Average error probability
 		\begin{align*} 
-		P_e = \mathcal{E}\bigl \{P_e(\gamma_t)\bigr \} = \int_{0}^{\infty}aQ\bigr (\sqrt{bx}\bigl )p_{\gamma_t}(x)~dx
+		P_e = \mathcal{E}\bigl \{P_e(\gamma_t)\bigr \} = \int_{0}^{\infty}aQ\bigr (\sqrt{bx}\bigl )p_{\gamma_t}(x)~\mathrm{d}x
 		\end{align*}
 		\begin{itemize}
 			\item Integral may be difficult to solve analytically
