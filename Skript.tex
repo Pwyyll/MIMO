@@ -729,5 +729,64 @@ Problem: How should we design codebook $\mathscr{H}$?
 \underline{Calculation of PEPs}\\
 Recall: $\hat{\mathbf{x}}=\underset{\mathbf{x}\in\mathscr{H}}{\mathrm{argmin}}||\mathbf{y-xh}||^2$\\
 Now, $\mathbf{x}_i$ and $\mathbf{x}_j$ are the only alternatives and an error is made if $||\mathbf{y-x_{\mathnormal{i}}h}||^2>||\mathbf{y-x_{\mathnormal{j}}h}||^2$ since $\mathbf{x}_i$ was sent but $\mathbf{x}_j$ was detected
+	\begin{align*}
+	\rightarrow	||\mathbf{x_{\mathnormal{i}}h+n-x_{\mathnormal{i}}h}||^2 &>||\mathbf{x_{\mathnormal{i}}h+n-x_{\mathnormal{j}}h}||^2\\
+			||\mathbf{n}||&>||\mathbf{(x_{\mathnormal{i}}-x_{\mathnormal{j}})h+n}||^2\\
+	\rightarrow	||\mathbf{n}||&>\underbrace{\mathbf{h^{\mathnormal{H}}(x_{\mathnormal{i}}-x_{\mathnormal{j}})^{\mathnormal{H}}(x_{\mathnormal{i}}-x_{\mathnormal{j}})h}}_{\Delta}
+			+\mathbf{h^{\mathnormal{H}}(x_{\mathnormal{i}}-x_{\mathnormal{j}})n+n^{\mathnormal{H}}(x_{\mathnormal{i}}-x_{\mathnormal{j}})h+||n||^{\mathnormal{2}}}
+	\end{align*}
+	\begin{align*}
+		\rightarrow \underbrace{\mathbf{-h^{\mathnormal{H}}(x_{\mathnormal{i}}-x_{\mathnormal{j}})^{\mathnormal{H}}n-n^{\mathnormal{H}}(x_{\mathnormal{i}}-x_{\mathnormal{j}})h}}_{z}>\Delta
+	\end{align*}
+for given $\mathbf{h}$, $z$ is a gaussian random variable
+\begin{align*}
+	\sigma_z^2&=\mathcal{E}\{|z|^2\}=\mathcal{E}\{2\mathbf{h}^H(\mathbf{x}_i-\mathbf{x}_j)\overbrace{\mathbf{nn}^H}^{\sigma_n^2\mathbf{I}}(\mathbf{x}_i-\mathbf{x}_j)\mathbf{h}
+	+2\mathbf{h}^H(\mathbf{x}_i-\mathbf{x}_j)^H\overbrace{\mathbf{nn}^T}^{=0}(\mathbf{x}_i-\mathbf{x}_j)^*\mathbf{h}^*\}\\
+		&=2\sigma_n^2\Delta+0
+\end{align*}
+\begin{align*}
+	\mathrm{Pr}\{\mathbf{x}_i\rightarrow\mathbf{x}_j\}&=\int\limits_{\Delta}^{\infty}\frac{1}{\sqrt{2\pi}\sigma_z}\mathrm{exp}\left(-\frac{z^2}{2\sigma_z^2}\right)\mathrm{d}z, \; t=\frac{z}{\sigma_z}\\
+	&=\frac{1}{\sqrt{2\pi}}\int\limits_{\frac{\Delta}{\sigma_z}}^{\infty}e^{-\frac{t^2}{2}}\mathrm{d}t=Q\left(\frac{\Delta}{\sigma_z}\right)=Q\left(\frac{\Delta}{\sqrt{2\sigma_n^2\Delta}}\right)\\
+	&=Q\left(\sqrt{\frac{\Delta}{2\sigma_n^2}}\right)
+\end{align*}
+	\item $\mathrm{Pr}\{\mathbf{x}_i\rightarrow\mathbf{x}_j\}=\mathcal{E}\left\{Q\left(\sqrt{\frac{\Delta}{2\sigma_n^2}}\right)\right\}$
+	\begin{itemize}
+	\item to avoid cumbersome Q-function we use Chernoff bound:
+	\begin{align*}	
+		\boxed{Q(x)\leq\frac{1}{2}e^{-\frac{x^2}{2}}}\\
+	\end{align*}
+	\begin{align*}
+		\mathrm{Pr}\{\mathbf{x}_i\rightarrow\mathbf{x}_j\}\leq \frac{1}{2}\mathcal{E}_h\left\{\mathrm{exp}\left(-\frac{\mathbf{h}^H\mathbf{Qh}}{4\sigma_n^2}\right)\right\}\\
+		\text{where } \mathbf{Q}=(\mathbf{x}_i-\mathbf{x}_j)^H(\mathbf{x}_i-\mathbf{x}_j)
+	\end{align*}
+	\end{itemize}
+	\item Eigendecomposition: $\mathbf{Q=U}^H\mathbf{\Lambda U}$ with $\Lambda = \mathrm{diag}\{\lambda_1,\dots,\lambda_r, 0,\dots,0\}\qquad r=\mathrm{rank}\{\mathbf{Q}\}$\\
+
+	\item Elements $\mathbf{h}$ are i.i.d. Gaussian
+	\begin{itemize}	
+		\item $\mathbf{\underline{\beta}=Uh}$ has also i.i.d. Gaussian random variables as elements since $\mathbf{U}$ is unitary matrix
+		\item $\mathbf{h}^H\mathbf{Qh}=\underbrace{\mathbf{h}^H\mathbf{U}^H}_{\underline{\beta}^*}\mathbf{\Lambda}\underbrace{\mathbf{Uh}}_{\underline{\beta}}=\sum\limits_{i=1}^r\lambda_i|\beta_i|^2$ 
+		with $\underline{\beta}=[\beta_1,\dots,\beta_{N_T}]$
+	\end{itemize}
+	\begin{align*}
+	\mathrm{Pr}\{\mathbf{x}_i\rightarrow\mathbf{x}_j\}&=\frac{1}{2}\mathcal{E}_{\underline{\beta}}\left\{\mathrm{exp}\left(-\frac{\sum\limits_{i=1}^r\lambda_i|\beta_i|^2}{4\sigma_n^2}\right)\right\}\\
+	&=\frac{1}{2}\mathcal{E}_{\underline{\beta}}\left\{\prod\limits_{i=1}^r e^{-\frac{\lambda_i}{4\sigma_n^2}|\beta_i|^2}\right\}\\
+	&=\frac{1}{2}\prod\limits_{i=1}^r\mathcal{E}_{\beta_i}\left\{e^{-\frac{\lambda_i}{4\sigma_n^2}|\beta_i|^2}\right\}\\
+	&=\frac{1}{2}\prod\limits_{i=1}^r \mathcal{E}_{|\beta_i|^2}\left\{e^{-\frac{\lambda_i}{4\sigma_n^2}|\beta_i|^2}\right\}\hat{=}\text{MGF of exponentially distributed variable } \alpha_i=|\beta_i|^2\\
+	\end{align*}
+	$\rightarrow P_{\alpha_i}(x)=e^{-x},\; x\geq 0$
+	\begin{align*}
+	\rightarrow \mathrm{Pr}\{\mathbf{x}_i\rightarrow \mathbf{x}_j\}&\leq \frac{1}{2}\prod\limits^r_{i=1}\frac{1}{1+\frac{\lambda_i}{4\sigma_n^2}}\\
+	&\leq\prod\limits^r_{i=1}\frac{1}{\frac{\lambda_i}{4\sigma_n^2}}=2^{2r-1}\frac{1}{\prod\limits^r_{i=1}\lambda_i}\left(\underbrace{\frac{1}{\sigma_n^2}}_{\hat{=}SNR}\right)^{-r}
+	\end{align*}
+	\item upper bound on $P_e$: 
+	\begin{align*}
+		\lambda_n(i,j) &= n\text{th eigenvalue of }(\mathbf{x}_i-\mathbf{x}_j)^H(\mathbf{x}_i-\mathbf{x}_j)\\
+		r(i,j) &= \text{ rank of }(\mathbf{x}_i-\mathbf{x}_j)^H(\mathbf{x}_i-\mathbf{x}_j)
+	\end{align*}
+	\begin{align*}
+	\rightarrow P_e \leq \frac{1}{\mathscr{|H|}} \sum\limits_{i=1}^{\mathscr{|H|}}\sum\limits_{j=1}^{\mathscr{|H|}}2^{2r(i,j)-1}\frac{1}{\prod\limits_{n=1}^{r(i,j)}\lambda_n(i,j)}\left(\frac{1}{\sigma_n^2}\right)^{-r(i,j)}
+	\end{align*}
+	\item generally loose bound but offers significant insight for code design
 \end{itemize}
 \end{document}
