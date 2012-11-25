@@ -638,12 +638,14 @@ A similar asymptotic analysis can be conducted for the outage probability.
 				\end{align*}
 		\end{itemize}
 		\item independent decoding property can be proved for all OSTBCs
-		\item low complexity is at the expanse of a rate-loss compared to other STBCs for $N_T > 2$
-		\item noncoherent STBCs (On-Off-Keying)
+		\item low complexity is at the expense of a rate-loss compared to other STBCs for $N_T > 2$
 		\begin{itemize}
 			\item[$\rightarrow$] Frequenzhopping
 			\item[$\rightarrow$] keine Kanalinformation aus vorher empfangenen Symbolen m\"oglich $\Rightarrow$ Kanal \"andert sich st\"andig: nur Entscheidung, ob Rauschen oder Signal $+$ Rauschen	
 		\end{itemize}
+		\end{itemize}
+		\item{Performance Analysis of Alamouti Code}
+		\begin{itemize}
 		\item Decision-variables after combining
 		\begin{align*}
 			r_1 &= \sqrt{2}\frac{h_1^*y_1 + h_2y_2^*}{|h_1|^2 + |h_2|^2}\\
@@ -653,19 +655,19 @@ because of symmetry it suffices to consider $r_1$
 		\begin{align*}
 			r_1 &= \sqrt{2}\frac{h_1^*\bigl(\frac{1}{\sqrt{2}}s_1h_1 + \frac{1}{\sqrt{2}}h_2s_2 + n_1 \bigr) + h_2\bigl(-\frac{1}{\sqrt{2}}h_2s_1^* + \frac{1}{\sqrt{2}}h_1s_2^* + n_2\bigr)^*}{|h_1|^2 + |h_2|^2}\\ 
 			&= \sqrt{2}\frac{\frac{1}{\sqrt2} \bigl(|h_1|^2 + |h_2|^2\bigr) s_1 + h_1^*n_1 + h_2n_2^*} {|h_1|^2 + |h_2|^2}\\
-			&= 1\cdot s_1 + n
+			&= 1\cdot s_1 + n_{eq}
 		\end{align*}
 		where 
 		\begin{align*}
-			n &= \sqrt{2}\;\frac{h_1^*n_1 + h_2n_2^*}{|h_1|^2 + |h_2|^2}\\
-			\text{SNR} \rightarrow \gamma _t  &= \frac{\epsilon _s\cdot 1^2}{\sigma _{eq}^2}\quad \text{with}\quad \mathcal{E}\bigl\{ |s_1|^2\bigr\} = \epsilon _s\\ 	
+			n_{eq} &= \sqrt{2}\;\frac{h_1^*n_1 + h_2n_2^*}{|h_1|^2 + |h_2|^2}\\
+			\text{SNR} \rightarrow \gamma _t  &= \frac{\mathcal{E}_s\cdot 1^2}{\sigma _{eq}^2}\quad \text{with}\quad \mathcal{E}\bigl\{ |s_1|^2\bigr\} = \mathcal{E}_s\\ 	
 			\sigma _{eq}^2 &= 2\frac{|h_1|^2\sigma _n^2 + |h_2|^2\sigma _{eq}}{\bigl(|h_1|^2 + |h_2|^2\bigr)^2} = \frac{2\sigma _n^2}{|h_1|^2 + |h_2|^2}
 		\end{align*}
-		\item[$\rightarrow$] $\gamma _t = \frac{1}{2}\frac{\epsilon _s}{\sigma _n}\bigl ( |h_1|^2 + |h_2|^2\bigr)$
+		\item[$\rightarrow$] $\gamma _t = \frac{1}{2}\frac{\mathcal{E}_s}{\sigma _n}\bigl ( |h_1|^2 + |h_2|^2\bigr)$
 		\item[$\rightarrow$] $\text{SNR}_{\text{Alamouti}} = \frac{1}{2}\text{SNR}_{\text{MRC}} = \frac{1}{2}\text{SNR}_{\text{MRT}}$
 		\item[$\rightarrow$] Alamouti code has diversity gain $G_d = 2$
 		\item[$\rightarrow$] Transmission with Alamouti STBC requires 3dB higher SNR to achieve same performance as MRT $\rightarrow$  3dB loss in coding gain $G_c$
-		\item[$\rightarrow$] Lack of CSI knowledge at transmitter ``costs´´ 3dB in power efficiency
+		\item[$\rightarrow$] Lack of CSI knowledge at transmitter ``costs'' 3dB in power efficiency
 		\item[$\rightarrow$] General: 
 		\begin{itemize}
 			\item[$\cdot$] OSTBCs achieve a diversity gain of $G_d = N_T$ if only one receive antenna is available
@@ -676,9 +678,6 @@ because of symmetry it suffices to consider $r_1$
 	\begin{itemize}
 		\item Quasi orthogonal STBCs
 		\begin{itemize}
-		\item Linear dispersion codes: designed to achieve high mutual information
-		\item Golden Code for $ N_T = N_R = 2$: achieves a rate of $R_{STBC} = 2 $ and full diversity of $ G_d = N_T, N_R = 4$
-		\item Differential STBCs: $\textbf{X}_k = \textbf{X}_{k-1}\cdot \textbf{D}_k $. $\textbf{X}_k $ is transmitted, $\textbf{D}_k $ is transmitted  
 			\item higher rate than OSTBCs
 			\item only subset of symbols have to be decoded jointly
 			\item Example: $K = N_T = T = 4$
@@ -694,18 +693,41 @@ because of symmetry it suffices to consider $r_1$
 			\item Anmerkung 1:  $\textbf{X} $ ist \"ahnlich zu Alamouti Code
 			\item Anmerkung 2: $\textbf{X}^H\textbf{X}$: viele Nicht-diagonal Elemente sind Null; die, die ungleich Null sind, zeigen, welche Symbole gemeinsam entschl\"usselt werden m\"ussen 		
 		\end{itemize}
+		\item Golden Code for $ N_T = N_R = 2$: achieves a rate of $R_{STBC} = 2 $ and full diversity of $ G_d = N_T, N_R = 4$
+		\item Differential STBCs: $\textbf{X}_k = \textbf{X}_{k-1}\cdot \textbf{D}_k $. $\textbf{X}_k $ is transmitted, $\textbf{D}_k $ is transmitted 
+		\item Linear dispersion codes: designed to achieve high mutual information
+		\item noncoherent STBCs (On-Off-Keying)
 	\end{itemize}
 \end{itemize}
 \subsubsection*{Space Time Code Design}
 Given: 
 \begin{itemize}
-	\item Code  $\mathscr{\textbf{H}} = \bigl\{\textbf{X}_1,\dots ,\textbf{X}_{|\mathscr{\textbf{H}}}\bigr\}$
+	\item Code  $\mathscr{H} = \bigl\{\textbf{X}_1,\dots ,\textbf{X}_{|\mathscr{H}|}\bigr\}$
 	\item Channel: IID Rayleigh-fading: 
 	\begin{itemize}
-		\item $h_n \sim \text{CN}(0,1);\quad n \in \{1, 2, \dots , N_T \} $
-		\item AWGN $ n \sim \text{CN}(0,\sigma _n^2) $
+		\item $h_n \sim \text{C}\mathcal{N}(0,1);\quad n \in \{1, 2, \dots , N_T \} $
+		\item AWGN $ n \sim \text{C}\mathcal{N}(0,\sigma _n^2) $
 	\end{itemize}
 \end{itemize}
 Problem: How should we design codebook $\mathscr{H}$?
-
+\begin{itemize}
+	\item Need to derive error rate for general codebooks $\mathscr{H}$!
+	\begin{itemize}
+		\item Codeword error rate\\
+		\begin{align*}
+			P_e=\frac{1}{|\mathscr{H}|}\sum\limits_{i=1}^{|\mathscr{H}|}\mathrm{Pr}\{\mathbf{x}_i\neq\hat{\mathbf{x}}_i\}
+		\end{align*}
+		where $\hat{\mathbf{x}}_i$ is the detected codeword and we assume that all codewords are equally likely
+	\end{itemize}
+\underline{Problem:} $\mathrm{Pr}\{\mathbf{x}_i\neq\hat{\mathbf{x}}_i\}$ is not tractable in general
+	\item  Use union bound to upper bound $\mathrm{Pr}\{\mathbf{x}_i\neq\hat{\mathbf{x}}_i\}$ as upper sum over \underline{pairwise error probabilities}(PEP)
+	$\mathrm{Pr}\{\mathbf{x}_i\rightarrow\mathbf{x}_j\}$ where it is assumed that $\mathbf{x}_i$ was transmitted and $\mathbf{x}_i$ and $\mathbf{x}_j$ are the
+	only codewords in the codebook
+	\begin{align*}
+	\boxed{P_e\leq \frac{1}{|\mathscr{H}|}\sum\limits_{i=1}^{|\mathscr{H}|}\sum\limits_{j=1}^{|\mathscr{H}|}\mathrm{Pr}\{\mathbf{x}_i\rightarrow\mathbf{x}_j\} \text{ where } j \neq i}
+	\end{align*}
+\underline{Calculation of PEPs}\\
+Recall: $\hat{\mathbf{x}}=\underset{\mathbf{x}\in\mathscr{H}}{\mathrm{argmin}}||\mathbf{y-xh}||^2$\\
+Now, $\mathbf{x}_i$ and $\mathbf{x}_j$ are the only alternatives and an error is made if $||\mathbf{y-x_{\mathnormal{i}}h}||^2>||\mathbf{y-x_{\mathnormal{j}}h}||^2$ since $\mathbf{x}_i$ was sent but $\mathbf{x}_j$ was detected
+\end{itemize}
 \end{document}
