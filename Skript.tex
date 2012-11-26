@@ -82,11 +82,11 @@
 Consider an equivalent system:
 \begin{align*}
 	y &= hx +n;\\
-	\mathcal{E}\{|x^2|\} &= \mathcal{E}_s; & \mathcal{E}\{|n^2|\} &= \sigma_n^2; & \mathcal{E}\{|h|^2\} &= 1
+	\mathcal{E}\{|x^2|\} &= E_s; & \mathcal{E}\{|n^2|\} &= \sigma_n^2; & \mathcal{E}\{|h|^2\} &= 1
 \end{align*}
 \begin{itemize}
-	\item Instantaneous SNR: $\gamma_t = \frac{\mathcal{E}_s}{\sigma_n^2}\times |h|^2$
-\item Average SNR: $\bar{\gamma}_t = \mathcal{E}\{\gamma_t\} = \frac{\mathcal{E}_s}{\sigma_n^2}$
+	\item Instantaneous SNR: $\gamma_t = \frac{E_s}{\sigma_n^2}\times |h|^2$
+\item Average SNR: $\bar{\gamma}_t = \mathcal{E}\{\gamma_t\} = \frac{E_s}{\sigma_n^2}$
 \end{itemize}
 \paragraph{Bit and Symbol Error Rate}
 \begin{itemize}
@@ -249,9 +249,9 @@ where \begin{math} w_n\end{math} depends on the particular combining scheme.
 	\item For MRC, both, the amplitudes and phases of the channel gains $h_n=|h_n|e^{j\varphi_n}$ have to be known (or estimated in practice)
 	\item In EGC it is assumed that only the phases are known and weights $w_n=e^{-j\varphi_n}$ are used.
 \begin{align*}
-	\Rightarrow \gamma_t &=\dfrac{\mathcal{E}_s}{\sigma_n^2}\dfrac{\left|\sum\limits_{n=1}^{N_R}|h_n|e^{j\varphi_n}e^{-j\varphi_n}\right|^2}{\sum\limits^{N_R}_{n=1}\left|e^{-j\varphi_n}\right|^2}
-	=\frac{\mathcal{E}_s}{\sigma_n^2}\frac{1}{N_R}\left(\sum\limits^{N_R}_{n=1}|h_n|\right)^2\\
-	&=\frac{1}{N_R}\left(\sum\limits_{n=1}^{N_R}\sqrt{\gamma_n}\right)^2;\text{  with  }\gamma_n=\frac{\mathcal{E}_s}{\sigma_n^2}|h_n|^2
+	\Rightarrow \gamma_t &=\dfrac{E_s}{\sigma_n^2}\dfrac{\left|\sum\limits_{n=1}^{N_R}|h_n|e^{j\varphi_n}e^{-j\varphi_n}\right|^2}{\sum\limits^{N_R}_{n=1}\left|e^{-j\varphi_n}\right|^2}
+	=\frac{E_s}{\sigma_n^2}\frac{1}{N_R}\left(\sum\limits^{N_R}_{n=1}|h_n|\right)^2\\
+	&=\frac{1}{N_R}\left(\sum\limits_{n=1}^{N_R}\sqrt{\gamma_n}\right)^2;\text{  with  }\gamma_n=\frac{E_s}{\sigma_n^2}|h_n|^2
 \end{align*}
 \end{itemize}
 \paragraph*{Performance Analysis}
@@ -430,7 +430,7 @@ A similar asymptotic analysis can be conducted for the outage probability.
 \end{itemize}
 \input{MISO_NAIVE.pstex_t}
 \begin{itemize}
-	\item Transmit power: $\mathcal{E}\left\{\left|\frac{1}{\sqrt{N_T}}x\right|^2+,\dots,\left|\frac{1}{\sqrt{N_T}}x\right|^2\right\}=\mathcal{E}\left\{N_T\frac{1}{N_T}|x|^2\right\}=\mathcal{E}_s$
+	\item Transmit power: $\mathcal{E}\left\{\left|\frac{1}{\sqrt{N_T}}x\right|^2+,\dots,\left|\frac{1}{\sqrt{N_T}}x\right|^2\right\}=\mathcal{E}\left\{N_T\frac{1}{N_T}|x|^2\right\}=E_s$
 	\item Received signal: $y=\frac{1}{\sqrt{N_T}}\sum\limits_{n=1}^{N_T}h_n\cdot x+n$
 	\item Rayleigh fading: $h_n$ are zero mean complex gaussian random variables\\
 	$\rightarrow$ $h$ is also zero mean complex gaussian
@@ -454,11 +454,11 @@ A similar asymptotic analysis can be conducted for the outage probability.
 	\begin{itemize}
 		\item Average transmit power constraint
 		\begin{align*}
-		P_{av}=\mathcal{E}\left\{\sum\limits^{N_T}_{n=1}|w_n^*x|^2\right\}=\sum\limits_{n=1}^{N_T}|w_n|^2\underbrace{\mathcal{E}\{|x|^2\}}_{\mathcal{E}_s}=\mathcal{E}_s \Rightarrow \sum\limits^{N_T}_{n=1}|w_n|^2=1
+		P_{av}=\mathcal{E}\left\{\sum\limits^{N_T}_{n=1}|w_n^*x|^2\right\}=\sum\limits_{n=1}^{N_T}|w_n|^2\underbrace{\mathcal{E}\{|x|^2\}}_{E_s}=\mathcal{E}_s \Rightarrow \sum\limits^{N_T}_{n=1}|w_n|^2=1
 		\end{align*}
 		\item Power constraint for each transmit antenna
 		\begin{align*}
-		\rightarrow |w_n|=\frac{1}{\sqrt{N_T}} \qquad \rightarrow P_{av}=\mathcal{E}_s
+		\rightarrow |w_n|=\frac{1}{\sqrt{N_T}} \qquad \rightarrow P_{av}=E_s
 		\end{align*}
 	\end{itemize}
 	\item Recveived signal: $y=\underbrace{\sum\limits^{N_T}_{n=1}w^*_nh_n}_{h}x+n$ (equivalent SISO channel)
@@ -466,11 +466,11 @@ A similar asymptotic analysis can be conducted for the outage probability.
 \subsubsection*{Maximum Ratio Transmission (MRT)}
 \begin{itemize}
 	\item we have only the average power constraint: $ \sum\limits_{n = 1}^{N_T} |w_n|^2 = 1 $
-	\item SNR:  \scalebox{1.3}[1.3]{$\gamma	 _t = \frac{\mathcal{E}_s|h|^2}{\sigma _n^2} = \frac{\mathcal{E}_s\left|\sum\limits_{n = 1}^{N_T}w_n^*\cdot h_n \right|^2}{\sigma _n^2} $} 
+	\item SNR:  \scalebox{1.3}[1.3]{$\gamma	 _t = \frac{E_s|h|^2}{\sigma _n^2} = \frac{\mathcal{E}_s\left|\sum\limits_{n = 1}^{N_T}w_n^*\cdot h_n \right|^2}{\sigma _n^2} $} 
 	\item Maximize SNR under constraint $ \sum\limits _{n = 1}^{N_T}|w_n|^2 = 1 $
 	\item constraint optimization problem $\rightarrow $ Lagrange method
 		\begin{align*}
-			L = \frac{\mathcal{E}_s}{\sigma _n^2}\left| \sum_{n = 1}^{N_T}w_n^*\cdot h_n \right |^2 + \lambda\left ( \sum_{n = 1}^{N_T}|w_n|^2 - 1\right ); \quad \text{where: } \lambda = \text{Lagrange Multiplier}
+			L = \frac{E_s}{\sigma _n^2}\left| \sum_{n = 1}^{N_T}w_n^*\cdot h_n \right |^2 + \lambda\left ( \sum_{n = 1}^{N_T}|w_n|^2 - 1\right ); \quad \text{where: } \lambda = \text{Lagrange Multiplier}
 		\end{align*}
 		$\Rightarrow$  Wirtinger Kalk\"ul: treat  $z$  and  $z^*$  as independent variables for differentiation:
 		\begin{align*}
@@ -486,7 +486,7 @@ A similar asymptotic analysis can be conducted for the outage probability.
 			\item[$\rightarrow$] \scalebox{1.3}[1.3]{$ \sum\limits_{n = 1}^{N_T} |w_n|^2 = 1 \rightarrow c^2 = \frac{1}{\sum\limits_{n = 1}^{N_T}|h_n|^2}  $}
 			\item[$\rightarrow$] \scalebox{1.3}[1.3]{$  w_n = \frac{h_n}{\sqrt{\sum\limits_{n = 1}^{N_T}|h_n|^2}} \equiv $} MRT gains 
 		\end{itemize}
-		\item[$\rightarrow$] SNR \scalebox{1.3}[1.3]{$ = \frac{\mathcal{E}_s}{\sigma _n^2}\Bigl | \sum\limits_{n = 1}^{N_T}\frac{|h_n|^2}{\sqrt{\sum_{n = 1}^{N_T}|h_m|^2}}\Bigr |^2 = \frac{\epsilon _s}{\sigma _n^2}\sum\limits_{n = 1}^{N_T}|h_n|^2 $}
+		\item[$\rightarrow$] SNR \scalebox{1.3}[1.3]{$ = \frac{E_s}{\sigma _n^2}\Bigl | \sum\limits_{n = 1}^{N_T}\frac{|h_n|^2}{\sqrt{\sum_{n = 1}^{N_T}|h_m|^2}}\Bigr |^2 = \frac{\epsilon _s}{\sigma _n^2}\sum\limits_{n = 1}^{N_T}|h_n|^2 $}
 		\item[$\Rightarrow$] same SNR as for maximum ration combining (MRC)
 		\item[$\Rightarrow$] MRT with $N_T$ transmit antennas achieves the same performance as MRC with $N_T$ receive antennas
 		\item[$\Rightarrow$] MRT/MRC can be extended to $ N_T\times N_R $ MIMO systems
@@ -499,9 +499,9 @@ A similar asymptotic analysis can be conducted for the outage probability.
 	\item we employ gains: $w_n = \frac{1}{\sqrt{N_T}}\cdot \frac{h_n}{|h_m|} \rightarrow |w_n| = \frac{1}{\sqrt{N_T}} $
 	\item SNR:
 	\begin{align*}
-		\gamma _t &= \frac{\mathcal{E}_s}{\sigma _n^2}\left|\sum_{n = 1}^{N_T} w_n^*h_n \right |^2\\
-		&= \frac{\mathcal{E}_s}{\sigma _n^2}\left|\sum_{n = 1}^{N_T}\frac{1}{\sqrt{N_T}\cdot \frac{|h_n|^2}{|h_n|}} \right|^2 = \frac{1}{N_T}\cdot \frac{\mathcal{E}_s}{\sigma _n^2} \left|\sum_{n = 1}^{N_T}|h_n| \right|^2\\
-		\gamma _n &= \frac{\mathcal{E}_s}{\sigma _n^2}|h_n|^2\\
+		\gamma _t &= \frac{E_s}{\sigma _n^2}\left|\sum_{n = 1}^{N_T} w_n^*h_n \right |^2\\
+		&= \frac{E_s}{\sigma _n^2}\left|\sum_{n = 1}^{N_T}\frac{1}{\sqrt{N_T}\cdot \frac{|h_n|^2}{|h_n|}} \right|^2 = \frac{1}{N_T}\cdot \frac{\mathcal{E}_s}{\sigma _n^2} \left|\sum_{n = 1}^{N_T}|h_n| \right|^2\\
+		\gamma _n &= \frac{E_s}{\sigma _n^2}|h_n|^2\\
 		&\text{same SNR as for EGC} \rightarrow \gamma _t = \frac{1}{N_T} \left| \sum_{n = 1}{N_T}\sqrt{\gamma _n} \right|^2
 	\end{align*}
 	\item[$\rightarrow$] EGC with $ N_T$ transmit antennas achieves the same performance as EGC with $ N_T$ receive antennas
@@ -660,10 +660,10 @@ because of symmetry it suffices to consider $r_1$
 		where 
 		\begin{align*}
 			n_{eq} &= \sqrt{2}\;\frac{h_1^*n_1 + h_2n_2^*}{|h_1|^2 + |h_2|^2}\\
-			\text{SNR} \rightarrow \gamma _t  &= \frac{\mathcal{E}_s\cdot 1^2}{\sigma _{eq}^2}\quad \text{with}\quad \mathcal{E}\bigl\{ |s_1|^2\bigr\} = \mathcal{E}_s\\ 	
+			\text{SNR} \rightarrow \gamma _t  &= \frac{E_s\cdot 1^2}{\sigma _{eq}^2}\quad \text{with}\quad \mathcal{E}\bigl\{ |s_1|^2\bigr\} = \mathcal{E}_s\\ 	
 			\sigma _{eq}^2 &= 2\frac{|h_1|^2\sigma _n^2 + |h_2|^2\sigma _{eq}}{\bigl(|h_1|^2 + |h_2|^2\bigr)^2} = \frac{2\sigma _n^2}{|h_1|^2 + |h_2|^2}
 		\end{align*}
-		\item[$\rightarrow$] $\gamma _t = \frac{1}{2}\frac{\mathcal{E}_s}{\sigma _n}\bigl ( |h_1|^2 + |h_2|^2\bigr)$
+		\item[$\rightarrow$] $\gamma _t = \frac{1}{2}\frac{E_s}{\sigma _n}\bigl ( |h_1|^2 + |h_2|^2\bigr)$
 		\item[$\rightarrow$] $\text{SNR}_{\text{Alamouti}} = \frac{1}{2}\text{SNR}_{\text{MRC}} = \frac{1}{2}\text{SNR}_{\text{MRT}}$
 		\item[$\rightarrow$] Alamouti code has diversity gain $G_d = 2$
 		\item[$\rightarrow$] Transmission with Alamouti STBC requires 3dB higher SNR to achieve same performance as MRT $\rightarrow$  3dB loss in coding gain $G_c$
