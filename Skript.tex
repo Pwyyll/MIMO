@@ -702,7 +702,7 @@ because of symmetry it suffices to consider $r_1$
 \subsubsection*{Space Time Code Design}
 Given: 
 \begin{itemize}
-	\item Code  $\mathscr{H} = \bigl\{\textbf{X}_1,\dots ,\textbf{X}_{|\mathscr{H}|}\bigr\}$
+	\item Code  $\mathscr{X} = \bigl\{\textbf{X}_1,\dots ,\textbf{X}_{|\mathscr{X}|}\bigr\}$
 	\item Channel: IID Rayleigh-fading: 
 	\begin{itemize}
 		\item $h_n \sim \text{C}\mathcal{N}(0,1);\quad n \in \{1, 2, \dots , N_T \} $
@@ -711,11 +711,11 @@ Given:
 \end{itemize}
 Problem: How should we design codebook $\mathscr{H}$?
 \begin{itemize}
-	\item Need to derive error rate for general codebooks $\mathscr{H}$!
+	\item Need to derive error rate for general codebooks $\mathscr{X}$!
 	\begin{itemize}
 		\item Codeword error rate\\
 		\begin{align*}
-			P_e=\frac{1}{|\mathscr{H}|}\sum\limits_{i=1}^{|\mathscr{H}|}\mathrm{Pr}\{\mathbf{x}_i\neq\hat{\mathbf{x}}_i\}
+			P_e=\frac{1}{|\mathscr{X}|}\sum\limits_{i=1}^{|\mathscr{X}|}\mathrm{Pr}\{\mathbf{x}_i\neq\hat{\mathbf{x}}_i\}
 		\end{align*}
 		where $\hat{\mathbf{x}}_i$ is the detected codeword and we assume that all codewords are equally likely
 	\end{itemize}
@@ -724,10 +724,10 @@ Problem: How should we design codebook $\mathscr{H}$?
 	$\mathrm{Pr}\{\mathbf{x}_i\rightarrow\mathbf{x}_j\}$ where it is assumed that $\mathbf{x}_i$ was transmitted and $\mathbf{x}_i$ and $\mathbf{x}_j$ are the
 	only codewords in the codebook
 	\begin{align*}
-	\boxed{P_e\leq \frac{1}{|\mathscr{H}|}\sum\limits_{i=1}^{|\mathscr{H}|}\sum\limits_{j=1}^{|\mathscr{H}|}\mathrm{Pr}\{\mathbf{x}_i\rightarrow\mathbf{x}_j\} \text{ where } j \neq i}
+	\boxed{P_e\leq \frac{1}{|\mathscr{X}|}\sum\limits_{i=1}^{|\mathscr{X}|}\sum\limits_{j=1}^{|\mathscr{X}|}\mathrm{Pr}\{\mathbf{x}_i\rightarrow\mathbf{x}_j\} \text{ where } j \neq i}
 	\end{align*}
 \underline{Calculation of PEPs}\\
-Recall: $\hat{\mathbf{x}}=\underset{\mathbf{x}\in\mathscr{H}}{\mathrm{argmin}}||\mathbf{y-xh}||^2$\\
+Recall: $\hat{\mathbf{x}}=\underset{\mathbf{x}\in\mathscr{X}}{\mathrm{argmin}}||\mathbf{y-xh}||^2$\\
 Now, $\mathbf{x}_i$ and $\mathbf{x}_j$ are the only alternatives and an error is made if $||\mathbf{y-x_{\mathnormal{i}}h}||^2>||\mathbf{y-x_{\mathnormal{j}}h}||^2$ since $\mathbf{x}_i$ was sent but $\mathbf{x}_j$ was detected
 	\begin{align*}
 	\rightarrow	||\mathbf{x_{\mathnormal{i}}h+n-x_{\mathnormal{i}}h}||^2 &>||\mathbf{x_{\mathnormal{i}}h+n-x_{\mathnormal{j}}h}||^2\\
@@ -785,7 +785,7 @@ for given $\mathbf{h}$, $z$ is a gaussian random variable
 		r(i,j) &= \text{ rank of }(\mathbf{x}_i-\mathbf{x}_j)^H(\mathbf{x}_i-\mathbf{x}_j)
 	\end{align*}
 	\begin{align*}
-	\rightarrow P_e \leq \frac{1}{\mathscr{|H|}} \sum\limits_{i=1}^{\mathscr{|H|}}\sum\limits_{j=1}^{\mathscr{|H|}}2^{2r(i,j)-1}\frac{1}{\prod\limits_{n=1}^{r(i,j)}\lambda_n(i,j)}\left(\frac{1}{\sigma_n^2}\right)^{-r(i,j)}
+	\rightarrow P_e \leq \frac{1}{\mathscr{|X|}} \sum\limits_{i=1}^{\mathscr{|X|}}\sum\limits_{j=1}^{\mathscr{|X|}}2^{2r(i,j)-1}\frac{1}{\prod\limits_{n=1}^{r(i,j)}\lambda_n(i,j)}\left(\frac{1}{\sigma_n^2}\right)^{-r(i,j)}
 	\end{align*}
 	\item generally loose bound but offers significant insight for code design
 \end{itemize}
