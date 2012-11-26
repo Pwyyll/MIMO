@@ -772,12 +772,12 @@ for given $\mathbf{h}$, $z$ is a gaussian random variable
 	\mathrm{Pr}\{\mathbf{x}_i\rightarrow\mathbf{x}_j\}&=\frac{1}{2}\mathcal{E}_{\underline{\beta}}\left\{\mathrm{exp}\left(-\frac{\sum\limits_{i=1}^r\lambda_i|\beta_i|^2}{4\sigma_n^2}\right)\right\}\\
 	&=\frac{1}{2}\mathcal{E}_{\underline{\beta}}\left\{\prod\limits_{i=1}^r e^{-\frac{\lambda_i}{4\sigma_n^2}|\beta_i|^2}\right\}\\
 	&=\frac{1}{2}\prod\limits_{i=1}^r\mathcal{E}_{\beta_i}\left\{e^{-\frac{\lambda_i}{4\sigma_n^2}|\beta_i|^2}\right\}\\
-	&=\frac{1}{2}\prod\limits_{i=1}^r \mathcal{E}_{|\beta_i|^2}\left\{e^{-\frac{\lambda_i}{4\sigma_n^2}|\beta_i|^2}\right\}\hat{=}\text{MGF of exponentially distributed variable } \alpha_i=|\beta_i|^2\\
+	&=\frac{1}{2}\prod\limits_{i=1}^r \mathcal{E}_{|\beta_i|^2}\left\{e^{-\frac{\lambda_i}{4\sigma_n^2}|\beta_i|^2}\right\}\mathrel{\widehat{=}}\text{MGF of exponentially distributed variable } \alpha_i=|\beta_i|^2\\
 	\end{align*}
 	$\rightarrow P_{\alpha_i}(x)=e^{-x},\; x\geq 0$
 	\begin{align*}
 	\rightarrow \mathrm{Pr}\{\mathbf{x}_i\rightarrow \mathbf{x}_j\}&\leq \frac{1}{2}\prod\limits^r_{i=1}\frac{1}{1+\frac{\lambda_i}{4\sigma_n^2}}\\
-	&\leq\prod\limits^r_{i=1}\frac{1}{\frac{\lambda_i}{4\sigma_n^2}}=2^{2r-1}\frac{1}{\prod\limits^r_{i=1}\lambda_i}\left(\underbrace{\frac{1}{\sigma_n^2}}_{\hat{=}SNR}\right)^{-r}
+	&\leq\prod\limits^r_{i=1}\frac{1}{\frac{\lambda_i}{4\sigma_n^2}}=2^{2r-1}\frac{1}{\prod\limits^r_{i=1}\lambda_i}\left(\underbrace{\frac{1}{\sigma_n^2}}_{\mathrel{\widehat{=}}SNR}\right)^{-r}
 	\end{align*}
 	\item upper bound on $P_e$: 
 	\begin{align*}
