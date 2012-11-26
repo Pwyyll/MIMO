@@ -789,10 +789,20 @@ for given $\mathbf{h}$, $z$ is a gaussian random variable
 	\end{align*}
 	\item generally loose bound but offers significant insight for code design
 \end{itemize}
-\underline{Two criteria:}
+\subsubsection*{\underline{Two criteria:}}
+	\begin{description}
+		\item[\underline{Rank criterion:}]The diversity gain of a ST code is given by $G_d=\underset{i,j}{\mathrm{min}}(r(i,j))
+		=\underset{i,j}{\mathrm{min}}\;\mathrm{rank}\left((\mathbf{x}_i-\mathbf{x}_j)^H(\mathbf{x}_i-\mathbf{x}_j)\right)$
+		$\rightarrow$ Design code such that minimum rank of all possible matrices $(\mathbf{x}_i-\mathbf{x}_j)^H(\mathbf{x}_i-\mathbf{x}_j)$ is maximized
+		\begin{align*}
+			T \updownarrow  \overset{\overset{N_T}{\longleftrightarrow}}{\mathbf{X}_i} \Rightarrow r(i,j)=N_T\qquad \forall i\neq j
+		\end{align*}
+		\item[\underline{Determinant criterion:}]To maximize the coding gain among all codes with $r(i,j)=N_T$, we need to maximize 
+		$\mathrm{max}\;\underset{i,j}{\mathrm{min}}\prod\limits_{n=1}^{N_T}\lambda_n(i,j)=\mathrm{max}\;\underset{i,j}{\mathrm{min}}\left|(\mathbf{x}_i-\mathbf{x}_j)^H(\mathbf{x}_i-\mathbf{x}_j)\right| \qquad \forall i \neq j$
+	\end{description}
 \begin{itemize}
-	\item \underline{Rank criterion:} The diversity gain of a ST code is given by $G_d=\underset{i,j}{\mathrm{min}}(r(i,j))
-	=\underset{i,j}{\mathrm{min}}\;\mathrm{rank}\left((\mathbf{x}_i-\mathbf{x}_j)^H(\mathbf{x}_i-\mathbf{x}_j)\right)$
-	\item[$\rightarrow$] Design code such that minimum rank of all possible matrices $(\mathbf{x}_i-\mathbf{x}_j)^H(\mathbf{x}_i-\mathbf{x}_j)$ is maximized 
+	\item Rank and determinant criterion can be used for the search for good space-time block codes and space-time trellis codes. These two criteria were first derived by Tarokh, et. al. 1998.
+	\item diversity increases to $N_TN_R$ if $N_K$ receive antennas are available
+	\item Example: see B\"aro, Bauch, Hansmann: Improved codes for space-time trellis coded modulation. IEEE Comm. Letters, 2000.
 \end{itemize}
 \end{document}
