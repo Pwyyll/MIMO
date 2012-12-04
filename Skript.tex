@@ -20,6 +20,8 @@
 %\usepackage{url}
 %\usepackage{psfrag}
 \usepackage{epstopdf}
+\usepackage{sectsty}
+\allsectionsfont{\bfseries\sffamily}
 
 \addtolength{\textwidth}{2.1cm}
 \addtolength{\topmargin}{-1.4cm}
@@ -39,7 +41,7 @@
 
 % Definition von römischen Zahlen
 \newcommand{\rom}[1]{$\underline{\overline{\text{#1}}}$} 
-\renewcommand{\familydefault}{\sfdefault}
+%\renewcommand{\familydefault}{\sfdefault}
 
 
 \begin{document}
@@ -464,7 +466,7 @@ A similar asymptotic analysis can be conducted for the outage probability.
 	\end{itemize}
 	\item Recveived signal: $y=\underbrace{\sum\limits^{N_T}_{n=1}w^*_nh_n}_{h}x+n$ (equivalent SISO channel)
 \end{itemize}
-\subsubsection*{\underline{Maximum Ratio Transmission (MRT)}}
+\subsubsection*{Maximum Ratio Transmission (MRT)}
 \begin{itemize}
 	\item we have only the average power constraint: $ \sum\limits_{n = 1}^{N_T} |w_n|^2 = 1 $
 	\item SNR:  \scalebox{1.3}[1.3]{$\gamma	 _t = \frac{E_s|h|^2}{\sigma _n^2} = \frac{\mathcal{E}_s\left|\sum\limits_{n = 1}^{N_T}w_n^*\cdot h_n \right|^2}{\sigma _n^2} $} 
@@ -495,7 +497,7 @@ A similar asymptotic analysis can be conducted for the outage probability.
 			\item[$\rightarrow$] has the same performance as MRC with $N_T\cdot N_R$ receive antennas and one transmit antenna
 		\end{itemize}
 	\end{itemize}
-\subsubsection*{\underline{Equal Gain Transmission (EGT)}}
+\subsubsection*{Equal Gain Transmission (EGT)}
 \begin{itemize}
 	\item we employ gains: $w_n = \frac{1}{\sqrt{N_T}}\cdot \frac{h_n}{|h_m|} \rightarrow |w_n| = \frac{1}{\sqrt{N_T}} $
 	\item SNR:
@@ -507,7 +509,7 @@ A similar asymptotic analysis can be conducted for the outage probability.
 	\end{align*}
 	\item[$\rightarrow$] EGC with $ N_T$ transmit antennas achieves the same performance as EGC with $ N_T$ receive antennas
 \end{itemize}
-\subsubsection*{\underline{Transmit Antennas Selection}}
+\subsubsection*{Transmit Antennas Selection}
 \begin{itemize}
 	\item select antenna with maximum channel gain for transmission:
 		\begin{align*} 
@@ -558,7 +560,7 @@ A similar asymptotic analysis can be conducted for the outage probability.
 			{\small[Alamouti: A simple transmit diversity technique for wireless communication, IEEE JSAC 1998]}
 		\end{itemize}
 \end{itemize}
-\subsubsection*{\underline{Optimal Detection}}
+\subsubsection*{Optimal Detection}
 \begin{itemize}
 	\item Signal model:
 	\begin{align*}
@@ -582,7 +584,7 @@ A similar asymptotic analysis can be conducted for the outage probability.
 		$\rightarrow$ complexity increases exponentially with $K$
 	\end{itemize}
 \end{itemize}
-\subsubsection*{\underline{Types of STBCs}}
+\subsubsection*{Types of STBCs}
 \begin{itemize}
 	\item Orthogonal STBCs (OSTBCs)
 	\begin{itemize}
@@ -700,7 +702,7 @@ because of symmetry it suffices to consider $r_1$
 		\item noncoherent STBCs (On-Off-Keying)
 	\end{itemize}
 \end{itemize}
-\subsubsection*{\underline{Space Time Code Design}}
+\subsubsection*{Space Time Code Design}
 Given: 
 \begin{itemize}
 	\item Code  $\mathscr{X} = \bigl\{\textbf{X}_1,\dots ,\textbf{X}_{|\mathscr{X}|}\bigr\}$
@@ -790,7 +792,8 @@ for given $\mathbf{h}$, $z$ is a gaussian random variable
 	\end{align*}
 	\item generally loose bound but offers significant insight for code design
 \end{itemize}
-\subsubsection*{\underline{Two criteria:}}
+\vspace{1.6cm}
+{\large\underline{Two criteria:}}\\
 	\begin{description}
 		\item[\underline{Rank criterion:}]The diversity gain of a ST code is given by $G_d=\underset{i,j}{\mathrm{min}}(r(i,j))
 		=\underset{i,j}{\mathrm{min}}\;\mathrm{rank}\left((\mathbf{x}_i-\mathbf{x}_j)^H(\mathbf{x}_i-\mathbf{x}_j)\right)$
