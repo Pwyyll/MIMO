@@ -907,4 +907,25 @@ for given $\mathbf{h}$, $z$ is a gaussian random variable
 			(Hier geh\"oren die detection performance kurven f\"ur BPSK hin)
 	\end{itemize}
 \end{itemize}
+\subsection*{Linear Receivers}
+\begin{itemize}
+	\item How can we avoid the complexity associated wit the joint detection of the elements of $\mathbf{x}$?
+	\item Idea: Employ linear filter (matrix) to seperate  the elements of $\mathbf{x}$
+	\item Requires: $N_T \leq N_R$
+	\item We form
+	\begin{align*}
+		\mathbf{r}=N_T\updownarrow &\overset{\overset{N_R}{\longleftrightarrow}}{\mathbf{F}}\mathbf{y}=[r_1,\dots,r_{N_T}]^T\\
+	&\text{where $\mathbf{F}$ is the filter matrix and $\mathbf{y}$ is the received vector}
+	\end{align*}
+	such that $x_n$ can be obtained from
+	\begin{align*}
+		\hat{x}_n&=\underset{x_n \in \mathscr{A}}{\mathrm{argmin}} \; |r_i-x_n|^2
+		&\text{where } \mathbf{F} \in \mathbb{C}^{N_T\times N_R}
+	\end{align*}
+	\item Two popular design criteria for $\mathbf{F}$
+	\begin{itemize}
+		\item Zero-forcing (ZF) criterion
+		\item minimum mean squared error (MMSE) crtiterion
+	\end{itemize}
+\end{itemize}
 \end{document}
