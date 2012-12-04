@@ -805,4 +805,106 @@ for given $\mathbf{h}$, $z$ is a gaussian random variable
 	\item diversity increases to $N_TN_R$ if $N_K$ receive antennas are available
 	\item Example: see B\"aro, Bauch, Hansmann: Improved codes for space-time trellis coded modulation. IEEE Comm. Letters, 2000.
 \end{itemize}
+\subsection*{Partial or Imperfect CSI at the Transmitter}
+\begin{itemize}
+	\item In practice, the CSI cannot be perfect. Channel estimation, quantization and noisy feedback channels introduce errors.
+	\item If the system is optimized for perfect CSI (\textit{e.g.} using MRT or EGT), the performance for imperfect CSI may be worse than for a system designed for no CSI(\textit{e.g.} space-time coding)
+	\item In this case, it is advantageous to use a hybrid approach and combine beamforming and space-time coding.
+\end{itemize}
+\begin{figure}[h]
+	\centering
+	\input{STBEAM.pstex_t}
+\end{figure}
+\begin{itemize}
+	\item $\mathbf{W}$ is the beamforming matrix which depends on the reliability of the CSI
+	\item CSI is modeled as
+	\begin{align*}
+	\hat{h}_i=\rho h_i+\sqrt{1-\rho^2}e_i
+	\end{align*}
+	where:
+		\begin{itemize}
+			\item $\hat{h}_i$ is the CSI estimate
+			\item $\rho$ is the correlation between $\hat{h}_i$ and $h_i$
+			\item $e_i$ is the CSI error modeled as AWGN
+		\end{itemize}
+	extreme cases:
+		\begin{itemize}
+			\item $\rho = 0$ : $\hat{h}_i$ independent of $h_i$ $\rightarrow$ no CSI ($\mathbf{W}=\mathbf{I}$)
+			\item $\rho = 1$ : $\hat{h}_i=h_i$ $\rightarrow$ perfect CSI ($\mathbf{W}$ performs MRT)
+		\end{itemize}
+	\item $\mathbf{W}$ can be optimized under the assumptions for given $\rho$ and $\hat{h}_i$\\
+	$\rightarrow$ see for details: J\"ongren, Skorglund and Ottersten: "Combining Beamforming and Orthogonal Space-time Block Coding", IEEE on IT, 2002.
+\end{itemize}
+\section{MIMO Systems without CSI at the transmitter}
+\begin{itemize}
+	\item We consider $N_T\times N_R$ MIMO system and assume that the channel matrix $\mathbf{H}$ is not known at the transmitter\\
+	$\rightarrow$ no CSI at the transmitter (CSIT)
+	\item signal model:
+	\begin{align*}
+		N_R \updownarrow\mathbf{y}=N_R \updownarrow \overset{\overset{N_T}{\longleftrightarrow}}{\mathbf{H}}\mathbf{x}\updownarrow N_T+\mathbf{n} \updownarrow N_R
+	\end{align*}
+	\begin{figure}[h]
+		\centering
+		\input{SIGMOD.pstex_t}
+	\end{figure}
+	\item $x_n$ are $M$-ary i.i.d. scalar symbols taken \textit{e.g} from an $M$-PSK or $M$-QAM symbol alphabet $\mathscr{A}$
+	\item This scheme is often called ``spatial multiplexing''
+	\item We transmit $N_T$ symbols per symbol interval\\
+	$\rightarrow$ rate $R=\log_2(M)\cdot N_T$ for uncoded transmission
+	\item Problem: How to detect $\mathbf{x}$ at the receiver considering
+		\begin{itemize}
+			\item performance
+			\item complexity
+		\end{itemize}
+\end{itemize}
+\subsection*{Optimum Detection}
+\begin{itemize}
+	\item Elements of $\mathbf{n}$ are gaussian random variables with variance $\sigma_n^2$
+	\item $\mathbf{H}$ is known at the receiver
+	\begin{align*}
+		p(\mathbf{y}|\mathbf{x})&=\frac{1}{\pi^{N_R}\sigma_n^2\mathbf{I}_{N_R \times N_R}} \exp \left(-(\mathbf{y}-\mathbf{Hx})^H(\sigma_n^2\mathbf{I}_{N_R \times N_R})^{-1}(\mathbf{y}-\mathbf{Hx})\right)\\
+		&=\frac{1}{\pi^{N_R}\sigma_n^{2N_R}}\exp\left(-\frac{1}{\sigma_n^2}||\mathbf{y}-\mathbf{xH}||^2\right)
+	\end{align*}
+	\item ML-Detection
+	\begin{align*}
+		\hat{x}=\underset{\mathbf{x}\in \mathscr{A}^{N_T}}{\mathrm{argmin}}||\mathbf{y}-\mathbf{xH}||^2=\underset{\mathbf{x}\in \mathscr{A}^{N_T}}{\mathrm{argmax}}\quad p(\mathbf{y}|\mathbf{x})
+	\end{align*}
+	\begin{itemize}
+		\item[$\rightarrow$] $M^{N_T}$ metric calculations $\rightarrow$ complexity is exponential in $N_T$!!
+		\item[$\rightarrow$] in general too complex in practice
+	\end{itemize}
+	\item Performance 
+	\begin{itemize}
+		\item consider worst case pairwise error probability (PEP) to evaluate \underline{diversity gain}
+		\item PEP $\rightarrow$ $x_i$ is transmitted but $x_j\neq x_i$ is detected\\
+		this happens if $||\mathbf{y}-\mathbf{Hx}_i||^2 > ||\mathbf{y}-\mathbf{Hx}_j||^2$\\
+		$\rightarrow\; ||\mathbf{n}||^2>||\mathbf{H}(\mathbf{x}_i-\mathbf{x}_j)+\mathbf{n}||^2$
+		\item the ``worst case'' is if $\mathbf{x}_i$ \& $\mathbf{x}_j$ differ only in one element \textit{i.e.},
+		\begin{align*}
+			 \mathbf{x}_i-\mathbf{x}_j=(x_{ni}-x_{nj})= \begin{bmatrix*} 0 \\ 0 \\ 0 \\ \vdots \\  1 \\ \vdots \\ 0 \\ 0  \end{bmatrix*}\leftarrow \text{``1'' in position } n
+		\end{align*}
+		where $\mathbf{x}_i=[x_{1i},x_{2i},\dots,x_{N_Ti}]$
+		\item $||\mathbf{n}||^2>||\underbrace{\mathbf{h}_n}_{\text{$n$th column of $\mathbf{H}$}}\underbrace{(x_{ni}-x_{nj})}_{\Delta x_n(i,j)}+\mathbf{n}||^2$
+		\item $||\mathbf{n}||^2> \mathbf{h}_n^H\mathbf{n} \Delta x^*_n(i,j)+\mathbf{n}^H\mathbf{h}_n\Delta x_n(i,j)+||\mathbf{n}||^2+||\mathbf{h}_n||^2-|\Delta x_n(i,j)|^2$
+		\begin{align*}
+			||\mathbf{h}_n||^2|\Delta x_n(i,j)|^2<\underbrace{-\mathbf{h}_n^H\mathbf{n}\Delta x_n(i,j)-\mathbf{n}^H\mathbf{h}_n \Delta x_n(i,j)}_
+			{\text{Gaussian random variable with variance $\sigma_{eq}^2=2\sigma_n^2|\Delta x_n(i,j)|^2||\mathbf{h}_n||^2$}}
+		\end{align*}
+		\item $\mathrm{Pr}\{\mathbf{x}_i\rightarrow \mathbf{x}_j\|\mathbf{H}\}=Q\left(\sqrt{\frac{||\mathbf{h}_n||^2|\Delta x_n(i,j)|^2}{2\sigma_n^2}}\right)$
+		\item $\mathrm{Pr}\{\mathbf{x}_i\rightarrow \mathbf{x}_j\}=\mathcal{E}\left\{Q\left(\sqrt{\frac{||\mathbf{h}_n||^2|\Delta x_n(i,j)|^2}{2\sigma_n^2}}\right)\right\}$\\
+		$\rightarrow$ use same approach as for space-time code design to get diversity order\\
+		or : SNR is 
+		\begin{align*}
+			\gamma_t = \frac{||\mathbf{h}_n||^2|\Delta x_n(i,j)|^2}{2\sigma_n^2} = \frac{|\Delta x_n(i,j)|^2}{2\sigma_n^2}(|h_{1n}|^2+|h_{2n}^2+\dots+|h_{N_Rn}|^2)
+		\end{align*}
+		\item same form as SNR of MRC with $N_R$ receive antennas
+		\item diversity gain of spatial multiplexing wit ML-decoding is
+		\begin{align*}
+			G_d=N_R
+		\end{align*}
+		\item diversity of $N_T$ transmit antennas is not exploited with spatial multiplexing
+		\item to exploit this additional gain, coding across space is required (at the expense of rate)\\
+			(Hier geh\"oren die detection performance kurven f\"ur BPSK hin)
+	\end{itemize}
+\end{itemize}
 \end{document}
