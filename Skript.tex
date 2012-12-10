@@ -41,7 +41,10 @@
 % }
 
 % Definition von römischen Zahlen
-\newcommand{\rom}[1]{$\underline{\overline{\text{#1}}}$} 
+\makeatletter
+\newcommand{\rmnum}[1]{\romannumeral #1}
+\newcommand{\Rmnum}[1]{\expandafter\@slowromancap\romannumeral #1@}
+\makeatother
 %\renewcommand{\familydefault}{\sfdefault}
 
 
@@ -318,7 +321,7 @@ where \begin{math} w_n\end{math} depends on the particular combining scheme.
 \begin{itemize}
 		\item[] $\Longrightarrow \text{Diversity gain: } G_d = N_R$
 		\item[] $\Longrightarrow \text{Combining gain: } G_c = \frac{b}{N_R}\Bigl( \frac{2N_R!}{a}\Bigr)^{\frac{1}{N_R}}$
-		\item[] vergleiche auch Blatt mit Kurven \rom{III} und \rom{IV}
+		\item[] vergleiche auch Blatt mit Kurven \Rmnum{3} und \Rmnum{4}
 	\end{itemize}
 \end{itemize}
 A similar asymptotic analysis can be conducted for the outage probability.
@@ -948,8 +951,42 @@ ZF $\leftrightarrow$ we require $\mathbf{FH}=\mathbf{I}_{N_T \times N_T}$
 	\item choose $\mathbf{F}$ that leads to the smallest noise enhancement
 	\item optimal $\mathbf{F}$ is the solution to the following problem:
 	\begin{align*}
-		\mathrm{min} \; &\mathrm{tr}\{\sigma_n^2\mathbf{FF}^H\}\\
-		\text{s.t } &\mathbf{FH}=\mathbf{I}_{N_T \times N_T}
+		\underset{\mathbf{F}}{\mathrm{min}} \;& \mathrm{tr}\{\sigma_n^2\mathbf{FF}^H\}\\
+		\text{s.t } &\mathbf{FH}=\mathbf{I}_{N_T \times N_T}\\
+		\text{ the constraint} \text{ is equivalent to }
+		&\mathrm{tr}\{(\mathbf{FH}-\mathbf{I})(\mathbf{FH}-\mathbf{I})^H\}=0
+	\end{align*}
+Lagrangian:
+	\begin{align*}
+		L(\mathbf{F})&=\mathrm{tr}\{\sigma_n^2\mathbf{FF}^H\}+\lambda \mathrm{tr}\{\mathbf{FHH}^H\mathbf{F}-\mathbf{FH}-\mathbf{H}^H\mathbf{F}^H+\mathbf{I}\}\\
+			&=\sigma_n^2\mathrm{tr}\{\mathbf{FF}^H\}+\lambda \mathrm{tr}\{\mathbf{FHH}^H\mathbf{F}^H\}-\lambda\mathrm{tr}\{\mathbf{FH}\}
+			-\lambda\mathrm{tr}\{\mathbf{H}^H\mathbf{F}^H\}+\lambda N_T
+	\end{align*}
+	\item use rules for complex matrix differentiation in Table \Rmnum{4} in paper by Hj\"orunges \& Gesbert
+	\begin{align*}
+		\frac{\delta L(\mathbf{F})}{\delta \mathbf{F}^*}=\sigma_n^2\mathbf{F}+\lambda\mathbf{FHH}^H-\lambda\mathbf{H}^H=0\\
+		\rightarrow \mathbf{F}(\sigma_n^2\mathbf{I}+\lambda\mathbf{HH}^H)=\lambda\mathbf{H}^H\\
+		\rightarrow \mathbf{F}=\lambda\mathbf{H}^H(\sigma_n^2\mathbf{I}+\lambda\mathbf{HH}^H)^{-1}
+	\end{align*}
+	use matrix inversion lemma
+	\begin{align*}
+	(\mathbf{A}+\mathbf{UBV})^{-1}=\mathbf{A}^{-1}-\mathbf{A}^{-1}\mathbf{U}(\mathbf{B}^{-1}+\mathbf{VA}^{-1}\mathbf{U})^{-1}\mathbf{VA}^{-1}
+	\end{align*}
+	\begin{align*}
+	\rightarrow\mathbf{F}&=\lambda\mathbf{H}^H\left[\frac{1}{\sigma_n^2}\mathbf{I}-\frac{1}{\sigma_n^2}\mathbf{H}
+	\left[\frac{1}{\lambda}\mathbf{I}+\frac{1}{\sigma_n^2}\mathbf{H}^H\mathbf{H}\right]^{-1}\mathbf{H}^H\frac{1}{\sigma_n^2}\right]\\
+	&=\frac{\lambda}{\sigma_n^2}\left[\underbrace{\mathbf{I}}_{\left(\frac{1}{\lambda}\mathbf{I}+\frac{1}{\sigma_n^2}\mathbf{H}^H\mathbf{H}\right)
+	\left(\frac{1}{\lambda}\mathbf{I}+\frac{1}{\sigma_n^2}\mathbf{H}^H\mathbf{H}\right)^{-1}}-\frac{1}{\sigma_n^2}\mathbf{H}^H\mathbf{H}
+	\left[\frac{1}{\lambda}\mathbf{I}+\frac{1}{\sigma_n^2}\mathbf{H}^H\mathbf{H}\right]\right]\mathbf{H}^H\\
+	&=\frac{\lambda}{\sigma_n^2}\left[\frac{1}{\lambda}\mathbf{I}+\frac{1}{\lambda}\mathbf{H}^H\mathbf{H}-\frac{1}{\sigma_n^2}\mathbf{H}^H\mathbf{H}\right]
+	\left(\frac{1}{\lambda}\mathbf{I}+\frac{1}{\sigma_n^2}\mathbf{H}^H\mathbf{H}\right)^{-1}\mathbf{H}^H\\
+	&=\frac{1}{\sigma_n^2}\left(\frac{1}{\lambda}\mathbf{I}+\frac{1}{\sigma_n^2}\mathbf{H}^H\mathbf{H}\right)\mathbf{H}^H
+	\end{align*}
+	\item How to choose $\lambda$
+	\begin{align*}
+	\mathbf{FH}&=\frac{1}{\sigma_n^2}\left(\frac{1}{\lambda}\mathbf{I}+\frac{1}{\sigma_n^2}\mathbf{H}^H\mathbf{H}\right)^{-1}\mathbf{H}^H\mathbf{H}=\mathbf{I}\\
+	\frac{1}{\sigma_n^2}\mathbf{H}^H\mathbf{H}&=\frac{1}{\lambda}\mathbf{I}+\frac{1}{\sigma_n^2}\mathbf{H}^H\mathbf{H}\\
+	\Rightarrow \lambda \rightarrow \infty
 	\end{align*}
 \end{itemize}
 \end{document}
