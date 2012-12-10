@@ -933,4 +933,23 @@ for given $\mathbf{h}$, $z$ is a gaussian random variable
 		\item minimum mean squared error (MMSE) crtiterion
 	\end{itemize}
 \end{itemize}
+\subsubsection{ZF Detection}
+\begin{align*}
+	\mathbf{r}=\mathbf{Fy}=\mathbf{F}(\mathbf{Hx}+\mathbf{n})=\mathbf{FHx}+\mathbf{Fn}
+\end{align*}
+ZF $\leftrightarrow$ we require $\mathbf{FH}=\mathbf{I}_{N_T \times N_T}$
+\begin{itemize}
+	\item noise covariance matrix
+	\begin{align*}
+		\Phi_{ee}=\mathcal{E}\{\mathbf{Fn}(\mathbf{Fn})^H\}=\sigma_n^2\mathbf{FF}^H
+	\end{align*}
+	\item $N_T=N_R \; \rightarrow \mathbf{FH}=\mathbf{I}_{N_T \times N_T} \; \rightarrow \mathbf{F}=\mathbf{H}^{-1}$ assuming $\mathbf{H}$ is invertible
+	\item $\rightarrow$ $N_T \leq N_R$ $\rightarrow$ which one of the many $\mathbf{F}$ that yield $\mathbf{FH}=\mathbf{I}_{N_T \times N_T}$?
+	\item choose $\mathbf{F}$ that leads to the smallest noise enhancement
+	\item optimal $\mathbf{F}$ is the solution to the following problem:
+	\begin{align*}
+		\mathrm{min} \; &\mathrm{tr}\{\sigma_n^2\mathbf{FF}^H\}\\
+		\text{s.t } &\mathbf{FH}=\mathbf{I}_{N_T \times N_T}
+	\end{align*}
+\end{itemize}
 \end{document}
