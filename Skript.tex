@@ -988,5 +988,30 @@ Lagrangian:
 	\frac{1}{\sigma_n^2}\mathbf{H}^H\mathbf{H}&=\frac{1}{\lambda}\mathbf{I}+\frac{1}{\sigma_n^2}\mathbf{H}^H\mathbf{H}\\
 	\Rightarrow \lambda \rightarrow \infty
 	\end{align*}
+	\begin{align*}
+	\Rightarrow \boxed{\mathbf{F}=(\mathbf{H}^H\mathbf{H})^{-1}}\;\widehat{=}\text{ Moore-Penrose pseudoinverse}	
+	\end{align*}
+noise covariance:
+\begin{align*}
+	\Phi_{ee}=\sigma_n^2\mathbf{FF}^H=\sigma_n^2(\mathbf{H}^H\mathbf{H})^{-1}\underbrace{\mathbf{H}^H\mathbf{H}(\mathbf{H}\mathbf{H})^{-1}}_{\mathbf{I}}
+	=\sigma_n^2(\mathbf{H}^H\mathbf{H})^{-1}
+\end{align*}
+$\Phi_{ee}$ is not in general a diagonal matrix
+	\begin{itemize}
+		\item effective noise $\mathbf{Fn}$ is spatially correlated
+		\item ''equalization´´ of channel leads to coloring of noise
+	\end{itemize}
+	\item Interpretation:\\
+	we have
+	\begin{align*}
+	\mathbf{FHx} = \begin{bmatrix*} \mathbf{f}_1 \\ \mathbf{f}_2 \\ \vdots \\  \mathbf{f}_{N_T}  \end{bmatrix*} \begin{bmatrix*} \mathbf{h}_1 & \mathbf{h}_2 &\dots & \mathbf{h}_{N_T}\end{bmatrix*}\mathbf{x}=\mathbf{x}	
+	\end{align*}
+	\begin{itemize}
+		\item $\mathbf{f}_i\mathbf{h}_i=1 \quad \mathbf{f}_i\mathbf{h}_j=0 \quad \forall i \neq j$
+		\item $\mathbf{f}_i^T$ is orthogonal to $\begin{bmatrix*} \mathbf{h}_1 & \dots \mathbf{h}_{i-1} & \mathbf{h}_{i+1} & \dots & \mathbf{h}_{N_T} \end{bmatrix*}
+		\updownarrow N_R$
+		\item $\mathbf{f}_i^T$ is confined to an $N_R-(N_T-1)$ dimensional subspace of the $N_R$ dimensional space spanned by $\mathbf{H}$ 
+	\end{itemize}
+	\item Diversity gain
 \end{itemize}
 \end{document}
