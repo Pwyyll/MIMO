@@ -936,7 +936,7 @@ for given $\mathbf{h}$, $z$ is a gaussian random variable
 		\item minimum mean squared error (MMSE) crtiterion
 	\end{itemize}
 \end{itemize}
-\subsubsection{ZF Detection}
+\subsubsection*{ZF Detection}
 \begin{align*}
 	\mathbf{r}=\mathbf{Fy}=\mathbf{F}(\mathbf{Hx}+\mathbf{n})=\mathbf{FHx}+\mathbf{Fn}
 \end{align*}
@@ -1013,5 +1013,77 @@ $\Phi_{ee}$ is not in general a diagonal matrix
 		\item $\mathbf{f}_i^T$ is confined to an $N_R-(N_T-1)$ dimensional subspace of the $N_R$ dimensional space spanned by $\mathbf{H}$ 
 	\end{itemize}
 	\item Diversity gain
+	\begin{itemize}
+		\item e.g. SISO model:  $ r_i = \mathbf{f}_i\cdot\mathbf{h}_i\mathbf{x}_i + \mathbf{f}_i\cdot\mathbf{n}_i $
+		\begin{itemize}
+			\item[$\rightarrow$] $ \text{SNR}_{\text{eq}} $\scalebox{1.3}[1.3]{ $= \frac{\epsilon_s|\mathbf{f}_i\mathbf{h}_i|^2}{\sigma_n^2\|\mathbf{f}_i\|^2} = \frac{\epsilon_s}{\sigma_n^2}\left | \tilde{\mathbf{f}}_i\cdot\mathbf{h}_i\right | $},\quad  where $\mathbf{f}_i =\alpha\mathbf{f}_i  $ with $\|\tilde{\mathbf{f}}_i \|^2 = 1$  
+			\item[] we can represent $\mathbf{f}_i$ as: $\tilde{\mathbf{f}}_i^T = \alpha\mathbf{M}\boldsymbol{\beta}$,\medskip\\ where: $\mathbf{M} \in \mathbb{C}^{N_R\times(N_R-N_T+1)} \text{ and } \boldsymbol{\beta} \in \mathbb{C}^{(N_R - N_T +1)\times 1} \quad\widehat{=} $ basis of subspace
+			\item[$\rightarrow$] $\tilde{\mathbf{f}}_i\textbf{M}_i = \boldsymbol{\beta}^T\mathbf{M}_i^T\mathbf{M}_i $,\medskip\\  where: $\mathbf{M}^H\mathbf{M} = \tilde{\mathbf{M}}_i = \mathbf{I} $ and $ \tilde{\mathbf{M}}_i \rightarrow \mathcal{CN} (0, \sigma_n^2\mathbf{I}_{(N_R - N_T + 1)} $\medskip\\ (since rows of $\mathbf{M}^T$ are orthogonal)
+			\item[] 
+				\begin{align*}		
+					\text{SNR}_{\text{eq}} = \frac{\epsilon_s}{\sigma_n^2}\alpha^2\left| \sum\limits_{j = 1}^{N_R - N_T+1}\boldsymbol{\beta}_{ji}\tilde{\mathbf{h}}_ji \right|^2; \tilde{\mathbf{h}}_i &= \begin{pmatrix}
+					\tilde{h}_{1i}, & \tilde{h}_{2i}, & \dots , & \tilde{h}_{N_R - N_T +1}\end{pmatrix}^T\\ \boldsymbol{\beta}_i &= \begin{pmatrix}\beta_{1i}, & \dots , & \beta_{N_R - N_T +1,i}\end{pmatrix}^T										  
+				\end{align*}  		
+			\item[$\rightarrow$] $\text{SNR}_{\text{eq}} $ includes only $ N_R - N_T + 1$ independent Gaussian RV
+			\item[$\rightarrow$] diversity gain is limited to: $\underline{G_d = N_R - N_T + 1} $
+		\end{itemize}
+		\item[] \underline{Example:} \begin{align*} N_T &= N_R = 3 \\ G_d^{ZF} &= 1 \text{ but } G_d^{ML} = N_R = 3 \end{align*} $ \rightarrow $ huge performance loss because of linear ZF
+	\end{itemize}		
 \end{itemize}
+\subsubsection*{MMSE detection}
+\begin{itemize}
+\item ZF criterion may be too strict and leads to noise enhancement
+	\begin{itemize}
+		\item[$\rightarrow$] maybe it is better to allow some interferences between signals but reduce noise enhancement
+		\item[$\rightarrow$] What is the optimal trade-off between interference and noise?
+		\item[$\rightarrow$] MMSE criterion
+	\end{itemize}
+\item MMSE criterion 
+	\begin{itemize}
+		\item error signal: $ \mathbf{e} = \mathbf{Fy} - \mathbf{x} $
+		\item total error variance: $\sigma_e^2 = \mathcal{E}\bigl \{ \| \mathbf{e}\| ^2\bigr\} = \mathcal{E}\bigl \{\text{tr}\{\mathbf{ee}^H\} \bigr\} = \text{tr}\bigl\{\mathcal{E}\{\mathbf{ee}^H\}\bigr\} = \text{tr}\{ \Phi_{ee}\}$ 
+		\item $\Phi_{ee}$: error covariance matrix
+		\item optimal filter: $\mathbf{F}_{\text{opt}} = \underset{\mathbf{F}}{\text{argmin}}\text{tr}\{\Phi_{\text{ce}}\} $
+	\end{itemize}
+	\item Deviation of $\mathbf{F}_{\text{opt}}$
+	\begin{itemize}
+		\item $\Phi_{\text{ce}} = \mathcal{E}\{\mathbf{ee}^H\} = \mathcal{E}\{(\mathbf{Fy} - \mathbf{x})(\mathbf{Fy} - \mathbf{x})^H \} = \mathbf{F}\cdot\boldsymbol{\Phi}_{yy}\cdot\mathbf{F}^H - \mathbf{F}\cdot\boldsymbol{\Phi}_{yx} - \boldsymbol{\Phi}_{xx}\cdot\boldsymbol{\Phi}_{xy}\cdot\mathbf{F}^H + \boldsymbol{\Phi}_{xx} $
+		\item[] with:
+		\begin{align*}
+			\boldsymbol{\Phi}_{yy} &= \mathcal{E}\{ \mathbf{yy}^H\} = \mathcal{E}\{(\mathbf{Hx} + \mathbf{n})(\mathbf{Hx} + \mathbf{n})^H\} = \epsilon_s \cdot\mathbf{H}\mathbf{H}^H + \sigma_n^2\cdot\mathbf{I}_{N_R\times N_T}\\
+			\boldsymbol{\Phi}_{yx} &= \mathcal{E}\{ \mathbf{yx}^H\} = \mathcal{E}\{ (\mathbf{Hx} + \mathbf{n})\cdot\mathbf{x}^H\} = \epsilon_s\cdot\mathbf{H}^H = \boldsymbol{\Phi}_{xy}^H\\
+			\boldsymbol{\Phi}_{xx} &= \epsilon_s\cdot\mathbf{I}_{N_T\times N_R}
+		\end{align*}
+		\item $\mathbf{F}_{\text{opt}} \quad \rightarrow \quad \frac{d}{d\mathbf{F}^*}\Bigl ( \text{tr}\{\mathbf{F}\boldsymbol{\Phi}_{yy}\mathbf{F}^H\} - \text{tr}\{\mathbf{F}\boldsymbol{\Phi}_{yx}\} - \text{tr}\{ \boldsymbol{\Phi}_{xy}\mathbf{F}^H\} + \text{tr}\{\boldsymbol{\Phi}_{xx}\}\Bigr )\overset{!}{=} 0 $
+		\item[] with Table \Rmnum{4} in paper by Hjoranges $\&$ Gesbert:
+		\begin{itemize}
+			\item[$\Rightarrow$] $\mathbf{F}\cdot\boldsymbol{\Phi}_{yy} - \boldsymbol{\Phi}_{xy} = 0$  	
+			\item[$\Rightarrow$] $ \mathbf{F}_{\text{opt}} = \boldsymbol{\Phi}_{xy}\cdot\boldsymbol{\Phi}_{yy}^{-1} = \epsilon_s\mathbf{H}^H\bigl(\epsilon_s\mathbf{H}\mathbf{H}^H + \sigma_n^2\mathbf{I}\bigr)^{-1} \medskip\\ = \text{(Matrix inversion Lemma)} =\medskip \\ = \bigl( \mathbf{H}^H\mathbf{H} + \frac{\sigma_n^2}{\epsilon_s}\mathbf{I}\bigr)^{-1}\cdot\mathbf{H}^H$
+		\end{itemize}
+		\item Comparison:
+		\begin{align*}
+			 \mathbf{F}_{\text{MMSE}} = \bigl( \mathbf{H}^H\mathbf{H} + \frac{\sigma_n^2}{\epsilon_s}\mathbf{I} \bigr)^{-1}\cdot\mathbf{H}^H &\xrightarrow[{\frac{\sigma_n^2}{\epsilon} \to 0}]{}\bigl(\mathbf{H}^H\cdot\mathbf{H}\bigr)^{-1}\mathbf{H}^H = \mathbf{F}_{ZF}\\ &\xrightarrow[\frac{\sigma_n^2}{\epsilon_s} \to\infty]{} \frac{\epsilon_s}{\sigma_n^2} \cdot\mathbf{H}^H = \mathbf{F}_{MF} \quad \widehat{=} \text{matched filter}
+		\end{align*}
+		\item[$\Rightarrow$] For high SNR, $\frac{\epsilon_s}{\sigma_n^2}$, the MMSE filter approaches the ZF-Filter, for low SNR, it approaches the matched filter. \medskip\\ $\rightarrow$ MMSE receiver yields the same diversity gain as the ZF receiver \medskip\\ $G_d^{MMSE} = G_d^{ZF} = N_R - N_T + 1\leq G_d^{ML} = N_R$
+		\item End-to-End Channel: $\mathbf{K} = \mathbf{FH} = \bigl(\mathbf{H}^H\mathbf{H} + \frac{\sigma_n^2}{\epsilon_s}\cdot\mathbf{I}\bigr)^{-1}\cdot\mathbf{H}^H\cdot\mathbf{H} \neq \text{diagonal matrix}$
+		\begin{itemize}
+			\item[$\Rightarrow$] crosstalk/interference between elements $\mathbf{x}$ in received signal after filtering $\mathbf{r}$.
+			\item[] elements of $\mathbf{K}: K_{l,n}$		
+		\end{itemize}
+		\item Covariance for $\mathbf{F}_{\text{opt}}$				
+		\begin{align*}
+			\boldsymbol{\Phi}_{ee}  &= \boldsymbol{\Phi}_{xy}\cdot\overbrace{\boldsymbol{\Phi}_{yy}^{-1} \cdot\boldsymbol{\Phi}_{yy}\cdot\boldsymbol{\Phi}_{yy}^{-1}}^{\boldsymbol{\Phi}_{yy}^{-1}}\cdot \boldsymbol{\Phi}_{xy}^H - \boldsymbol{\Phi}_{xy}\cdot\boldsymbol{\Phi}_{yy}^{-1}\cdot\boldsymbol{\Phi}_{yx} - \boldsymbol{\Phi}_{xy}\cdot\boldsymbol{\Phi}_{yy}^{-1}\cdot\boldsymbol{\Phi}_{xy}^H + \boldsymbol{\Phi}_{xx} \\ &= \boldsymbol{\Phi}_{xx} - \overbrace{\boldsymbol{\Phi}_{xy}\cdot\boldsymbol{\Phi}_{yy}^{-1}}^{\mathbf{F}_{\text{opt}}}\cdot\boldsymbol{\Phi}_{yx}\\ &= \epsilon_s\mathbf{I} - \epsilon_s\bigl(\mathbf{H}^H\mathbf{H} + \frac{\sigma_n^2}{\epsilon_s}\cdot\mathbf{I}\bigr)^{-1}\cdot\mathbf{H}^H\mathbf{H}	 = \text{(Matrix inversion Lemma)}\\ &= \sigma_n^2 \bigl(\mathbf{H}^H\mathbf{H} + \frac{\sigma_n^2}{\epsilon_s}\cdot\mathbf{I}\bigr)^{-1}\\
+			\boldsymbol{\Phi}_{ee} &= \epsilon_s(\mathbf{I} - \mathbf{K})	
+		\end{align*}
+  		\begin{itemize}
+  			\item[$\rightarrow$] $ 0 \leq K_{m,m} \leq 1 $ since main diagonal elements of $ \boldsymbol{\Phi}_{ee} $ are $ 0 \leq [\boldsymbol{\Phi}_{ee}]_{m,m} \leq \epsilon_s $
+  			\item[] siehe auch Abbildung \ref{MMSE}
+  		\end{itemize}	
+	\end{itemize}
+\end{itemize}
+	\begin{figure}[h]
+%		\hspace*{-2cm}
+		\includegraphics[width = 0.6\textwidth, angle = -90]{MMSE_klein}
+		\label{MMSE}
+	\end{figure}
 \end{document}
