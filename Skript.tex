@@ -1043,11 +1043,11 @@ $\Phi_{ee}$ is not in general a diagonal matrix
 		\item error signal: $ \mathbf{e} = \mathbf{Fy} - \mathbf{x} $
 		\item total error variance: $\sigma_e^2 = \mathcal{E}\bigl \{ \| \mathbf{e}\| ^2\bigr\} = \mathcal{E}\bigl \{\text{tr}\{\mathbf{ee}^H\} \bigr\} = \text{tr}\bigl\{\mathcal{E}\{\mathbf{ee}^H\}\bigr\} = \text{tr}\{ \Phi_{ee}\}$ 
 		\item $\Phi_{ee}$: error covariance matrix
-		\item optimal filter: $\mathbf{F}_{\text{opt}} = \underset{\mathbf{F}}{\text{argmin}}\text{tr}\{\Phi_{\text{ce}}\} $
+		\item optimal filter: $\mathbf{F}_{\text{opt}} = \underset{\mathbf{F}}{\mathrm{argmin}}\,\mathrm{tr}\{\Phi_{ee}\} $
 	\end{itemize}
 	\item Deviation of $\mathbf{F}_{\text{opt}}$
 	\begin{itemize}
-		\item $\Phi_{\text{ce}} = \mathcal{E}\{\mathbf{ee}^H\} = \mathcal{E}\{(\mathbf{Fy} - \mathbf{x})(\mathbf{Fy} - \mathbf{x})^H \} = \mathbf{F}\cdot\boldsymbol{\Phi}_{yy}\cdot\mathbf{F}^H - \mathbf{F}\cdot\boldsymbol{\Phi}_{yx} - \boldsymbol{\Phi}_{xx}\cdot\boldsymbol{\Phi}_{xy}\cdot\mathbf{F}^H + \boldsymbol{\Phi}_{xx} $
+		\item $\Phi_{ee}= \mathcal{E}\{\mathbf{ee}^H\} = \mathcal{E}\{(\mathbf{Fy} - \mathbf{x})(\mathbf{Fy} - \mathbf{x})^H \} = \mathbf{F}\cdot\boldsymbol{\Phi}_{yy}\cdot\mathbf{F}^H - \mathbf{F}\cdot\boldsymbol{\Phi}_{yx} - \boldsymbol{\Phi}_{xx}\cdot\boldsymbol{\Phi}_{xy}\cdot\mathbf{F}^H + \boldsymbol{\Phi}_{xx} $
 		\item[] with:
 		\begin{align*}
 			\boldsymbol{\Phi}_{yy} &= \mathcal{E}\{ \mathbf{yy}^H\} = \mathcal{E}\{(\mathbf{Hx} + \mathbf{n})(\mathbf{Hx} + \mathbf{n})^H\} = \epsilon_s \cdot\mathbf{H}\mathbf{H}^H + \sigma_n^2\cdot\mathbf{I}_{N_R\times N_T}\\
