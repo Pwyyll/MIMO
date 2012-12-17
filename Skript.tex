@@ -564,7 +564,7 @@ A similar asymptotic analysis can be conducted for the outage probability.
 			{\small[Alamouti: A simple transmit diversity technique for wireless communication, IEEE JSAC 1998]}
 		\end{itemize}
 \end{itemize}
-\subsubsection*{Optimal Detection}
+\subsubsection{Optimal Detection}
 \begin{itemize}
 	\item Signal model:
 	\begin{align*}
@@ -588,7 +588,7 @@ A similar asymptotic analysis can be conducted for the outage probability.
 		$\rightarrow$ complexity increases exponentially with $K$
 	\end{itemize}
 \end{itemize}
-\subsubsection*{Types of STBCs}
+\subsubsection{Types of STBCs}
 \begin{itemize}
 	\item Orthogonal STBCs (OSTBCs)
 	\begin{itemize}
@@ -706,7 +706,7 @@ because of symmetry it suffices to consider $r_1$
 		\item noncoherent STBCs (On-Off-Keying)
 	\end{itemize}
 \end{itemize}
-\subsubsection*{Space Time Code Design}
+\subsubsection{Space Time Code Design}
 Given: 
 \begin{itemize}
 	\item Code  $\mathscr{X} = \bigl\{\textbf{X}_1,\dots ,\textbf{X}_{|\mathscr{X}|}\bigr\}$
@@ -813,7 +813,7 @@ for given $\mathbf{h}$, $z$ is a gaussian random variable
 	\item diversity increases to $N_TN_R$ if $N_K$ receive antennas are available
 	\item Example: see B\"aro, Bauch, Hansmann: Improved codes for space-time trellis coded modulation. IEEE Comm. Letters, 2000.
 \end{itemize}
-\subsection*{Partial or Imperfect CSI at the Transmitter}
+\subsection{Partial or Imperfect CSI at the Transmitter}
 \begin{itemize}
 	\item In practice, the CSI cannot be perfect. Channel estimation, quantization and noisy feedback channels introduce errors.
 	\item If the system is optimized for perfect CSI (\textit{e.g.} using MRT or EGT), the performance for imperfect CSI may be worse than for a system designed for no CSI(\textit{e.g.} space-time coding)
@@ -865,7 +865,7 @@ for given $\mathbf{h}$, $z$ is a gaussian random variable
 			\item complexity
 		\end{itemize}
 \end{itemize}
-\subsection*{Optimum Detection}
+\subsection{Optimum Detection}
 \begin{itemize}
 	\item Elements of $\mathbf{n}$ are gaussian random variables with variance $\sigma_n^2$
 	\item $\mathbf{H}$ is known at the receiver
@@ -915,7 +915,7 @@ for given $\mathbf{h}$, $z$ is a gaussian random variable
 			(Hier geh\"oren die detection performance kurven f\"ur BPSK hin)
 	\end{itemize}
 \end{itemize}
-\subsection*{Linear Receivers}
+\subsection{Linear Receivers}
 \begin{itemize}
 	\item How can we avoid the complexity associated wit the joint detection of the elements of $\mathbf{x}$?
 	\item Idea: Employ linear filter (matrix) to seperate  the elements of $\mathbf{x}$
@@ -936,7 +936,7 @@ for given $\mathbf{h}$, $z$ is a gaussian random variable
 		\item minimum mean squared error (MMSE) crtiterion
 	\end{itemize}
 \end{itemize}
-\subsubsection*{ZF Detection}
+\subsubsection{ZF Detection}
 \begin{align*}
 	\mathbf{r}=\mathbf{Fy}=\mathbf{F}(\mathbf{Hx}+\mathbf{n})=\mathbf{FHx}+\mathbf{Fn}
 \end{align*}
@@ -1030,7 +1030,7 @@ $\Phi_{ee}$ is not in general a diagonal matrix
 		\item[] \underline{Example:} \begin{align*} N_T &= N_R = 3 \\ G_d^{ZF} &= 1 \text{ but } G_d^{ML} = N_R = 3 \end{align*} $ \rightarrow $ huge performance loss because of linear ZF
 	\end{itemize}		
 \end{itemize}
-\subsubsection*{MMSE detection}
+\subsubsection{MMSE detection}
 \begin{itemize}
 \item ZF criterion may be too strict and leads to noise enhancement
 	\begin{itemize}
@@ -1086,4 +1086,87 @@ $\Phi_{ee}$ is not in general a diagonal matrix
 		\includegraphics[width = 0.6\textwidth, angle = -90]{MMSE_klein}
 		\label{MMSE}
 	\end{figure}
+	
+\subsubsection{SNR (biased vs. unbiased)}
+\paragraph*{a) biased SNR}
+\begin{align*}
+	\text{SNR}_{\text{bias,m}} &= \frac{\epsilon_s}{[\boldsymbol{\Phi}_{ee}]_{mm}} = \frac{\epsilon_s}{\epsilon_s(1 - K_{mm})} = \frac{1}{1 - K_{mm}}, \quad 1\leq m \leq 4 
+\end{align*}
+	\textit{Anmerkung: } $\mathbf{K} = \mathbf{F}_{\text{opt}}\cdot\mathbf{H} \rightarrow \text{SNR} = 1 $ \textit{falls } $ \mathbf{K} = \text{zeros()} \Rightarrow \text{woher SNR } = 1 $ \textit{ bei keiner Uebertragung?} $\Rightarrow $ \textit{ nicht vorteilhaft: siehe: b) unbiased SNR}  % \ref{unbiased_SNR}
+but: 
+\begin{itemize}
+	\item $\text{SNR}_{\text{bias,m}} $ does not represent the actual SNR since the main diagonal elements of $ \mathbf{K} $ are smaller than 1
+	\item $ \mathbf{r} = \mathbf{FHx} + \mathbf{Fn} = \mathbf{Kx} + \underbrace{\mathbf{F}\tilde{\mathbf{n}} }_{\tilde{n} = [\tilde{n}_1, \dots,\tilde{n}_{N_T}]^T } $
+	\item $r_m = \mathbf{K}_{mm}x_m + \underset{ n\neq m}{\sum\limits^{N_T}_{n = 1}}K_{mn}x_n + \tilde{n}_m ,\quad \mathbf{K}_{mm} < 1 $
+\end{itemize}
+\paragraph*{b) unbiased SNR}
+\label{unbiased_SNR}
+\begin{itemize}
+	\item remove bias: $r_m^\prime = \frac{r_m}{K_{mm}} = x_m + \frac{\tilde{e}_m}{K_{mm}} $
+	\item SNR?
+	\item scaling matrix: $ \mathbf{C} = \text{diag}\bigl\{\frac{1}{K_{11}}, \frac{1}{K_{22}}, \dots, \frac{1}{K_{N_TN_T}}  \bigr\} $
+	\item $\mathbf{r}^\prime = \mathbf{Cr} \rightarrow \mathbf{e}^\prime = [e^\prime_1, \dots, e^\prime_{N_T}]^T = \mathbf{r}^\prime - \mathbf{x}  = \mathbf{Cr} - \mathbf{x} = \mathbf{CFy} - \mathbf{x} $
+	\item $\boldsymbol{\Phi}_{ee} = \mathcal{E}\Bigl\{\bigr(\mathbf{CFy} - \mathbf{x}\bigr)\bigl(\mathbf{CFy} - \mathbf{x}\bigr)^H\Bigr\} = \mathbf{cF}\boldsymbol{\Phi}_{yy}\mathbf{F}^H\mathbf{C}^H - \mathbf{cF}\boldsymbol{\Phi}_{yx} - \boldsymbol{\Phi}_{xy}\mathbf{F}^H\mathbf{C}^H + \boldsymbol{\Phi}_{xx}$
+	\item $ \mathbf{F} = 	\mathbf{F}_{\text{opt}} \rightarrow \mathbf{F}_{\text{opt}}\boldsymbol{\Phi}_{yy} = \boldsymbol{\Phi}_{xy} = \epsilon_s\cdot\mathbf{H}^H $
+	\item[$\rightarrow$] $\boldsymbol{\Phi}_{e^\prime e^\prime} = \epsilon_s\mathbf{C}\underbrace{\mathbf{H}^H\mathbf{F}^H}_{\mathbf{K}^H}\mathbf{C}^H - \epsilon_s\mathbf{C}\underbrace{\mathbf{FH}}_{\mathbf{K}} - \epsilon_s\underbrace{\mathbf{H}^H\mathbf{F}^H}_{\mathbf{K}^H}\mathbf{C}^H  + \epsilon_s\mathbf{I} \\ \quad = \epsilon_s\bigl[\mathbf{I} + (\mathbf{C} - \mathbf{I})\mathbf{K}^H\mathbf{C}^H - \mathbf{CK}\bigr]$  
+	\item[] \textit{Anmerkung: nur Hauptdiagonalelemente interessieren, da diese die Varianz darstellen}
+	\item[$\rightarrow$] maindiagonalelements of $\boldsymbol{\Phi}_{e^\prime e^\prime} =  $ variances of $ e^\prime _m \quad = \epsilon_s\Bigl ( 1 + \bigl (\frac{1}{K_{mm}} - 1\bigr )   K_{mm}\frac{1}{K_{mm}}  - \frac{1}{K_{mm}}  K_{mm}\Bigr )  = \epsilon_s\frac{1 - K_{mm}}{K_{mm}}$
+	\item[$\rightarrow$] $\text{SNR}_{\text{unbias,m}} = \frac{\epsilon_s}{[\boldsymbol{\Phi}_{e^\prime e^\prime}]_{mm}} = \frac{\epsilon_s}{\epsilon_s\frac{1 - K_{mm}}{K_{mm}}} = \frac{K_{mm}}{1 - K_{mm}} = \frac{1}{1 - K_{mm}} - 1 = \text{SNR}_{bias,m} - 1,  \quad 1\leq m \leq N_T $
+	\item[$\rightarrow$] The SNR after bias removal is by \glqq 1\grqq\, smaller than the \glqq biased \grqq SNR $\rightarrow$ general result valid for any type of MMSE estimation
+	\item[$\rightarrow$] vgl. Abbildung \ref{MMSE}
+\end{itemize}
+\subsection{Decision - Feadback Equalization (Detection)}
+\begin{itemize}
+	\item Also known as: 
+	\begin{itemize}
+		\item BLAST (Bell Laboratories space-time system)
+		\item successive interference cancellation		
+	\end{itemize}
+	\item Problem of linear receiver: Noise enhancementbecause of linear filtering $\rightarrow$ nonlinear filtering processing necessary
+\end{itemize}
+\subsubsection{Basic Idea}
+\begin{itemize}
+	\item Recall (linear filter): $\mathbf{FH} = \mathbf{I} $ for linear $F $ receiver $\rightarrow $ ith row of $\mathbf{F}, \mathbf{f}_i, $ is orthogonal to the jth column of $\mathbf{H}, \mathbf{h}_j$, if $ i \neq j$ (if $i = j$: inner product = 1)  
+	\item we can detect $x$, based on $r_i = \mathbf{f}_i\mathbf{y} $
+	\item Once we have detected $x_i$, we can substract its contribution from $\mathbf{y}$: $\mathbf{y}_1 = \mathbf{y} - \mathbf{h}_i\hat{\mathbf{x}}_i $ ($\hat{\mathbf{x}}_i $ is detected symbol, we assume for now, $\hat{x}_i = x_i $) 
+	\item $\mathbf{y}_1 $ can be expressed as $ \mathbf{y}_1 = \mathbf{H}_1\mathbf{x}_1 + n$ where 
+	\begin{align*}
+		\mathbf{H}_1 &= \bigl[\mathbf{h}_1, \dots ,\mathbf{h}_{i-1},\mathbf{h}_{i+1},\dots ,\mathbf{h}_{N_T} \bigr] \\
+		\mathbf{x}_i &= \bigl[x_1, \dots , x_{i-1}, x_{i+1}, \dots ,x_{N_T}\bigr]
+	\end{align*}
+	\begin{itemize}
+		\item[$\rightarrow$] we have reduced the number of signal streams to $N_T - 1$ ($N_R $ bleibt gleich)
+	\end{itemize}
+	\item apply now linear ZF filter for symbol to detected next, e.g. $x_j $, where $ j\in \bigl\{1, \dots ,i - 1, i + 1, \dots , N_T\bigr\} $
+	\item[$\rightarrow$] $ \mathbf{r}_j = \mathbf{f}_j\mathbf{y}_1 $ where $\mathbf{f}_j $ is the ZF filter for $\mathbf{H}_1$ 
+	\item substract contribution of $\mathbf{x}_j $ from $\mathbf{y}_1 $: $\mathbf{y}_2 = \mathbf{y}_1 - \mathbf{h}_j\mathbf{x}_j $
+	\item substract until last symbol is detected
+	\item Blockdiagramm % Blockdiagramm einfuegen
+	\item Observations:
+	\begin{itemize}
+		\item The order in which the $x_1 $ are detected can be freely chosen and effects the performance $\rightarrow  N_T! $ possible orders $\rightarrow$ cannot explore all of them
+		\item Practical approach: Select in each step that $x_i $ for which the noise variance enhancement is minimum, i.e., which has the smallest $\mathcal{E}\Bigl\{|\mathbf{f}_i\mathbf{n}|2\Bigr\} = \sigma _n^2\|\mathbf{f}_i\|^2 $ 
+	\end{itemize}
+	\item Diversity order:
+	\begin{itemize}
+		\item stage 1: $G_d^1 = N_R - N_T + 1 $
+		\item stage 2: $G_d^2 = G_d^1 + 1 = N_R - N_T +2 $
+		\item[ $\vdots$]
+		\item stage $N_T$: $G_d^{N_T} = N_R $
+		\item overall: $\underline{G_d = N_R - N_T +1} $
+		\item \textit{(Anmerkung: der schlechteste Fall dominiert (Stage 1), weitere koennen nur schwer beeinflussen)}
+	\end{itemize}
+\end{itemize}
+\subsubsection*{ZF - DFE - Matrix Model}
+\begin{itemize}
+	\item Signal model: $ \mathbf{y} = \mathbf{Hx} + \mathbf{n} = \underbrace{\mathbf{HP}}_{\tilde{\mathbf{H}}}\cdot\underbrace{\mathbf{P}^{-1}\mathbf{x}}_{\tilde{\mathbf{x}}} + \mathbf{n} $ with permutation matrix $\mathbf{P} $
+	\item $\mathbf{P} $ has one \glqq 1\grqq\, per column and row, all other elements are \glqq 0\grqq 
+	\item[$\rightarrow$] can change the detection order to maximize performance
+	\item note: $\mathbf{P}^T = \mathbf{P}^{-1} $
+	\item Example: 
+	\begin{align*}
+		\mathbf{P} &= \begin{pmatrix*}[r] 0 & 0 & 1\\1 & 0 & 0\\ 0 & 1 & 0	\end{pmatrix*}[r] \rightarrow \mathbf{P}^{-1} = \mathbf{P}^T = \begin{pmatrix*}0 & 1 & 0\\0 & 0 & 1\\ 1 & 0 & 0\end{pmatrix*}\\
+		\tilde{\mathbf{x}} &= \mathbf{P}^T\cdot\mathbf{x} = \begin{pmatrix*}[r] 0 & 1 & 0\\ 0 & 0 & 1\\ 1 & 0 & 0\end{pmatrix*}\begin{pmatrix*}[r]x_1 \\x_2\\x_3\end{pmatrix*} = \begin{pmatrix*}[r]x_2\\x_3\\x_1\end{pmatrix*}
+	\end{align*}
+\end{itemize}
 \end{document}
