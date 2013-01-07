@@ -1147,7 +1147,7 @@ but:
 	\item Blockdiagram see figure\ref{DFE} 
 	\begin{figure}[h]
 		\centering
-		\input{DFE.pstex_t}
+		\resizebox{\textwidth}{!}{\input{DFE.pstex_t}}
 		\caption{DFE Blockdiagram}
 		\label{DFE}
 	\end{figure}
@@ -1177,5 +1177,30 @@ but:
 		\mathbf{P} &= \begin{pmatrix*}[r] 0 & 0 & 1\\1 & 0 & 0\\ 0 & 1 & 0	\end{pmatrix*}[r] \rightarrow \mathbf{P}^{-1} = \mathbf{P}^T = \begin{pmatrix*}0 & 1 & 0\\0 & 0 & 1\\ 1 & 0 & 0\end{pmatrix*}\\
 		\tilde{\mathbf{x}} &= \mathbf{P}^T\cdot\mathbf{x} = \begin{pmatrix*}[r] 0 & 1 & 0\\ 0 & 0 & 1\\ 1 & 0 & 0\end{pmatrix*}\begin{pmatrix*}[r]x_1 \\x_2\\x_3\end{pmatrix*} = \begin{pmatrix*}[r]x_2\\x_3\\x_1\end{pmatrix*}
 	\end{align*}
+	\item Blockdiagram see figure \ref{ZF-DFE-Matrix}
+	\begin{figure}
+		\centering
+		\resizebox{\textwidth}{!}{\input{ZF_DFE_Matrix.pstex_t}}
+		\caption{ZF-DFE Matrix Model}
+		\label{ZF-DFE-Matrix}
+	\end{figure}
+	\item DFE Filters:
+	\begin{itemize}
+		\item $\mathbf{F}$ feedworward filter
+		\item $\mathbf{B}$ feedback filter
+	\end{itemize}
+	\item Filter calculation
+	\begin{itemize}
+		\item Cholesky factorization: $\tilde{\mathbf{H}}^H \tilde{\mathbf{H}} = \mathbf{L}^H\mathbf{DL}$ with diagonal matrix $\mathbf{D}$
+			and lower triangular matrix $\mathbf{L}$ ( maindiagonal elements of $\mathbf{L}$ are ``1'')
+		\item $\mathbf{F}=\mathbf{D}^{-1}\mathbf{L}^{-H}\tilde{\mathbf{H}}^H$
+		\begin{align*}
+			\rightarrow \mathbf{r}=\mathbf{Fy}=\underbrace{\mathbf{D}^{-1}\mathbf{L}^{-H}\underbrace{\tilde{\mathbf{H}}^H\tilde{\mathbf{H}}}_
+			{\mathbf{L}^H\mathbf{DL}}}_{\mathbf{L}}\tilde{\mathbf{x}}+\underbrace{\mathbf{D}^{-1}\mathbf{L}^{-H}\tilde{\mathbf{H}}^H\mathbf{n}}_
+			{\tilde{\mathbf{n}}}
+		\end{align*}
+		\item $\mathbf{B}=\mathbf{L-I}=$ lower triangular matrix with maindiagonal elements ``$0$''
+	\end{itemize}
+	\item Interpretation:
 \end{itemize}
 \end{document}
