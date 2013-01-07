@@ -1147,7 +1147,8 @@ but:
 	\item Blockdiagram see figure\ref{DFE} 
 	\begin{figure}[h]
 		\centering
-		\resizebox{\textwidth}{!}{\input{DFE.pstex_t}}
+%Auskommentiert, da nicht auf github hochgeladen
+%		\resizebox{\textwidth}{!}{\input{DFE.pstex_t}}
 		\caption{DFE Blockdiagram}
 		\label{DFE}
 	\end{figure}
@@ -1166,7 +1167,7 @@ but:
 		\item \textit{(Anmerkung: der schlechteste Fall dominiert (Stage 1), weitere koennen nur schwer beeinflussen)}
 	\end{itemize}
 \end{itemize}
-\subsubsection*{ZF - DFE - Matrix Model}
+\subsubsection{ZF - DFE - Matrix Model}
 \begin{itemize}
 	\item Signal model: $ \mathbf{y} = \mathbf{Hx} + \mathbf{n} = \underbrace{\mathbf{HP}}_{\tilde{\mathbf{H}}}\cdot\underbrace{\mathbf{P}^{-1}\mathbf{x}}_{\tilde{\mathbf{x}}} + \mathbf{n} $ with permutation matrix $\mathbf{P} $
 	\item $\mathbf{P} $ has one \glqq 1\grqq\, per column and row, all other elements are \glqq 0\grqq 
@@ -1180,7 +1181,8 @@ but:
 	\item Blockdiagram see figure \ref{ZF-DFE-Matrix}
 	\begin{figure}
 		\centering
-		\resizebox{\textwidth}{!}{\input{ZF_DFE_Matrix.pstex_t}}
+% Auskommentiert, da nicht auf github hochgeladen
+%		\resizebox{\textwidth}{!}{\input{ZF_DFE_Matrix.pstex_t}}
 		\caption{ZF-DFE Matrix Model}
 		\label{ZF-DFE-Matrix}
 	\end{figure}
@@ -1203,4 +1205,34 @@ but:
 	\end{itemize}
 	\item Interpretation:
 \end{itemize}
+
+
+%War in der letzten VL vor den Weihnachtsferien nicht da, deswegen beginn ich mit der VL vom 07.01. ;-)
+\subsubsection{Sphere Decoding}
+
+\begin{itemize}
+	\item Linear and DFE receivers cannot approach performance of ML\,-\,detector
+	\item ML\,-\,detector: $ \hat{\mathbf{x}} = \underset{\mathbf{x} \in A^{N_T}}{\text{argmin}}||\mathbf{y} - \mathbf{Hx}||^2 $
+	\item[$\rightarrow$] high complexity for brute force
+\end{itemize}
+\paragraph{Main Idea}
+\begin{itemize}
+	\item can we search ML metric in a ``smarter'' way, a ????? to the smart search of the viterbi algorithm for problems with a trellis structure
+	\item we need to find a way to prune/dismiss non\,-\,ML sequences/vectores early on
+	\item[$\rightarrow$] this is accomplished by \underline{sphere decoding}	
+\end{itemize}
+\paragraph{Step 1}
+Bring metric into a suitable form
+\begin{itemize}
+	\item[] real represantation: $||\mathbf{y} - \mathbf{Hx}||^2 = ||\tilde{\mathbf{y}} - \tilde{\mathbf{H}}\tilde{\mathbf{x}}||^2 $
+	\item[] where:
+	\begin{align*}
+		\tilde{\mathbf{y}} &= \begin{bmatrix*} \operatorname{Re}\{\mathbf{y}^T\} & \operatorname{Im}\{\mathbf{y}^T \}	\end{bmatrix*}^T \\
+		\tilde{\mathbf{x}} &= \begin{bmatrix*} \operatorname{Re}\{\mathbf{x}^T\} & \operatorname{Im}\{\mathbf{x}^T \}	\end{bmatrix*}^T \\
+		\tilde{\mathbf{H}} &= \begin{bmatrix*}[r] \operatorname{Re}\{\mathbf{H}\} & -\operatorname{Im}\{\mathbf{H} \} \\ \operatorname{Im}\{ \mathbf{H}\} &\operatorname{Re}\{\mathbf{H} \}\end{bmatrix*}^T 		
+	\end{align*}
+	\item[$\rightarrow$] QAM: $\tilde{\mathbf{x}}$ defines points in an $ 2N_T $ dimensional lattice
+\end{itemize}
+
+
 \end{document}
