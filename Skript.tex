@@ -1144,11 +1144,17 @@ but:
 	\item[$\rightarrow$] $ \mathbf{r}_j = \mathbf{f}_j\mathbf{y}_1 $ where $\mathbf{f}_j $ is the ZF filter for $\mathbf{H}_1$ 
 	\item substract contribution of $x_j $ from $\mathbf{y}_1 $: $\mathbf{y}_2 = \mathbf{y}_1 - \mathbf{h}_j x_j $
 	\item substract until last symbol is detected
-	\item Blockdiagramm: % Blockdiagramm einfuegen
+	\item Blockdiagram see figure\ref{DFE} 
+	\begin{figure}[h]
+		\centering
+		\input{DFE.pstex_t}
+		\caption{DFE Blockdiagram}
+		\label{DFE}
+	\end{figure}
 	\item Observations:
 	\begin{itemize}
 		\item The order in which the $x_1 $ are detected can be freely chosen and effects the performance $\rightarrow  N_T! $ possible orders $\rightarrow$ cannot explore all of them
-		\item Practical approach: Select in each step that $x_i $ for which the noise variance enhancement is minimum, i.e., which has the smallest $\mathcal{E}\Bigl\{|\mathbf{f}_i\mathbf{n}|2\Bigr\} = \sigma _n^2\|\mathbf{f}_i\|^2 $ 
+		\item Practical approach: Select in each step that $x_i $ for which the noise variance enhancement is minimum, i.e. which has the smallest $\mathcal{E}\Bigl\{|\mathbf{f}_i\mathbf{n}|^2\Bigr\} = \sigma _n^2\||\mathbf{f}_i\||^2 $ 
 	\end{itemize}
 	\item Diversity order:
 	\begin{itemize}
