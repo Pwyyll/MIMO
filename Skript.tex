@@ -3,7 +3,7 @@
 
 \documentclass[a4paper, 10pt]{article}
 %\usepackage[utf8]{inputenc}			
-\usepackage[german]{babel}		% for german	
+\usepackage[english]{babel}		% for german	
 \usepackage{graphicx}								
 \usepackage{parskip}
 \usepackage{listings}
@@ -1082,8 +1082,9 @@ $\Phi_{ee}$ is not in general a diagonal matrix
 	\end{itemize}
 \end{itemize}
 	\begin{figure}[h]
-%		\hspace*{-2cm}
-		\includegraphics[width = 0.6\textwidth, angle = -90]{MMSE_klein}
+		\centering
+		\includegraphics[width = \textwidth]{MMSE}
+		\caption{MMSE}
 		\label{MMSE}
 	\end{figure}
 	
@@ -1096,24 +1097,26 @@ $\Phi_{ee}$ is not in general a diagonal matrix
 but: 
 \begin{itemize}
 	\item $\text{SNR}_{\text{bias,m}} $ does not represent the actual SNR since the main diagonal elements of $ \mathbf{K} $ are smaller than 1
-	\item $ \mathbf{r} = \mathbf{FHx} + \mathbf{Fn} = \mathbf{Kx} + \underbrace{\mathbf{F}\tilde{\mathbf{n}} }_{\tilde{n} = [\tilde{n}_1, \dots,\tilde{n}_{N_T}]^T } $
-	\item $r_m = \mathbf{K}_{mm}x_m + \underset{ n\neq m}{\sum\limits^{N_T}_{n = 1}}K_{mn}x_n + \tilde{n}_m ,\quad \mathbf{K}_{mm} < 1 $
+	\item $ \mathbf{r} = \mathbf{FHx} + \mathbf{Fn} = \mathbf{Kx} + \underbrace{\mathbf{F}\mathbf{n} }_{\mathbf{\tilde{n}} = [\tilde{n}_1, \dots,\tilde{n}_{N_T}]^T } $
+	\item $r_m = \underbrace{K_{mm}}_{<1}x_m + \underset{ n\neq m}{\sum\limits^{N_T}_{n = 1}}K_{mn}x_n + \tilde{n}_m $
 \end{itemize}
 \paragraph*{b) unbiased SNR}
 \label{unbiased_SNR}
 \begin{itemize}
-	\item remove bias: $r_m^\prime = \frac{r_m}{K_{mm}} = x_m + \frac{\tilde{e}_m}{K_{mm}} $
+	\item remove bias: $r_m^\prime = \dfrac{r_m}{K_{mm}} = x_m + \underbrace{\dfrac{\tilde{e}_m}{K_{mm}}}_{e^\prime_m} $
 	\item SNR?
 	\item scaling matrix: $ \mathbf{C} = \text{diag}\bigl\{\frac{1}{K_{11}}, \frac{1}{K_{22}}, \dots, \frac{1}{K_{N_TN_T}}  \bigr\} $
 	\item $\mathbf{r}^\prime = \mathbf{Cr} \rightarrow \mathbf{e}^\prime = [e^\prime_1, \dots, e^\prime_{N_T}]^T = \mathbf{r}^\prime - \mathbf{x}  = \mathbf{Cr} - \mathbf{x} = \mathbf{CFy} - \mathbf{x} $
-	\item $\boldsymbol{\Phi}_{ee} = \mathcal{E}\Bigl\{\bigr(\mathbf{CFy} - \mathbf{x}\bigr)\bigl(\mathbf{CFy} - \mathbf{x}\bigr)^H\Bigr\} = \mathbf{cF}\boldsymbol{\Phi}_{yy}\mathbf{F}^H\mathbf{C}^H - \mathbf{cF}\boldsymbol{\Phi}_{yx} - \boldsymbol{\Phi}_{xy}\mathbf{F}^H\mathbf{C}^H + \boldsymbol{\Phi}_{xx}$
+	\item $\boldsymbol{\Phi}_{e^\prime e^\prime} = \mathcal{E}\Bigl\{\bigr(\mathbf{CFy} - \mathbf{x}\bigr)\bigl(\mathbf{CFy} - \mathbf{x}\bigr)^H\Bigr\} = \mathbf{CF}\boldsymbol{\Phi}_{yy}\mathbf{F}^H\mathbf{C}^H - \mathbf{CF}\boldsymbol{\Phi}_{yx} - \boldsymbol{\Phi}_{xy}\mathbf{F}^H\mathbf{C}^H + \boldsymbol{\Phi}_{xx}$
 	\item $ \mathbf{F} = 	\mathbf{F}_{\text{opt}} \rightarrow \mathbf{F}_{\text{opt}}\boldsymbol{\Phi}_{yy} = \boldsymbol{\Phi}_{xy} = \epsilon_s\cdot\mathbf{H}^H $
-	\item[$\rightarrow$] $\boldsymbol{\Phi}_{e^\prime e^\prime} = \epsilon_s\mathbf{C}\underbrace{\mathbf{H}^H\mathbf{F}^H}_{\mathbf{K}^H}\mathbf{C}^H - \epsilon_s\mathbf{C}\underbrace{\mathbf{FH}}_{\mathbf{K}} - \epsilon_s\underbrace{\mathbf{H}^H\mathbf{F}^H}_{\mathbf{K}^H}\mathbf{C}^H  + \epsilon_s\mathbf{I} \\ \quad = \epsilon_s\bigl[\mathbf{I} + (\mathbf{C} - \mathbf{I})\mathbf{K}^H\mathbf{C}^H - \mathbf{CK}\bigr]$  
+	\item[$\rightarrow$] $\boldsymbol{\Phi}_{e^\prime e^\prime} = \epsilon_s\mathbf{C}\underbrace{\mathbf{H}^H\mathbf{F}^H}_{\mathbf{K}^H}\mathbf{C}^H - \epsilon_s\mathbf{C}\underbrace{\mathbf{FH}}_{\mathbf{K}} - \epsilon_s\underbrace{\mathbf{H}^H\mathbf{F}^H}_{\mathbf{K}^H}\mathbf{C}  + \epsilon_s\mathbf{I} \\ \quad = \epsilon_s\bigl[\mathbf{I} + (\mathbf{C} - \mathbf{I})\mathbf{K}^H\mathbf{C}^H - \mathbf{CK}\bigr]$  
 	\item[] \textit{Anmerkung: nur Hauptdiagonalelemente interessieren, da diese die Varianz darstellen}
-	\item[$\rightarrow$] maindiagonalelements of $\boldsymbol{\Phi}_{e^\prime e^\prime} =  $ variances of $ e^\prime _m \quad = \epsilon_s\Bigl ( 1 + \bigl (\frac{1}{K_{mm}} - 1\bigr )   K_{mm}\frac{1}{K_{mm}}  - \frac{1}{K_{mm}}  K_{mm}\Bigr )  = \epsilon_s\frac{1 - K_{mm}}{K_{mm}}$
-	\item[$\rightarrow$] $\text{SNR}_{\text{unbias,m}} = \frac{\epsilon_s}{[\boldsymbol{\Phi}_{e^\prime e^\prime}]_{mm}} = \frac{\epsilon_s}{\epsilon_s\frac{1 - K_{mm}}{K_{mm}}} = \frac{K_{mm}}{1 - K_{mm}} = \frac{1}{1 - K_{mm}} - 1 = \text{SNR}_{bias,m} - 1,  \quad 1\leq m \leq N_T $
-	\item[$\rightarrow$] The SNR after bias removal is by \glqq 1\grqq\, smaller than the \glqq biased \grqq SNR $\rightarrow$ general result valid for any type of MMSE estimation
+	\item[$\rightarrow$] maindiagonal elements of $\boldsymbol{\Phi}_{e^\prime e^\prime} =  $ variances of $ e^\prime _m \quad = \epsilon_s\Bigl ( 1 + \bigl (\frac{1}{K_{mm}} - 1\bigr )   K_{mm}\frac{1}{K_{mm}}  - \frac{1}{K_{mm}}  K_{mm}\Bigr )  = \epsilon_s\frac{1 - K_{mm}}{K_{mm}}$
 	\item[$\rightarrow$] vgl. Abbildung \ref{MMSE}
+	\item[$\rightarrow$]$SNR_{unbiased}=\dfrac{E_s}{[\boldsymbol{\Phi}_{e^\prime e^\prime}]_{mm}}=\dfrac{E_s}{E_s\dfrac{1-K_{mm}}{K_{mm}}}
+	=\dfrac{K_{mm}}{1-K_{mm}}, \quad 1\leq m \leq N_T$
+	\item[$\rightarrow$]the SNR after bias removal is by ``$1$'' smaller than the biased SNR $\rightarrow$ general result valid for any type of
+	MMSE estimation
 \end{itemize}
 \subsection{Decision - Feadback Equalization (Detection)}
 \begin{itemize}
@@ -1126,12 +1129,12 @@ but:
 \end{itemize}
 \subsubsection{Basic Idea}
 \begin{itemize}
-	\item Recall (linear filter): $\mathbf{FH} = \mathbf{I} $ for linear $F $ receiver $\rightarrow $ ith row of $\mathbf{F}, \mathbf{f}_i, $ is orthogonal to the jth column of $\mathbf{H}, \mathbf{h}_j$, if $ i \neq j$ (if $i = j$: inner product = 1)  
-	\item we can detect $x$, based on $r_i = \mathbf{f}_i\mathbf{y} $
-	\item Once we have detected $x_i$, we can substract its contribution from $\mathbf{y}$: $\mathbf{y}_1 = \mathbf{y} - \mathbf{h}_i\hat{\mathbf{x}}_i $ ($\hat{\mathbf{x}}_i $ is detected symbol, we assume for now, $\hat{x}_i = x_i $) 
-	\item $\mathbf{y}_1 $ can be expressed as $ \mathbf{y}_1 = \mathbf{H}_1\mathbf{x}_1 + n$ where 
+	\item Recall (linear filter): $\mathbf{FH} = \mathbf{I} $ for linear ZF receiver $\rightarrow$ $i$th row of $\mathbf{F}, \mathbf{f}_i, $ is orthogonal to the $j$th column of $\mathbf{H}, \mathbf{h}_j$, if $ i \neq j$ (if $i = j$: inner product = 1)  
+	\item we can detect $x_i$, based on $r_i = \mathbf{f}_i\mathbf{y} $
+	\item Once we have detected $x_i$, we can substract its contribution from $\mathbf{y}$: $\mathbf{y}_1 = \mathbf{y} - \mathbf{h}_i\hat{x}_i$ ($\hat{x}_i $ is detected symbol, we assume for now, $\hat{x}_i = x_i $) 
+	\item $\mathbf{y}_1 $ can be expressed as $ \mathbf{y}_1 = \mathbf{H}_i\mathbf{x}_i + \mathbf{n}$ where 
 	\begin{align*}
-		\mathbf{H}_1 &= \bigl[\mathbf{h}_1, \dots ,\mathbf{h}_{i-1},\mathbf{h}_{i+1},\dots ,\mathbf{h}_{N_T} \bigr] \\
+		\mathbf{H}_i &= \bigl[\mathbf{h}_1, \dots ,\mathbf{h}_{i-1},\mathbf{h}_{i+1},\dots ,\mathbf{h}_{N_T} \bigr] \\
 		\mathbf{x}_i &= \bigl[x_1, \dots , x_{i-1}, x_{i+1}, \dots ,x_{N_T}\bigr]
 	\end{align*}
 	\begin{itemize}
@@ -1139,9 +1142,9 @@ but:
 	\end{itemize}
 	\item apply now linear ZF filter for symbol to detected next, e.g. $x_j $, where $ j\in \bigl\{1, \dots ,i - 1, i + 1, \dots , N_T\bigr\} $
 	\item[$\rightarrow$] $ \mathbf{r}_j = \mathbf{f}_j\mathbf{y}_1 $ where $\mathbf{f}_j $ is the ZF filter for $\mathbf{H}_1$ 
-	\item substract contribution of $\mathbf{x}_j $ from $\mathbf{y}_1 $: $\mathbf{y}_2 = \mathbf{y}_1 - \mathbf{h}_j\mathbf{x}_j $
+	\item substract contribution of $x_j $ from $\mathbf{y}_1 $: $\mathbf{y}_2 = \mathbf{y}_1 - \mathbf{h}_j x_j $
 	\item substract until last symbol is detected
-	\item Blockdiagramm % Blockdiagramm einfuegen
+	\item Blockdiagramm: % Blockdiagramm einfuegen
 	\item Observations:
 	\begin{itemize}
 		\item The order in which the $x_1 $ are detected can be freely chosen and effects the performance $\rightarrow  N_T! $ possible orders $\rightarrow$ cannot explore all of them
