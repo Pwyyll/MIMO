@@ -1222,17 +1222,76 @@ but:
 	\item[$\rightarrow$] this is accomplished by \underline{sphere decoding}	
 \end{itemize}
 \paragraph{Step 1}
-Bring metric into a suitable form
+Bring metric into a suitable form:
 \begin{itemize}
-	\item[] real represantation: $||\mathbf{y} - \mathbf{Hx}||^2 = ||\tilde{\mathbf{y}} - \tilde{\mathbf{H}}\tilde{\mathbf{x}}||^2 $
-	\item[] where:
+	\item real represantation: $||\mathbf{y} - \mathbf{Hx}||^2 = ||\tilde{\mathbf{y}} - \tilde{\mathbf{H}}\tilde{\mathbf{x}}||^2 $
+	\item where:
 	\begin{align*}
 		\tilde{\mathbf{y}} &= \begin{bmatrix*} \operatorname{Re}\{\mathbf{y}^T\} & \operatorname{Im}\{\mathbf{y}^T \}	\end{bmatrix*}^T \\
 		\tilde{\mathbf{x}} &= \begin{bmatrix*} \operatorname{Re}\{\mathbf{x}^T\} & \operatorname{Im}\{\mathbf{x}^T \}	\end{bmatrix*}^T \\
 		\tilde{\mathbf{H}} &= \begin{bmatrix*}[r] \operatorname{Re}\{\mathbf{H}\} & -\operatorname{Im}\{\mathbf{H} \} \\ \operatorname{Im}\{ \mathbf{H}\} &\operatorname{Re}\{\mathbf{H} \}\end{bmatrix*}^T 		
 	\end{align*}
 	\item[$\rightarrow$] QAM: $\tilde{\mathbf{x}}$ defines points in an $ 2N_T $ dimensional lattice
+	\item QL decomposition: $ \tilde{\mathbf{H}} = \mathbf{QL} $ with
+	\begin{itemize}
+		\item orthogonal matrix $\mathbf{Q} \in\mathbb{R} ^{2N_T\times 2N_T};\quad \mathbf{QQ}^T = \mathbf{I}$ 
+		\item and lower triangular matrix $\mathbf{L} \in \mathbb{R} ^{2N_T\times2N_T}$	
+	\end{itemize}
+	\begin{align*}
+		||\tilde{\mathbf{y}} - \mathbf{QL}\tilde{\mathbf{x}}||^2 &= ||\mathbf{QQ}^T(\tilde{\mathbf{y}} - \mathbf{QL}\tilde{\mathbf{x}})||^2 + ||(\mathbf{I} - \mathbf{QQ}^T)(\tilde{\mathbf{y}} - \mathbf{QL}\tilde{\mathbf{x}})||^2 \\ &= ||\mathbf{Q}(\mathbf{Q}^T\tilde{\mathbf{y}} - \mathbf{L}\tilde{\mathbf{x}}||^2 + ||(\mathbf{I} - \mathbf{QQ}^T)\tilde{\mathbf{y}} - \underbrace{\mathbf{Q} - \mathbf{Q}}_{ = 0}\mathbf{L}\tilde{\mathbf{x}}||^2 \\ &= ||\mathbf{Q}^T\tilde{\mathbf{y}} - \mathbf{L}\tilde{\mathbf{x}}||^2 + \underbrace{||(\mathbf{I} - \mathbf{QQ}^T)\tilde{\mathbf{y}}||^2}_{\text{unabh\"angig von }\tilde{\mathbf{x}}}
+	\end{align*}		 
+	\item[$\Rightarrow $] $ \underset{\tilde{\mathbf{x}} \in A^{2N_T}}{\text{argmin}} ||\tilde{\mathbf{y}} - \tilde{\mathbf{H}}\tilde{\mathbf{x}}||^2 = \underset{\tilde{\mathbf{x}} \in A^{2N_T}}{\text{argmin}} ||\underbrace{\mathbf{Q}^T\tilde{\mathbf{y}}}_{\bar{\mathbf{y}}} - \mathbf{L}\tilde{\mathbf{x}}||^2$\ where $A^{2N_T} $ contains all $ M^N_T $ possible vectors $\tilde{\mathbf{x}}$
+	\item Observation:
+	\begin{itemize}
+		\item with
+		\begin{align*}
+			\mathbf{L} &= 
+			\begin{bmatrix}
+				l_{11} & 0 & \cdots & 0 \\
+				l_{21} & l_{22} & \ddots &	\vdots \\
+				\vdots & & \ddots & 0\\
+				l_{2N_T\,1} & \cdots & & l_{2N_T\,2N_T}
+			\end{bmatrix}\\
+			\bar{\mathbf{y}} &= 
+			 \begin{bmatrix}
+			 	\bar{y}_1 & \cdots	& \bar{y}_{2N_T}
+			 \end{bmatrix}^T \, ;\quad	
+			 \tilde{\mathbf{x}} =
+			 \begin{bmatrix}
+			 	\tilde{x}_1 & \cdots	 & \tilde{x}_{2N_T}
+			 \end{bmatrix}		 
+		\end{align*}
+		\item we have 
+		\begin{align}\label{Sphere_Decoding_Formel_1}
+			||\bar{\mathbf{y}} - \mathbf{L}\tilde{\mathbf{x}}||^2 = (\bar{y} - l_{11}\tilde{x}_1)^2 + (\bar{y}_2 - l_{21}\tilde{x}_1 - l_{22}\tilde{x}_2)^2 + (\bar{y}_3 - l_{31}\tilde{x}_1 - l_{32}\tilde{x}_2 - l_{33}\tilde{x}_3)^2 + \ldots
+		\end{align}
+		\end{itemize}
+		\item[$\rightarrow$] the nth term in the above sum contains only $ \tilde{x}_1, \tilde{x}_2, \ldots,\tilde{x}_n $
 \end{itemize}
+\paragraph*{Step 2}
+Sphere decoding algorithm\\ 
+\underline{\textbf{Define:}}
+\begin{align*}
+	 d(\tilde{\mathbf{x}}) &= \sum_{n = 1}^{2N_T} f_1(\tilde{\mathbf{x}}_n) \ ;\quad \text{with}\ f_n(\tilde{\mathbf{x}}_n) = \bigl (\bar{\mathbf{y}}_n - \sum_{i = 1}^{n}l_{ni}\tilde{x}_i\bigr)^2\ ;\quad \tilde{\mathbf{x}}_n = 
+	 \begin{bmatrix}
+	 	\tilde{x}_1 & \ldots & \tilde{x}_n
+	 \end{bmatrix}^T \\
+	 d_n(\tilde{x}_n) &= \sum_{m = 1}^{n} f_n(\tilde{\mathbf{x}}_m)
+\end{align*}
+\underline{\textbf{Main Idea:}}
+\begin{itemize}
+	\item Assume we know that $ d(\tilde{\mathbf{x}}) \leq R $ holds for some $\tilde{\mathbf{x}} $, where $ R $ is the so called ``sphere radius" \quad	$\rightarrow$ any $ \tilde{\mathbf{x}} $ with $ d(\tilde{\mathbf{x}}) \geq R $ cannot be the ML solution and can be discarded
+	\item since $ d_{n + 1}(\tilde{\mathbf{x}}_n^\prime, \tilde{\mathbf{x}}_{n + 1}) \geq d_n(\tilde{\mathbf{x}}_n^\prime) $, we can easily discard $ \mathbf{x}_n^\prime $ and all \\ possible $ \tilde{\mathbf{x}} = \begin{bmatrix}
+	\tilde{\mathbf{x}}_n^{\prime^T} & \tilde{x}_{n+1} & \tilde{x}_{n+2} & \ldots & \tilde{x}_{2N_T} \end{bmatrix}^T $ if we find $ d_n(\tilde{\mathbf{x}}_n^\prime) > R \quad $ \\ $ \Rightarrow $ we can exclude many possible vectors $\tilde{\mathbf{x}} $ without evaluating  any metrics for them 
+	\item How to find a suitable $R$?
+	\begin{itemize}
+		\item Initial $R$: $R = d(\tilde{\mathbf{x}}_{\text{subopt}}) $ where $ \tilde{\mathbf{x}}_{\text{subopt}} $ was obtained with some suboptimum receiver
+		\item $R $ is updated as $ R = R_{\text{new}} = d(\tilde{\mathbf{x}}_{\text{cand}}) $ where $ \tilde{\mathbf{x}}_{\text{cand}} $ is an $ \tilde{\mathbf{x}} $ which \\ yields  $ d(\tilde{\mathbf{x}}_{\text{cand}}) < R_{\text{old}} = R $
+	\end{itemize}
+	\item Use tree structure to represent all possible $\tilde{\mathbf{x}} $ 
+	\item[] Example: BPSK, $N_T = 2$
+\end{itemize}
+	
 
 
 \end{document}
