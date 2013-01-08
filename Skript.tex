@@ -1303,12 +1303,65 @@ but:
 		\rightarrow \mathbf{F}=\mathbf{L}\tilde{\mathbf{H}}^H(\tilde{\mathbf{H}}\tilde{\mathbf{H}}^h+\dfrac{\sigma_n^2}{\mathcal{E}_s}\mathbf{I})^{-1}
 		=\mathbf{L}\overbrace{(\tilde{\mathbf{H}}^H\tilde{\mathbf{H}}+\dfrac{\sigma_n^2}{\mathcal{E}_s}\mathbf{I})^{-1}\tilde{\mathbf{H}}^H}^{\text{MMSE Linear Equalizer}}
 	\end{align*}
-\begin{figure}[h]
-	\centering
-	\resizebox{\textwidth}{!}{\input{DFE_MMSE_EQUIV.pstex_t}}
-	\caption{MMSE-DFE Equivalence}
-	\label{MMSE_DFE_Equiv}
-\end{figure}
+	\begin{figure}[h]
+		\centering
+		\resizebox{\textwidth}{!}{\input{DFE_MMSE_EQUIV.pstex_t}}
+		\caption{MMSE-DFE Equivalence}
+		\label{MMSE_DFE_Equiv}
+	\end{figure}
+	\item Optimal $\mathbf{L}$:
+	\begin{align*}
+		\boldsymbol{\Phi}_{ee}&=\mathbf{L}\boldsymbol{\Phi}_{\tilde{x}y}\boldsymbol{\Phi}_{yy}^{-1}\boldsymbol{\Phi}_{yy}\boldsymbol{\Phi}_{yy}^{-1}\boldsymbol{\Phi}_{\tilde{x}y}^H\mathbf{L}^H
+		-\mathbf{L}\boldsymbol{\Phi}_{xy}\boldsymbol{\Phi}_{yy}^{-1}\boldsymbol{\Phi}_{yz}\mathbf{L}^H
+		-\mathbf{L}\boldsymbol{\Phi}_{\tilde{x}y}\boldsymbol{\Phi}_{yy}^{-1}\boldsymbol{\Phi}_{\tilde{x}y}^H\mathbf{H}^H+\mathbf{L}\boldsymbol{\Phi}_{\tilde{x}\tilde{x}}\mathbf{L}^H\\ 
+		&=\mathbf{L}(\boldsymbol{\Phi}_{\tilde{x}\tilde{x}}-\boldsymbol{\Phi}_{\tilde{x}y}\boldsymbol{\Phi}_{yy}^{-1}\boldsymbol{\Phi}_{\tilde{x}y}^H)\mathbf{L}^H
+	\end{align*}
+	$=$ MMSE covariance matrix for a linear MMSE filter
+	\begin{itemize}
+		\item[$\rightarrow$]$\boldsymbol{\Phi}_{ee}=\sigma_n^2\mathbf{L}(\tilde{\mathbf{H}}^H\tilde{\mathbf{H}}+\dfrac{\sigma_n^2}{\mathcal{E}_s}\mathbf{I})^{-1}\mathbf{L}^H$
+		\item[$\rightarrow$] need lower triangular matrix $\mathbf{L}$ which minimizes $\mathrm{tr}\{\boldsymbol{\Phi}_{ee}\}$
+		\item[$\rightarrow$] the optimum $\mathbf{L}$ whitenes $\boldsymbol{\Phi}_{ee}$ $\rightarrow$  $\boldsymbol{\Phi}_{ee}$ becomes diagonal matrix i.e. $\mathbf{L}$ exploits the correlation after linear MMSE filtering
+		to reduce noise variance!
+		\item[$\rightarrow$] $\mathbf{L}$ is obtained via Cholesky factorization
+		\begin{align*}
+			\tilde{\mathbf{H}}^H\tilde{\mathbf{H}}+\dfrac{\sigma_n^2}{\mathcal{E}_s}\mathbf{I}=\mathbf{LDL}^H
+		\end{align*}
+		\item[$\rightarrow$] $\boldsymbol{\Phi}_{ee}=\sigma_n^2 \mathbf{L}(\mathbf{LDL}^H)^{-1}\mathbf{L}=\sigma_n^2\mathbf{LL}^{-1}\mathbf{D}^{-1}\mathbf{L}^{-H}\mathbf{L}=\sigma_n^2\mathbf{D}^{-1}\widehat{=}$ diagonal matrix
+	\end{itemize}
+	\item Summary of MMSE calculation
+	\begin{itemize}
+		\item $\mathbf{B}=\mathbf{L}-\mathbf{I}$ where $\mathbf{H}^H\mathbf{H}+\dfrac{\sigma_n^2}{\mathcal{E}_s}\mathbf{I}=\mathbf{LDL}^H$
+		\item $\mathbf{F}=\mathbf{L} \underbrace{(\mathbf{H}^H\mathbf{H}+\dfrac{\sigma_n^2}{\mathcal{E}_s}\mathbf{I})^{-1}\tilde{\mathbf{H}}}_{\mathbf{F}_{Linear}}$
+		\item $\mathbf{L}$ is a prediction error filter, which whitenes the error signal $\mathbf{e}$
+		\item SNR:
+		\begin{align*}
+			\mathbf{D}&=\mathrm{diag}\{\xi_1,\dots,\xi_{N_T}\}\\
+			\boldsymbol{\Phi}_{ee}&=\mathrm{diag}\{\dfrac{\sigma_n^2}{\xi_1},\dots,\dfrac{\sigma_n^2}{\xi_{N_T}}\}
+		\end{align*}
+		\item end-to-end channel
+		\begin{align*}
+			\mathbf{K}&=\mathbf{F}\tilde{\mathbf{H}}\\
+				&=\underbrace{\mathbf{L}(\tilde{\mathbf{H}}^H \tilde{\mathbf{H}}+ \dfrac{\sigma_n^2}{\mathcal{E}_s}\mathbf{I})^{-1}\mathbf{L}^H}_{\dfrac{1}{\sigma_n^2}\boldsymbol{\Phi}_{ee}} 
+				\mathbf{L}^{-H} \tilde{\mathbf{H}}^H\tilde{\mathbf{H}}\\
+				&= \dfrac{1}{\sigma_n^2} \boldsymbol{\Phi}_{ee} \mathbf{L}^{-H}(\tilde{\mathbf{H}}^H\tilde{\mathbf{H}}+\dfrac{\sigma_n^2}{\mathcal{E}_s}\mathbf{I}-\dfrac{\sigma_n^2}{\mathcal{E}_s}\mathbf{I})
+				\mathbf{L}^{-1}\mathbf{L}\\
+				&= \dfrac{1}{\sigma_n^2}[\underbrace{\mathbf{L}^{-H}(\tilde{\mathbf{H}}^H\tilde{\mathbf{H}}+\dfrac{\sigma_n^2}{\mathcal{E}_s}\mathbf{I})\mathbf{L}^{-1}}_{\sigma_n^2\boldsymbol{\Phi}_{ee}^{-1}}
+				\mathbf{L}-\dfrac{\sigma_n^2}{\mathcal{E}_s}\mathbf{L}^{-H}]\\
+				&=\mathbf{L}-\dfrac{1}{\mathcal{E}_s}\boldsymbol{\Phi}_{ee}\mathbf{L}^{-H}
+		\end{align*}
+		$\rightarrow$ main diagonal of $\mathbf{K}$:
+		\begin{align*}
+			K_{mm}=1-\dfrac{\sigma_n^2}{\mathcal{E}_s\xi_m} < 1
+		\end{align*}
+		\item biased SNR
+		\begin{align*}
+			SNR_{m,bias}=\dfrac{\mathcal{E}_S}{[\boldsymbol{\Phi}_{ee}]_{mm}}=\dfrac{\mathcal{E}_s}{\sigma_n^2}\xi_m=\dfrac{1}{1-K_{mm}}, \quad 1 \leq m \leq N_T
+		\end{align*}
+		\item unbiased SNR
+		\begin{align*}
+			SNR_{m,unbiased}=SNR_{m,bias}-1=\dfrac{1}{1-K_{mm}}-1=\dfrac{K_{mm}}{1-K_{mm}}, \quad 1 \leq m \leq N_T
+		\end{align*}
+	\end{itemize}
 \end{itemize}
 %War in der letzten VL vor den Weihnachtsferien nicht da, deswegen beginn ich mit der VL vom 07.01. ;-)
 \subsubsection{Sphere Decoding}
