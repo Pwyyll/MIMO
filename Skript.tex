@@ -1290,6 +1290,25 @@ but:
 		-\mathrm{tr}\left\{\mathbf{L}\boldsymbol{\Phi}_{\tilde{x} y}\mathbf{F}^H\right\}
 		+\mathrm{tr}\left\{\mathbf{L}\boldsymbol{\Phi}_{\tilde{x} \tilde{x}}\mathbf{L}^H\right\}
 	\end{align*}
+	\begin{align*}
+		\dfrac{\delta}{\delta \mathbf{F}^*}\sigma_e^2=\mathbf{F}\boldsymbol{\Phi}_{yy}-\mathbf{L}\boldsymbol{\Phi}_{\tilde{x}y}=0 \quad \rightarrow \mathbf{F}
+		=\mathbf{L}\boldsymbol{\Phi}_{\tilde{x}y}\boldsymbol{\Phi}_{yy}^{-1}
+	\end{align*}
+	where
+	\begin{align*}
+		\boldsymbol{\Phi}_{yy}&=\mathcal{E}_s\tilde{\mathbf{H}}\tilde{\mathbf{H}}^H+\sigma_n^2\mathbf{I}\\
+		\boldsymbol{\Phi}_{\tilde{x}y}&=\mathcal{E}_s\tilde{\mathbf{H}}^H
+	\end{align*}
+	\begin{align*}
+		\rightarrow \mathbf{F}=\mathbf{L}\tilde{\mathbf{H}}^H(\tilde{\mathbf{H}}\tilde{\mathbf{H}}^h+\dfrac{\sigma_n^2}{\mathcal{E}_s}\mathbf{I})^{-1}
+		=\mathbf{L}\overbrace{(\tilde{\mathbf{H}}^H\tilde{\mathbf{H}}+\dfrac{\sigma_n^2}{\mathcal{E}_s}\mathbf{I})^{-1}\tilde{\mathbf{H}}^H}^{\text{MMSE Linear Equalizer}}
+	\end{align*}
+\begin{figure}[h]
+	\centering
+	\resizebox{\textwidth}{!}{\input{DFE_MMSE_EQUIV.pstex_t}}
+	\caption{MMSE-DFE Equivalence}
+	\label{MMSE_DFE_Equiv}
+\end{figure}
 \end{itemize}
 %War in der letzten VL vor den Weihnachtsferien nicht da, deswegen beginn ich mit der VL vom 07.01. ;-)
 \subsubsection{Sphere Decoding}
