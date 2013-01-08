@@ -1272,7 +1272,25 @@ but:
 	\end{align*}
 \end{itemize}
 
-
+\subsubsection*{MMSE-DFE}
+\begin{figure}[h]
+	\centering
+	\input{MMSE_DFE.pstex_t}
+	\caption{MMSE-DFE Blockdiagram}
+	\label{MMSE_DFE_Block}
+\end{figure}
+\begin{itemize}
+	\item $\mathbf{B}=\mathbf{L}-\mathbf{I}$ has to be lower triangular matrx with all-zero main diagonal elements because of causality.
+	\item $\mathbf{d}=\mathbf{Fy}-\mathbf{B}\hat{\tilde{\mathbf{x}}} \quad \rightarrow \mathbf{e}=\mathbf{d}-\hat{\mathbf{x}}=\mathbf{Fy}-\underbrace{(\mathbf{B}+\mathbf{I})}_{\mathbf{L}}\tilde{\mathbf{x}}$\\
+	where we assume $\hat{\tilde{\mathbf{x}}}=\tilde{\mathbf{x}}$ for filter optimization
+	\item Optimal $\mathbf{F}$ for given $\mathbf{L}$ \\
+	\begin{align*}
+		\sigma_e^2=\mathrm{tr}\left\{\underbrace{\mathcal{E}\{\mathbf{ee}^H\} }_{\boldsymbol{\Phi}_{ee}}\right\}
+		=\mathrm{tr}\left\{\mathbf{F}\boldsymbol{\Phi}_{yy}\mathbf{F}^H\right\}-\mathrm{tr}\left\{\mathbf{F}\boldsymbol{\Phi}_{y \tilde{x}}\mathbf{L}^H\right\}
+		-\mathrm{tr}\left\{\mathbf{L}\boldsymbol{\Phi}_{\tilde{x} y}\mathbf{F}^H\right\}
+		+\mathrm{tr}\left\{\mathbf{L}\boldsymbol{\Phi}_{\tilde{x} \tilde{x}}\mathbf{L}^H\right\}
+	\end{align*}
+\end{itemize}
 %War in der letzten VL vor den Weihnachtsferien nicht da, deswegen beginn ich mit der VL vom 07.01. ;-)
 \subsubsection{Sphere Decoding}
 
