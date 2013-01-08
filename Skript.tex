@@ -1193,6 +1193,17 @@ but:
 	\begin{itemize}
 		\item Cholesky factorization: $\tilde{\mathbf{H}}^H \tilde{\mathbf{H}} = \mathbf{L}^H\mathbf{DL}$ with diagonal matrix $\mathbf{D}$
 			and lower triangular matrix $\mathbf{L}$ ( maindiagonal elements of $\mathbf{L}$ are ``1'')
+	\begin{align*}
+			\mathbf{L} &= 
+			\begin{bmatrix}
+				1 & 0 & \cdots & \cdots & 0 \\
+				l_{21} & 1 & \ddots & \ddots &	\vdots \\
+				l_{31} & l_{32} & 1 & \ddots &\vdots \\
+				\vdots & \ddots & \ddots & \ddots & \vdots\\
+				\vdots & \cdots & \cdots & \cdots & 1
+			\end{bmatrix}
+	\end{align*}
+
 		\item $\mathbf{F}=\mathbf{D}^{-1}\mathbf{L}^{-H}\tilde{\mathbf{H}}^H$
 		\begin{align*}
 			\rightarrow \mathbf{r}=\mathbf{Fy}=\underbrace{\mathbf{D}^{-1}\mathbf{L}^{-H}\underbrace{\tilde{\mathbf{H}}^H\tilde{\mathbf{H}}}_
@@ -1200,8 +1211,65 @@ but:
 			{\tilde{\mathbf{n}}}
 		\end{align*}
 		\item $\mathbf{B}=\mathbf{L-I}=$ lower triangular matrix with maindiagonal elements ``$0$''
+	\begin{align*}
+			\mathbf{B} &= 
+			\begin{bmatrix}
+				0 & 0 & \cdots & \cdots & 0 \\
+				l_{21} & 0 & \ddots & \ddots &	\vdots \\
+				l_{31} & l_{32} & 0 & \ddots &\vdots \\
+				\vdots & \ddots & \ddots & \ddots & \vdots\\
+				\vdots & \cdots & \cdots & \cdots & 0
+			\end{bmatrix}
+	\end{align*}
+
 	\end{itemize}
 	\item Interpretation:
+	\begin{itemize}
+		\item after feedforward filter
+	\begin{align*}
+			\mathbf{r} &= 
+			\begin{bmatrix}
+				1 & 0 & \cdots & \cdots & 0 \\
+				l_{21} & 1 & \ddots & \ddots &	\vdots \\
+				l_{31} & l_{32} & 1 & \ddots &\vdots \\
+				\vdots & \ddots & \ddots & \ddots & \vdots\\
+				\vdots & \cdots & \cdots & \cdots & 1
+			\end{bmatrix}
+			\begin{bmatrix}
+				\tilde{x}_1 \\
+				\tilde{x}_2 \\
+				\vdots \\
+				\tilde{x}_{N_T}
+			\end{bmatrix}
+			+ \tilde{\mathbf{n}}
+	\end{align*}
+	\end{itemize}
+	\item from feedback filter
+	\begin{align*}
+			\tilde{\mathbf{r}} &= 
+			\begin{bmatrix}
+				0 & 0 & \cdots & \cdots & 0 \\
+				l_{21} & 0 & \ddots & \ddots &	\vdots \\
+				l_{31} & l_{32} & 0 & \ddots &\vdots \\
+				\vdots & \ddots & \ddots & \ddots & \vdots\\
+				\vdots & \cdots & \cdots & \cdots & 0
+			\end{bmatrix}
+			\begin{bmatrix}
+				\hat{\tilde{x}}_1 \\
+				\hat{\tilde{x}}_2 \\
+				\vdots \\
+				\hat{\tilde{x}}_{N_T}
+			\end{bmatrix}
+			\text{ $\hat{\tilde{x}}_n$ : decision on $\tilde{x}_n$}\\
+			\rightarrow \mathbf{r}-\tilde{\mathbf{r}} &= 
+			\begin{bmatrix}
+			\tilde{x}_1+0 \\
+			l_{21}(\tilde{x}_1-\hat{\tilde{x}}_1)+\tilde{x}_2+0 \\
+			l_{31}(\tilde{x}_1-\hat{\tilde{x}}_2)+l_{32}(\tilde{x}_2-\hat{\tilde{x}}_2)+\tilde{x}_3+0 \\
+			\vdots
+			\end{bmatrix}
+			+\tilde{\mathbf{n}}
+	\end{align*}
 \end{itemize}
 
 
@@ -1211,11 +1279,11 @@ but:
 \begin{itemize}
 	\item Linear and DFE receivers cannot approach performance of ML\,-\,detector
 	\item ML\,-\,detector: $ \hat{\mathbf{x}} = \underset{\mathbf{x} \in A^{N_T}}{\text{argmin}}||\mathbf{y} - \mathbf{Hx}||^2 $
-	\item[$\rightarrow$] high complexity for brute force
+	\item[$\rightarrow$] high complexity for brute force search
 \end{itemize}
 \paragraph{Main Idea}
 \begin{itemize}
-	\item can we search ML metric in a ``smarter'' way, a ????? to the smart search of the viterbi algorithm for problems with a trellis structure
+	\item can we search ML metric in a ``smarter'' way, akin to the smart search of the viterbi algorithm for problems with a trellis structure
 	\item we need to find a way to prune/dismiss non\,-\,ML sequences/vectores early on
 	\item[$\rightarrow$] this is accomplished by \underline{sphere decoding}	
 \end{itemize}
@@ -1236,9 +1304,12 @@ Bring metric into a suitable form:
 		\item and lower triangular matrix $\mathbf{L} \in \mathbb{R} ^{2N_T\times2N_T}$	
 	\end{itemize}
 	\begin{align*}
-		||\tilde{\mathbf{y}} - \mathbf{QL}\tilde{\mathbf{x}}||^2 &= ||\mathbf{QQ}^T(\tilde{\mathbf{y}} - \mathbf{QL}\tilde{\mathbf{x}})||^2 + ||(\mathbf{I} - \mathbf{QQ}^T)(\tilde{\mathbf{y}} - \mathbf{QL}\tilde{\mathbf{x}})||^2 \\ &= ||\mathbf{Q}(\mathbf{Q}^T\tilde{\mathbf{y}} - \mathbf{L}\tilde{\mathbf{x}}||^2 + ||(\mathbf{I} - \mathbf{QQ}^T)\tilde{\mathbf{y}} - \underbrace{\mathbf{Q} - \mathbf{Q}}_{ = 0}\mathbf{L}\tilde{\mathbf{x}}||^2 \\ &= ||\mathbf{Q}^T\tilde{\mathbf{y}} - \mathbf{L}\tilde{\mathbf{x}}||^2 + \underbrace{||(\mathbf{I} - \mathbf{QQ}^T)\tilde{\mathbf{y}}||^2}_{\text{unabh\"angig von }\tilde{\mathbf{x}}}
+		||\tilde{\mathbf{y}} - \mathbf{QL}\tilde{\mathbf{x}}||^2 &= 
+		||\mathbf{QQ}^T(\tilde{\mathbf{y}} - \mathbf{QL}\tilde{\mathbf{x}})||^2 + ||(\mathbf{I} - \mathbf{QQ}^T)(\tilde{\mathbf{y}} - \mathbf{QL}\tilde{\mathbf{x}})||^2 \\ 
+		&= ||\mathbf{Q}(\mathbf{Q}^T\tilde{\mathbf{y}} - \mathbf{L}\tilde{\mathbf{x}})||^2 + ||(\mathbf{I} - \mathbf{QQ}^T)\tilde{\mathbf{y}} - \underbrace{(\mathbf{Q} - \mathbf{Q})}_{ = 0}\mathbf{L}\tilde{\mathbf{x}}||^2 \\ &= ||\mathbf{Q}^T\tilde{\mathbf{y}} - \mathbf{L}\tilde{\mathbf{x}}||^2 + \underbrace{||(\mathbf{I} - \mathbf{QQ}^T)\tilde{\mathbf{y}}||^2}_{\text{unabh\"angig von }\tilde{\mathbf{x}}}
 	\end{align*}		 
-	\item[$\Rightarrow $] $ \underset{\tilde{\mathbf{x}} \in A^{2N_T}}{\text{argmin}} ||\tilde{\mathbf{y}} - \tilde{\mathbf{H}}\tilde{\mathbf{x}}||^2 = \underset{\tilde{\mathbf{x}} \in A^{2N_T}}{\text{argmin}} ||\underbrace{\mathbf{Q}^T\tilde{\mathbf{y}}}_{\bar{\mathbf{y}}} - \mathbf{L}\tilde{\mathbf{x}}||^2$\ where $A^{2N_T} $ contains all $ M^N_T $ possible vectors $\tilde{\mathbf{x}}$
+	\item[$\Rightarrow $] $ \underset{\tilde{\mathbf{x}} \in A^{2N_T}}{\text{argmin}} ||\tilde{\mathbf{y}} - \tilde{\mathbf{H}}\tilde{\mathbf{x}}||^2 = \underset{\tilde{\mathbf{x}} \in A^{2N_T}}{\text{argmin}} ||\underbrace{\mathbf{Q}^T\tilde{\mathbf{y}}}_{\bar{\mathbf{y}}} - \mathbf{L}\tilde{\mathbf{x}}||^2$\\
+	 where $A^{2N_T} $ contains all $ M^{N_T} $ possible vectors $\tilde{\mathbf{x}}$
 	\item Observation:
 	\begin{itemize}
 		\item with
@@ -1264,13 +1335,13 @@ Bring metric into a suitable form:
 			||\bar{\mathbf{y}} - \mathbf{L}\tilde{\mathbf{x}}||^2 = (\bar{y} - l_{11}\tilde{x}_1)^2 + (\bar{y}_2 - l_{21}\tilde{x}_1 - l_{22}\tilde{x}_2)^2 + (\bar{y}_3 - l_{31}\tilde{x}_1 - l_{32}\tilde{x}_2 - l_{33}\tilde{x}_3)^2 + \ldots
 		\end{align}
 		\end{itemize}
-		\item[$\rightarrow$] the nth term in the above sum contains only $ \tilde{x}_1, \tilde{x}_2, \ldots,\tilde{x}_n $
+		\item[$\rightarrow$] the $n$-th term in the above sum contains only $ \tilde{x}_1, \tilde{x}_2, \ldots,\tilde{x}_n $
 \end{itemize}
 \paragraph*{Step 2}
 Sphere decoding algorithm\\ 
 \underline{\textbf{Define:}}
 \begin{align*}
-	 d(\tilde{\mathbf{x}}) &= \sum_{n = 1}^{2N_T} f_1(\tilde{\mathbf{x}}_n) \ ;\quad \text{with}\ f_n(\tilde{\mathbf{x}}_n) = \bigl (\bar{\mathbf{y}}_n - \sum_{i = 1}^{n}l_{ni}\tilde{x}_i\bigr)^2\ ;\quad \tilde{\mathbf{x}}_n = 
+	 d(\tilde{\mathbf{x}}) &= \sum_{n = 1}^{2N_T} f_n(\tilde{\mathbf{x}}_n) \ ;\quad \text{with}\ f_n(\tilde{\mathbf{x}}_n) = \bigl (\bar{y}_n - \sum_{i = 1}^{n}l_{ni}\tilde{x}_i\bigr)^2\ ;\quad \tilde{\mathbf{x}}_n = 
 	 \begin{bmatrix}
 	 	\tilde{x}_1 & \ldots & \tilde{x}_n
 	 \end{bmatrix}^T \\
@@ -1279,8 +1350,8 @@ Sphere decoding algorithm\\
 \underline{\textbf{Main Idea:}}
 \begin{itemize}
 	\item Assume we know that $ d(\tilde{\mathbf{x}}) \leq R $ holds for some $\tilde{\mathbf{x}} $, where $ R $ is the so called ``sphere radius" \quad	$\rightarrow$ any $ \tilde{\mathbf{x}} $ with $ d(\tilde{\mathbf{x}}) \geq R $ cannot be the ML solution and can be discarded
-	\item since $ d_{n + 1}(\tilde{\mathbf{x}}_n^\prime, \tilde{\mathbf{x}}_{n + 1}) \geq d_n(\tilde{\mathbf{x}}_n^\prime) $, we can easily discard $ \mathbf{x}_n^\prime $ and all \\ possible $ \tilde{\mathbf{x}} = \begin{bmatrix}
-	\tilde{\mathbf{x}}_n^{\prime^T} & \tilde{x}_{n+1} & \tilde{x}_{n+2} & \ldots & \tilde{x}_{2N_T} \end{bmatrix}^T $ if we find $ d_n(\tilde{\mathbf{x}}_n^\prime) > R \quad $ \\ $ \Rightarrow $ we can exclude many possible vectors $\tilde{\mathbf{x}} $ without evaluating  any metrics for them 
+	\item since $ d_{n + 1}(\tilde{\mathbf{x}}_n^\prime, \tilde{x}_{n + 1}) \geq d_n(\tilde{\mathbf{x}}_n^\prime) $, we can easily discard $ \mathbf{x}_n^\prime $ and all \\ possible $ \tilde{\mathbf{x}} = \begin{bmatrix}
+	\tilde{\mathbf{x}}_n^{\prime} & \tilde{x}_{n+1} & \tilde{x}_{n+2} & \ldots & \tilde{x}_{2N_T} \end{bmatrix}^T $ if we find $ d_n(\tilde{\mathbf{x}}_n^\prime) > R \quad $ \\ $ \Rightarrow $ we can exclude many possible vectors $\tilde{\mathbf{x}} $ without evaluating  any metrics for them 
 	\item How to find a suitable $R$?
 	\begin{itemize}
 		\item Initial $R$: $R = d(\tilde{\mathbf{x}}_{\text{subopt}}) $ where $ \tilde{\mathbf{x}}_{\text{subopt}} $ was obtained with some suboptimum receiver
