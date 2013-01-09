@@ -1448,9 +1448,21 @@ Sphere decoding algorithm\\
 		\item $R $ is updated as $ R = R_{\text{new}} = d(\tilde{\mathbf{x}}_{\text{cand}}) $ where $ \tilde{\mathbf{x}}_{\text{cand}} $ is an $ \tilde{\mathbf{x}} $ which \\ yields  $ d(\tilde{\mathbf{x}}_{\text{cand}}) < R_{\text{old}} = R $
 	\end{itemize}
 	\item Use tree structure to represent all possible $\tilde{\mathbf{x}} $ 
-	\item[] Example: BPSK, $N_T = 2$
 \end{itemize}
-	
+\subparagraph*{Example:}	
+\underline{ BPSK = 2, $N_T = 2$}
+\begin{itemize}
+	\item Assume $\tilde{\mathbf{x}}_{\text{subopt}} = \begin{bmatrix} -1 & -1 & -1 & 1	\end{bmatrix}^T $ \\ $ \quad \Rightarrow d(\tilde{x}_{\text{subopt}} = 1 + 2 + 2 + 2 = 7 = R $
+	\item For $\tilde{x}_1 = 1 $ we find $ d_2(1,1) = 5 + 3 = 8 > R $ and $ d(1,-1) = 5 + 4 > R $ \\ $ \quad\Rightarrow $ we don't have to calculate metrics for remaining branches, i.e., for nodes $19, \ldots ,31 $
+	\item For $ \tilde{x}_1 = -1 $ and $ \tilde{x}_2 = 1$ , we find that $d_3(-1, 1, -1) = 8 > R $ and $ d_3(-1, 1, 1) = 9 > R$ \\ $ \quad\Rightarrow $ remaining branches emerging from nodes 6 and 7 can be discarded
+	\item For the ML solution we find $d(-1, -1, 1, -1) = 5 < R $
+	\item Different strategies exist, regarding in which order the nodes in the tree (points in the lattice) are investigated
+	\begin{itemize}
+		\item Pohst strategy
+		\item Schnoir\,-\,Enchner strategy
+		\item rich literature on lattice decoding algorithms
+	\end{itemize}
+\end{itemize}
 
 
 \end{document}
