@@ -12,6 +12,7 @@
 \usepackage{empheq}
 \usepackage{titlesec}	
 \usepackage{tikz}
+\usetikzlibrary{arrows}
 %\usepackage{tabularx}
 %\usepackage{pdfpages}
 %\usepackage{hyperref,breakurl}
@@ -1449,35 +1450,73 @@ Sphere decoding algorithm\\
 \end{itemize}
 \subparagraph*{Example:}	
 \underline{ BPSK = 2, $N_T = 2$}\\
-\centering{
-\begin{tikzpicture}[every node/.style = {fill = gray}]
-\tikzstyle{level 1}=[sibling distance = 80mm]
-\tikzstyle{level 2}=[sibling distance = 40mm]
-\tikzstyle{level 3}=[sibling distance = 20mm]
-\tikzstyle{level 4}=[sibling distance = 10mm]
 
-		\node [circle,draw] (0) {0}
+% Optionen für Stil, der im Bild verwendet werden kann
+% Verwendung: \node [baumnode]
+%
+%\tikzset{
+% 	baumnode/.style = {fill = gray, circle,draw}
+% } 
+% 
+\newpage
+\begin{tikzpicture}[->,>=stealth']
+\tikzstyle{every node} = [font = \small]
+	\node [circle , draw]  (Start) {Start} 
+		child {node [ circle, draw] (links) {links}
+			edge from parent
+			node[left] {$-1$}				
+		}
+		child {node [ circle, draw] (rechts) {rechts}
+			edge from parent
+			node[right] {$+1$}				
+		}
+	;
+\end{tikzpicture}
+
+\begin{tikzpicture}[rotate = 90]
+\tikzstyle{level 1}=[sibling distance = 100mm]
+\tikzstyle{level 2}=[sibling distance = 50mm]
+\tikzstyle{level 3}=[sibling distance = 25mm]
+\tikzstyle{level 4}=[sibling distance = 15mm]
+\tikzstyle{every node} = [font = \small]
+		\node [circle, draw] (0) {0}
 			child {node [circle,draw] (1) {1}
-				child {node [circle,draw] (2) {2}
+				child {node (0) [circle,draw] (2) {2}
 					child {node [circle,draw] (4) {4}
-						child {node [circle,draw] (8) {8}}
-						child {node [circle,draw] (9) {9}}			
+						child {node [circle,draw] (8) {8}
+							edge from parent
+							node[below ] {$f_4(\ldots) = 4$}
+						}
+						child {node [circle,draw] (9) {9}
+							edge from parent
+							node[above ] {$f_4(\ldots) = 2$}						
+						}	
+						edge from parent
+						node[below ] {$f_3(\ldots) = 2$}		
 					}
 					child {node [circle,draw] (5) {5}
 						child {node [circle,draw] (10) {10}}
-						child {node [circle,draw] (11) {11}}							
+						child {node [circle,draw] (11) {11}}			
+						edge from parent
+						node[above ] {$f_3(\ldots) = 1$}				
 					}
+					edge from parent
+					node[left ] {$	f_2(-1,-1) = 2$}
 				}
 				child {node [circle,draw] (3) {3}
 					child {node [circle,draw] (6) {6}
 						child {node [circle,draw] (12) {12}}
-						child {node [circle,draw] (13) {13}}							
+						child {node [circle,draw] (13) {13}}					
 					}
 					child {node [circle,draw] (7) {7}
 						child {node [circle,draw] (14) {14}}
 						child {node [circle,draw] (15) {15}}	
-					}						
-				}			
+					}				
+					edge from parent
+					node[right ] {$f_2(-1,+1) = 1$}				
+				}	
+				edge from parent
+				node[left ] {$	f_1(-1) = 1$}		
 			}
 			child {node [circle,draw] (16) {16}
 				child {node [circle,draw] (17) {17}
@@ -1503,7 +1542,8 @@ Sphere decoding algorithm\\
 			}
 			;
 \end{tikzpicture}
-}
+
+\newpage
 
 \begin{itemize}
 	\item Assume $\tilde{\mathbf{x}}_{\text{subopt}} = \begin{bmatrix} -1 & -1 & -1 & 1	\end{bmatrix}^T $ \\ $ \quad \Rightarrow d(\tilde{x}_{\text{subopt}} = 1 + 2 + 2 + 2 = 7 = R $
