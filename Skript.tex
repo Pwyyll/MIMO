@@ -1,6 +1,3 @@
-%Kompilierung mit:
-%latex -interaction=nonstopmode %.tex|bibtex %|dvipdfm %.dvi|"D:/Programme/Foxit Reader/Foxit Reader.exe" %.pdf
-
 \documentclass[a4paper, 10pt]{article}
 %\usepackage[utf8]{inputenc}			
 \usepackage[english]{babel}		% for german	
@@ -14,6 +11,7 @@
 \usepackage{mathrsfs}
 \usepackage{empheq}
 \usepackage{titlesec}	
+\usepackage{tikz}
 %\usepackage{tabularx}
 %\usepackage{pdfpages}
 %\usepackage{hyperref,breakurl}
@@ -1450,7 +1448,63 @@ Sphere decoding algorithm\\
 	\item Use tree structure to represent all possible $\tilde{\mathbf{x}} $ 
 \end{itemize}
 \subparagraph*{Example:}	
-\underline{ BPSK = 2, $N_T = 2$}
+\underline{ BPSK = 2, $N_T = 2$}\\
+\centering{
+\begin{tikzpicture}[every node/.style = {fill = gray}]
+\tikzstyle{level 1}=[sibling distance = 80mm]
+\tikzstyle{level 2}=[sibling distance = 40mm]
+\tikzstyle{level 3}=[sibling distance = 20mm]
+\tikzstyle{level 4}=[sibling distance = 10mm]
+
+		\node [circle,draw] (0) {0}
+			child {node [circle,draw] (1) {1}
+				child {node [circle,draw] (2) {2}
+					child {node [circle,draw] (4) {4}
+						child {node [circle,draw] (8) {8}}
+						child {node [circle,draw] (9) {9}}			
+					}
+					child {node [circle,draw] (5) {5}
+						child {node [circle,draw] (10) {10}}
+						child {node [circle,draw] (11) {11}}							
+					}
+				}
+				child {node [circle,draw] (3) {3}
+					child {node [circle,draw] (6) {6}
+						child {node [circle,draw] (12) {12}}
+						child {node [circle,draw] (13) {13}}							
+					}
+					child {node [circle,draw] (7) {7}
+						child {node [circle,draw] (14) {14}}
+						child {node [circle,draw] (15) {15}}	
+					}						
+				}			
+			}
+			child {node [circle,draw] (16) {16}
+				child {node [circle,draw] (17) {17}
+					child {node [circle,draw] (19) {19}
+						child {node [circle,draw] (23) {23}}
+						child {node [circle,draw] (24) {24}}						
+						}
+					child {node [circle,draw] (20) {20}
+						child {node [circle,draw] (25) {25}}
+						child {node [circle,draw] (26) {26}}						
+						}	
+					}
+				child {node [circle,draw] (18) {18}
+					child {node [circle,draw] (21) {21}
+						child {node [circle,draw] (27) {27}}
+						child {node [circle,draw] (28) {28}}						
+					}
+					child {node [circle,draw] (22) {22}
+						child {node [circle,draw] (29) {29}}
+						child {node [circle,draw] (30) {30}}						
+					}					
+				}				
+			}
+			;
+\end{tikzpicture}
+}
+
 \begin{itemize}
 	\item Assume $\tilde{\mathbf{x}}_{\text{subopt}} = \begin{bmatrix} -1 & -1 & -1 & 1	\end{bmatrix}^T $ \\ $ \quad \Rightarrow d(\tilde{x}_{\text{subopt}} = 1 + 2 + 2 + 2 = 7 = R $
 	\item For $\tilde{x}_1 = 1 $ we find $ d_2(1,1) = 5 + 3 = 8 > R $ and $ d(1,-1) = 5 + 4 > R $ \\ $ \quad\Rightarrow $ we don't have to calculate metrics for remaining branches, i.e., for nodes $19, \ldots ,31 $
