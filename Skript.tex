@@ -1311,7 +1311,7 @@ but:
 	\item Optimal $\mathbf{L}$:
 	\begin{align*}
 		\boldsymbol{\Phi}_{ee}&=\mathbf{L}\boldsymbol{\Phi}_{\tilde{x}y}\boldsymbol{\Phi}_{yy}^{-1}\boldsymbol{\Phi}_{yy}\boldsymbol{\Phi}_{yy}^{-1}\boldsymbol{\Phi}_{\tilde{x}y}^H\mathbf{L}^H
-		-\mathbf{L}\boldsymbol{\Phi}_{xy}\boldsymbol{\Phi}_{yy}^{-1}\boldsymbol{\Phi}_{yz}\mathbf{L}^H
+		-\mathbf{L}\boldsymbol{\Phi}_{\tilde{x}y}\boldsymbol{\Phi}_{yy}^{-1}\boldsymbol{\Phi}_{y\tilde{x}}\mathbf{L}^H
 		-\mathbf{L}\boldsymbol{\Phi}_{\tilde{x}y}\boldsymbol{\Phi}_{yy}^{-1}\boldsymbol{\Phi}_{\tilde{x}y}^H\mathbf{H}^H+\mathbf{L}\boldsymbol{\Phi}_{\tilde{x}\tilde{x}}\mathbf{L}^H\\ 
 		&=\mathbf{L}(\boldsymbol{\Phi}_{\tilde{x}\tilde{x}}-\boldsymbol{\Phi}_{\tilde{x}y}\boldsymbol{\Phi}_{yy}^{-1}\boldsymbol{\Phi}_{\tilde{x}y}^H)\mathbf{L}^H
 	\end{align*}
@@ -1577,6 +1577,18 @@ Sphere decoding algorithm\\
 		\item Pohst strategy
 		\item Schnoir\,-\,Enchner strategy
 		\item rich literature on lattice decoding algorithms
+	\end{itemize}
+	\item Complexity of sphere decoding
+	\begin{itemize}
+		\item worst-case complexity is still exponential in $N_T$
+		\item (for practical case:) for sufficiently high SNR, the average complexity is only polynomial in $N_T \Rightarrow $ efficient ML decoding
+	\end{itemize}		
+	\item sphere decoding has found application in many fields:
+	\begin{itemize}
+		\item ML detection in MIMO and multiuser systems
+		\item precoding
+		\item source coding
+		\item multiple symbol differential detection
 	\end{itemize}
 \end{itemize}
 
