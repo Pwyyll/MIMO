@@ -12,7 +12,7 @@
 \usepackage{empheq}
 \usepackage{titlesec}	
 \usepackage{tikz}
-\usetikzlibrary{arrows}
+\usetikzlibrary{arrows, snakes,shapes}
 %\usepackage{tabularx}
 %\usepackage{pdfpages}
 %\usepackage{hyperref,breakurl}
@@ -54,19 +54,38 @@
 	\item We distinguish two cases:
 	\begin{itemize}
 		\item multipoint\,-\,to\,-\,point transmission
-		\item point\,-\,to\,-multipoint transmission
+		\item point\,-\,to\,-\,multipoint transmission
 	\end{itemize}
 	\item Multipoint\,-\,to\,-\,point transmission
 	\begin{itemize}
 		\item typical uplink scenario in cellular systems
 		\item information theoretical channel model: Multiple Access Channel (MAC)
-		\item \textbf{Bild einf\"ugen und diese Zeile l\"oschen}
+		\begin{figure}[h]\centering
+			\includegraphics[scale=0.8]{MAC}
+		\end{figure}
+%		\begin{tikzpicture}
+%			\node (user1) at (0,0) [draw] {User 1};
+%			\node (user2) at (1,-1)[draw] {User 2};
+%			\node (user3) at (2,-2)[draw] {User 3};		
+%			\draw[-<] (user1.east) --(1,0) --(1,0.5);        
+%			\draw[-<] (user2.east) --(2,-1) --(2,-0.5); 
+%			\draw[-<] (user3.east) --(3,-2) --(3,-1.5); 
+%			\node[draw, minimum width = 2cm, minimum height = 2.5cm, font = \bfseries\large] (Joint_Receiver) at (10,-1) {Joint Receiver};
+%			\path[draw,-<] ([xshift = 0cm, yshift = 0.5cm] Joint_Receiver.west)--([xshift = -1cm, yshift = 0.5cm] Joint_Receiver.west);
+%			\path[draw,-<] (Joint_Receiver.west)--([xshift = -1cm, yshift = 0cm] Joint_Receiver.west) ;
+%			\path[draw,-<] ([xshift = 0cm, yshift = -0.5cm] Joint_Receiver.west)--([xshift = -1cm, yshift = -0.5cm] Joint_Receiver.west);
+%			\path[draw,->,>=stealth'] ([xshift = 0.6cm,yshift = 0.4cm] user1.east)--([xshift = -2.5cm, yshift = 0.5cm] Joint_Receiver.west);
+%			\path[draw,->,>=stealth'] ([xshift = 0.6cm,yshift = 0.4cm] user2.east)--([xshift = -2.5cm, yshift = 0cm] Joint_Receiver.west);
+%			\path[draw,->,>=stealth'] ([xshift = 0.6cm,yshift = 0.4cm] user3.east)--([xshift = -2.5cm, yshift = -0.5cm] Joint_Receiver.west);
+%		\end{tikzpicture}
 	\end{itemize}
 	\item Point\,-\,to\,-multipoint transmission
 	\begin{itemize}
 		\item typical downlink scenarion in cellular systems
 		\item information theoretical channel model: Broadcast Channel (BC)
-		\item \textbf{Bild einf\"ugen und diese Zeile l\"oschen}
+		\begin{figure}[h]\centering
+			\includegraphics[scale=0.8]{BC}
+		\end{figure}	
 	\end{itemize}
 	\item Advantage of multiuser MIMO compared to point\,-\,to\,-\,point MIMO
 	\begin{itemize}
