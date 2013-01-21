@@ -1,6 +1,6 @@
 \documentclass[a4paper, 10pt]{article}
 %\usepackage[utf8]{inputenc}			
-\usepackage[english]{babel}		% for german	
+\usepackage[german]{babel}		% for german	
 \usepackage{graphicx}								
 \usepackage{parskip}
 \usepackage{listings}
@@ -12,7 +12,7 @@
 \usepackage{empheq}
 \usepackage{titlesec}	
 \usepackage{tikz}
-\usetikzlibrary{arrows, snakes,shapes}
+\usetikzlibrary{arrows, shapes}
 %\usepackage{tabularx}
 %\usepackage{pdfpages}
 %\usepackage{hyperref,breakurl}
@@ -49,6 +49,7 @@
 
 \begin{document}
 \setcounter{section}{2}
+\tableofcontents
 \section{Multiuser MIMO}
 \begin{itemize}
 	\item We distinguish two cases:
@@ -315,9 +316,130 @@ Questions: What happens if there are multiple users?
 	\end{align*}
 	\item[$\rightarrow$] $\mathbf{\mathcal{C}} $  has $ K! $ corner points which can all be achieved by successive interference cancellation (SIC) 
 \end{itemize}
-
-\end{document}
-
-
-
-				
+\paragraph{Rate region for MIMO Users and Receivers}
+\begin{itemize}
+	\item Channel Model: $ \mathbf{y} = \sum_{k = 1}^{K}\mathbf{H}_k\mathbf{x}_k + \mathbf{n} $, with:
+	\begin{itemize}
+		\item User k has $N_{T,k} $ transmit antennas
+		\item $N_R $ receive antennas
+		\item $\mathbf{n} $: AWGN vector $\mathcal{N}(\mathbf{0},\sigma_n^2\mathbf{I})$
+	\end{itemize}
+	\item 2 Users case: 
+	\begin{equation}
+		\mathbf{y} = \mathbf{H}_1\mathbf{x}_1 + \mathbf{H}_2\mathbf{x}_2 + \mathbf{n}  \label{eq:Formel_7}
+	\end{equation}	 
+	\begin{itemize}
+		\item Covariance matrix of the TX signal of user k: $\mathbf{Q}_k = \mathcal{E}\{\mathbf{x}_k\mathbf{x}_k^H\} $
+		\item transmit power: $\mathcal{E}_k = \text{tr}\{\mathbf{Q}_k\} $
+	\end{itemize}
+	\item rate region for 2 user case and given $\mathbf{Q}_k$
+	\begin{itemize}
+		\item $\mathbf{Q}_k $ given, for example 
+		\begin{itemize}
+			\item[a)] $\mathbf{Q}_k$ optimal for single user case $\rightarrow \mathbf{Q}_k = \mathbf{U}_k\mathbf{\Lambda}_k\mathbf{U}_k^H $, where:
+			\begin{itemize}
+				\item $\mathbf{U}_k $ is an unitary matrix 
+				\item obtained from $\mathbf{H}_k = \mathbf{U}_k\mathbf{\Sigma}_k\mathbf{V}_k^H $
+				\item $\mathbf{\Lambda}_k = \text{diag}\{\mathcal{E}_{k,1},\mathcal{E}_{k,2},\ldots,\mathcal{E}_{k,N_T}\} $ with $\mathcal{E}_{l,i} $ obtained from waterfilling and $\sum_{i = 1}^{N_{Tk}}\mathcal{E}_{k,i} = \mathcal{E}_k $
+			\end{itemize}
+			\item[b)] $\mathbf{Q}_k = \frac{\mathcal{E}_k}{N_{T,k}}\mathbf{I}_{N_{T,k}} $ if $\mathbf{H}_k $ is not known at transmitter
+		\end{itemize}
+		\item for given $\mathbf{Q}_1 $ and $\mathbf{Q}_2 $ we can obtain the rate region as direct extension of the SISO case
+		\begin{align}
+			R_1 &< \log_2\bigl|\mathbf{I} + \frac{1}{\sigma_n^2}\mathbf{H}_1\mathbf{Q}_1\mathbf{H}_1^H\bigr|\label{eq:Formel_4}\\
+			R_2 &< \log_2\bigl|\mathbf{I} + \frac{1}{\sigma_n^2}\mathbf{H}_2\mathbf{Q}_2\mathbf{H}_2^H\bigr|\label{eq:Formel_5}\\
+			R_1 + R_2 &< \log_2\bigl|\mathbf{I} + \frac{1}{\sigma_n^2}\sum_{i = 1}^{2}\mathbf{H}_i\mathbf{Q}_i\mathbf{H}_i^H\bigr|\label{eq:Formel_6}			
+		\end{align}
+		\begin{itemize}
+			\item equation \ref{eq:Formel_4} and equation  \ref{eq:Formel_5} are the single user bounds,
+			\item equation \ref{eq:Formel_6} is the bound for the joint encoding of both users
+		\end{itemize}
+		\item graphical represantation\\
+		\begin{tikzpicture}
+			\tikzstyle{every node} = [font = \small]
+				\path[draw,->,>=stealth'] (0,-0.3)--
+					(0,4) node [left] {$R_2$};
+				\path[draw,->,>=stealth'] (-0.3,0)--
+					(5,0) node [above] {$R_1$};
+				\path[draw] (-0.1, 3)--
+					(0,3) node[left]{$\log_2|\mathbf{I} + \frac{1}{\sigma_n^2}\mathbf{H}_2 \mathbf{Q}_2\mathbf{H}_2^H|$}--
+					(0.3,3) node[above] {A}--
+					(2,3) node[above] {B} --
+					(3,2.5) node[right]{$R_1 + R_2$}--
+					(4,2) node[right] {C}--
+					(4,0.3) node [right] {D}--
+					(4,-0.1) node[below] {$\log_2|\mathbf{I} + \frac{1}{\sigma_n^2}\mathbf{H}_1 \mathbf{Q}_1\mathbf{H}_1^H|$};		
+		\end{tikzpicture}
+	\item Points on A\,-\,B\,-\,C\,-\,D can be achieved in a similar manner as for SISO case	
+	\item e.g. bound C can be achieved by SIC
+	\item At B we have 
+	\begin{align*}
+		R_2 &= \log_2\bigl|\mathbf{I} + \frac{1}{\sigma_n^2}\mathbf{H}_2\mathbf{Q}_2\mathbf{H}_2^H\bigr|\\
+		R_1 &= \log_2\bigl|\mathbf{I} + \frac{1}{\sigma_n^2}\sum_{i = 1}^{2}\mathbf{H}_i\mathbf{Q}_i\mathbf{H}_i^H\bigr| - R_2\\
+		\rightarrow &\text{ user 1 transmits with rate}\\
+		R_1 &= \log_2\bigl|\mathbf{I} + \frac{1}{\sigma_n^2}(\mathbf{I} + \frac{1}{\sigma_n^2}\mathbf{H}_2\mathbf{Q}_2\mathbf{H}_2^H)^{-1}\mathbf{H}_1\mathbf{Q}_1\mathbf{H}_1^H\bigr|
+	\end{align*}
+	\item How to achieve rates at B? $\rightarrow $ Treat $\mathbf{H}_2\mathbf{x}_2 + \mathbf{n} $ in equation  \ref{eq:Formel_7} as noise with covariance matrix $ \mathbf{Q}_N = \mathbf{H}_2\mathbf{Q}_2\mathbf{H}_2^H + \sigma_n^2\mathbf{I} $
+	\item[$\rightarrow$] equivalent channel matrix with white noise: $\mathbf{r} = \mathbf{Q}_N^{-\frac{1}{2}}\mathbf{y} = 	\mathbf{Q}_N^{-\frac{1}{2}}\mathbf{H}_1\mathbf{x}_1 + \tilde{\mathbf{n}} $ where $ \tilde{\mathbf{n}} $ is white noise with covariance $\mathbf{I}$. \\ \textit{Anmerkung: Rauschen war vorher farbig, muss ``gewei"st"\  werden.} 
+	\begin{align*}
+		\rightarrow R_1 &= \log_2\bigl|\mathbf{I} + \underbrace{\mathbf{Q}_N^{-\frac{1}{2}} \mathbf{H}_1}_{\mathbf{H}}\mathbf{Q}_1\underbrace{\mathbf{H}_1^H\mathbf{Q}_N^{-\frac{1}{2}}}_{\mathbf{H_{eq}^H}}\bigr|  = \log_2\Bigl(\bigl|\mathbf{Q}_N^{\frac{1}{2}} + \mathbf{Q}_N^{-\frac{1}{2}}\mathbf{H}_1\mathbf{Q}_1\mathbf{H}_1^H\bigr|\cdot\bigl|\mathbf{Q}_N^{-\frac{1}{2}}\bigr|\Bigr)\\
+		&= \log_2\bigl|\mathbf{I} + \mathbf{Q}_N^{-1}\mathbf{H}_1\mathbf{Q}_1\mathbf{H}_1^H\bigr| = \\
+		&= \log_2\bigl|\mathbf{I} + \frac{1}{\sigma_n^2}\bigl(\mathbf{I} + \frac{1}{\sigma_n^2}\mathbf{H}_2\mathbf{Q}_2\mathbf{H}_2^H\bigr)^{-1}\mathbf{H}_1\mathbf{Q}_1\mathbf{H}_1^H\bigr|
+	\end{align*}
+	\item[$\rightarrow$] we can achieve $R_1 $ in B by treating user 2 as noise
+	\item[$\rightarrow$] once user 1 is detected, we can subtract its contribution from the received signal and detect user 2
+	\begin{itemize}
+		\item[$\Rightarrow$] user 2 can transmit with maximum single user rate
+	\end{itemize}
+	\item[$\rightarrow$] bound C can be achieved by SIC similar to SISO case
+	\item points on B\,-\,C are achieved through time sharing
+	\end{itemize}
+	\item extension to K user case $\rightarrow $ analogous to SISO case
+	\item Note: Different choices for $Q_k $ will lead to different rate regions
+	\item Example: $ K = 2$
+	\begin{tikzpicture}
+		\tikzstyle{every node} = [font = \small]
+				\path[draw,->,>=stealth'] (0,-0.3)--
+					(0,5) node [left] {$R_2$};
+				\path[draw,->,>=stealth'] (-0.3,0)--
+					(7,0) node [below] {$R_1$};
+				\path[draw] (0, 4)--
+					(1.5,4) node[above] {$\mathbf{Q}_1^a, \mathbf{Q}_2^a$}--
+					(3,4) node{}--
+					(5,2) node{}--
+					(5,0) node{};
+				\path[draw,dashed](0,3)--
+					(4.5,3) node[right]{$\mathbf{Q}_1^b, \mathbf{Q}_2^b$}--
+					(6.5,1.5) node {}--
+					(6.5,0) node{};
+	\end{tikzpicture}
+	\item[$\rightarrow$] $\mathbf{Q}_1 $ and $ \mathbf{Q}_2 $ can be optimized to achieve desired trade-off between  performance of users 1 and 2
+\end{itemize}
+\subsection{Broadcast Channel}
+We consider:
+\begin{itemize}
+	\item uplink\,-\,downlink duality
+	\item rate region
+\end{itemize}
+\subsubsection{Multiplexing Gain\,-\,Degrees of freedom}
+\paragraph{Downlink scenarios:}
+\begin{itemize}
+	\item $N_R $ antennas at transmitter, single antennas at the users
+	\item user k receives: $ \mathbf{y}_k = \mathbf{h}_k^H\mathbf{x} + \mathbf{n}_k $, with:
+	\begin{itemize}
+		\item $N_R $ dimensional channel vector of user k: $\mathbf{h}_k^H $
+		\item $n_k$: AWGN at user k
+		\item $\mathbf{x} $ transmit vector  
+	\begin{figure}[ht]\centering
+		\includegraphics[scale=0.8]{BroadcastChannel_scenario}
+	\end{figure}
+	\end{itemize}
+	\item How many independent signal streams can we transmit?
+	\begin{itemize}
+		\item Consider transmit signal: $\mathbf{x} = \sum\limits_{k = 1}^{K}\mathbf{h}_k\mathbf{x}_k $, with TX transmit vector $\mathbf{n}_k $ and symbol $x_k $ is intended for user k
+	\end{itemize}
+	\item received signal of user k: $y_k = \sum\limits_{k = 1}^{K}(\mathbf{h}_k^H\mathbf{n}_i)\mathbf{x}_i + n_k $
+	\item if all $\mathbf{h}_k $ were orthogonal and we chose $\mathbf{n}_k = \mathbf{h}_k $, the received signal would be: \\ $y_k = ||h_k||^2\mathbf{x}_k + n_k $
+	\item if $N_R \geq K$, we can transmit simultaneously and interference free to all K users\\ $\Rightarrow $ multiplexing gain $= \text{min}\{K,N_k\} $
+\end{itemize}
+\end{document}				
