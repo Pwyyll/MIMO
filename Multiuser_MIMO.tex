@@ -176,7 +176,148 @@ Questions: What happens if there are multiple users?
 	\begin{itemize}
 		\item \eqref{eq:Formel_1} and \eqref{eq:Formel_2}  (= single\,-to\,user constraint) are the ``single\,-\,user bounds´´, i.e., the maximum rates of user 1 and 2, if the other user was not there
 		\item \eqref{eq:Formel_3} can be interpreted as the maximum rate if streams of users 1 and 2 were jointly encoded. The separate encoding in the MAC cannot yield a better performance
-		\item Graphical represantation: \textbf{Bild einf\"ugen und diese Zeile l\"oschen}
+		\item Graphical represantation: \\
+		\begin{tikzpicture}
+		\tikzstyle{every node} = [font = \small]
+			\path[draw,->,>=stealth'](0,-0.3)--
+				(0,3) node [left] {$\log_2(1+\frac{\mathcal{E}_2}{\mathcal{E}_1 + \sigma_n^2})$}--
+				(0,4) node [left] {$\log_2(1+\frac{\mathcal{E}_2}{\sigma_n^2})$}--
+				(0,2) node [right] {achievable rate}--		
+				(0,6) node [left] {$R_2$};
+			\path[draw,->,>=stealth'](-0.3,0)--
+				(3,0) node [above] {$\log_2(1+\frac{\mathcal{E}_1}{\mathcal{E}_2 + \sigma_n^2})$}--
+				(4,0) node [below] {$\log_2(1+\frac{\mathcal{E}_1}{\sigma_n^2})$}--
+				(6,0) node [below] {$R_1$};
+			\path[draw](4,0)--
+				(4,0.2) node [right] {D}--
+				(4,2.8) node [left] {C}--
+				(4,3) node {};
+			\path[draw,dashed](3,0)--
+				(3,4) node [above] {B};
+			\path[draw](0,4)--
+				(0.2,4) node [above] {A}--
+				(3,4) node {};
+			\path[draw,dashed](0,3)--
+				(4,3) node {};
+			\path[draw](3,4)--
+				(4,3) node [above] {dominant face};
+			\path[draw,dashed](1,6)--
+				(6,1) node [above] {$R_1 + R_2 = \log_2(1 + \frac{\mathcal{E}_1 + \mathcal{E}_2}{\sigma_n^2}) $};
+		\end{tikzpicture}
 	\end{itemize}
+	
+	\item Observations:
+	\begin{itemize}
+		\item A\,-\,B is defined by \eqref{eq:Formel_2}
+		\item C\,-\,D is defined by \eqref{eq:Formel_1}
+		\item B\,-\,C is defined by \eqref{eq:Formel_3}
+		\item A\,-\,B suggests that even if user 2 transmits with the same max. rate as in the single user case, user 1 can transmit with non-zero rate! $\rightarrow $ Multiuser communication enables ``free´´ rate gains!
+		\item Which point on A\,-\,B\,-\,C,-\,D we choose, depends on the design criterion 	
+	\end{itemize}		
+	\item How do we achieve points on 	A\,-\,B\,-\,C,-\,D? 
+	\begin{itemize}
+		\item Both user use Gaussian codebooks
+		\item B: 
+		\begin{itemize}
+			\item signal of user 1, $x_1$, is decoded first and $x_2 $ is treated as noise:
+			\begin{align*}
+				y &= x_1 + \underbrace{x_2 + n}_{\text{treat as noise}}\\ \rightarrow R_1 &< \log_2\bigl(1 + \frac{\mathcal{E}_1}{\mathcal{E}_2 + \sigma_n^2}\bigr)
+			\end{align*}
+			\item once $x_1 $ is known, we form 
+			\begin{align*}
+				y -x_1 &= x_2 + n\\ \rightarrow R_2 &< \log_2\bigl(1 + \frac{\mathcal{E}_s}{\sigma_n^2}\bigr)
+			\end{align*}
+			\item this approach is referred to as successive interference cancellation (SIC) and is a direct result of the chain rule in information theory:\\ $I(X_1, X_2, Y) = I(X_1, Y) + I(X_2; Y|X_1) $
+		\end{itemize}
+		\item C: same as B, but $X_1 $ and $X_2 $ change rules
+		\item Points on A\,-\,B, C\,-\,D can be achieved by decreasing the rate of users 1 and 2 respectively (not desirable)
+		\item Points on B\,-\,C (dominant face): Achievable by ``time-sharing´´, i.e., $\theta\cdot 100\% $ of the time we decode user 1 first and $(1 - \theta)100\% $ of the time we decode user 2 first, $ 0\leq \theta \leq 1 $ 
+		\begin{align*}
+			R_1 &< \theta\log_2\bigl(1 + \frac{\mathcal{E}_1}{\mathcal{E}_2 + \sigma_n^2}\bigr) + \bigl(1-\theta\bigr)\log_2\bigl(1 + \frac{\mathcal{E}_1}{\sigma_n^2}\bigr)\\
+			R_2 &< \theta\log_2\bigl(1 + \frac{\mathcal{E}_2}{\sigma_n^2}\bigr) + \bigl(1-\theta\bigr)\log_2\bigl(1 + \frac{\mathcal{E}_2}{\mathcal{E}_1 + \sigma_n^2}\bigr)\\
+			\rightarrow R_1 + R_2 &< \theta\Bigl(\log_2\bigl( 1 + \frac{\mathcal{E}_1}{\mathcal{E}_2 + \sigma_n^2}\bigr) + \log_2\bigl(1 + \frac{\mathcal{E}_2}{\sigma_n^2}\bigr)\Bigr) + \\ &+ \bigl( 1- \theta\bigr) \Bigl(\log_2\bigl(1 + \frac{\mathcal{E}_1}{\sigma_n^2}\bigr) + \log_2\bigl(1 + \frac{\mathcal{E}_2}{\mathcal{E}_1 + \sigma_n^2}\bigr)\Bigr) = \\ &= \theta\log_2\Bigl(\frac{\mathcal{E}_1 + \mathcal{E}_2 + \sigma_n^2}{\mathcal{E}_2 + \sigma_n^2}\cdot\frac{\mathcal{E}_2 + \sigma_n^2}{\sigma_n^2}\Bigr) \cdot\bigl(1 - \theta\bigr)\log_2\Bigl(\frac{\mathcal{E}_1 + \sigma_n^2}{\sigma_n^2} \cdot\frac{\mathcal{E}_1 + \mathcal{E}_2 + \sigma_n^2}{\mathcal{E}_1 + \sigma_n^2} = \\ &= \log_2\Bigl( 1 + \frac{\mathcal{E}_1 + \mathcal{E}_2}{\sigma_n^2}\Bigr)
+		\end{align*}
+	\end{itemize}
+	\item Comparison with orthogonal transmission
+	\begin{itemize}
+		\item User 1 transmits for $\theta\cdot 100\% $ of the time and user 2 transmits for $(1-\theta)\cdot 100\%  $ of the time, $0\leq \theta\leq 1 $
+		\item to keep average transmit power independent of $\theta$, the users transmit with powers $\frac{\mathcal{E}_1}{\theta} $ and $\frac{\mathcal{E}_2}{1 - \theta} $ 
+		\item Rates: 
+		\begin{align*}
+			R_1 &< \theta\log_2\Bigl( 1 + \frac{\mathcal{E}_1}{\theta\sigma_n^2}\Bigr)\\
+			R_2 &< \bigl(1 - \theta\bigr)\log_2\Bigl( 1 + \frac{\mathcal{E}_2}{(1 - \theta)\sigma_n^2}\Bigr)
+		\end{align*}
+		\item[] multiuser:\\
+			\begin{tikzpicture}
+				\path[draw,<->,>=stealth'] node[left] {}(0,5)  -- node[sloped, above] {$\mathcal{E}_1$} (10,5) node[right]{ user 1};
+				\path[draw,<->,>=stealth'] (0,4)  -- node[sloped, above] {$\mathcal{E}_2$} (10,4) node[right]{ user 2};
+			\end{tikzpicture}
+		\item[] orthogonal:\\
+			\begin{tikzpicture}
+				\path[draw,<->,>=stealth']node[left] {} (0,3)  -- node[sloped, above] {$\frac{\mathcal{E}_1}{\theta}$}(4,3) ;
+				\path[draw,<->,>=stealth']node{}(4,3) --node[sloped,above]{non-transmission period: $1 -\theta$}(10,3) node[right]{ user 1} ;
+				\path[draw,<->,>=stealth']node{}(0,2)--node[sloped,above]{non-transmission period: $\theta$}(4,2);
+				\path[draw,<->,>=stealth'] (4,2)  -- node[sloped, above] {$\frac{\mathcal{E}_2}{1 - \theta}$} (10,2)  node[right]{ user 2};
+			\end{tikzpicture}
+			\item sumrate:
+			\begin{align*}
+				R_1 + R_2 < \theta\log_2\Bigl(1 + \frac{\mathcal{E}_1}{\theta\sigma_n^2}\Bigr) + \bigl(1-\theta\bigr)\log_2\Bigl(1 + \frac{\mathcal{E}_2}{(1-\theta)\sigma_n^2}\Bigr) = R_{\text{sum}} 
+			\end{align*}			
+			\item Which $\theta $ maximizes sumrate?
+			\begin{align*}
+				\frac{\delta R_{\text{sum}}}{\delta\theta} \overset{!}{=}  0 \text{ leads to } \theta_{\text{opt}} = \frac{\mathcal{E}_1}{\mathcal{E}_1 + \mathcal{E}_2}	
+			\end{align*}			 
+			\item Maximum sumrate
+			\begin{align*}
+				R_{\text{sum}} &= \frac{\mathcal{E}_1}{\mathcal{E}_1 + \mathcal{E}_2}\log_2\Bigl(1 + \frac{\mathcal{E}_1 + \mathcal{E}_2}{\sigma_n^2}\Bigr) + \frac{\mathcal{E}_2}{\mathcal{E}_1 + \mathcal{E}_2}\log_2\Bigl(1 + \frac{\mathcal{E}_1 + \mathcal{E}_2}{\sigma_n^2}\Bigr) = \\ &= \log_2\Bigl(1 + \frac{\mathcal{E}_1 + \mathcal{E}_2}{\sigma_n^2}\Bigr)\\
+				&\rightarrow \text{ same value as for general non-orthogonal transmission!}
+			\end{align*}
+			\item \underline{But:} In general, orthogonal transmission is suboptimal!\\
+			\begin{tikzpicture}
+			\tikzstyle{every node} = [font = \small]
+				\path[draw,->,>=stealth'] (0,-0.3)--
+					(0,4) node [left] {$R_2$};
+				\path[draw,->,>=stealth'] (-0.3,0)--
+					(5,0) node [below] {$R_1$};
+				\path[draw] (0, 3)--
+					(2,3) node {} --
+					(4,2) node {}--
+					(4,1.5) node [right] {non-orthogonal}--
+					(4,0) node {};			
+				\path[draw,dashed] (0,3) --
+					(1.5,11/4) node[below] {orthogonal}--
+					(3,2.5) node {}--
+					(4,0) node{};
+				\node[right] at (3,2.5) {optimal $\theta = \theta_{\text{opt}}$};
+					\pgfsetplotmarksize{0.3ex}
+					\pgfplothandlermark{\pgfuseplotmark{*}}
+					\pgfplotstreamstart
+					\pgfplotstreampoint{\pgfpoint{3cm}{2.5cm}}
+					\pgfplotstreamend	
+			\end{tikzpicture}	
+	\end{itemize}
+	\item 3 users case:
+	\begin{align*}
+		R_1 &< \log_2\Bigl(1 + \frac{\mathcal{E}_1}{\sigma_n^2}\Bigr)\\
+		R_2 &< \log_2\Bigl(1 + \frac{\mathcal{E}_2}{\sigma_n^2}\Bigr)\\
+		R_3 &< \log_2\Bigl(1 + \frac{\mathcal{E}_3}{\sigma_n^2}\Bigr)\\
+		R_i + R_j &< \log_2\Bigl(1 + \frac{\mathcal{E}_i + \mathcal{E}_j}{\sigma_n^2}\Bigr),\quad i\neq j\\
+		R_1 + R_2 + R_3 &< \log_2\Bigl(1 + \frac{\mathcal{E}_1 + \mathcal{E}_2 + \mathcal{E}_3}{\sigma_n^2}\Bigr)\\
+		&\rightarrow \text{rate region } \mathbf{\mathcal{C}} \text{ has } 3! = 6 \text{ corner points}
+	\end{align*}
+	\item general case of K users
+	\begin{itemize}
+		\item define all non-empty subsets of $\mathbf{K} = \bigl\{1,\ldots, K\bigr\} $ as $ \mathbf{S} \in \mathbf{K}$,\\  e.g. $K = 2$: $\mathbf{K} = \bigl\{1, 2\bigr\}, \mathbf{S} = \bigl\{\{1\}, \{2\}, \{1, 2\}\bigr\} $ 
+	\end{itemize}
+	\item rate region $\mathbf{\mathcal{C}} $  is defined by
+	\begin{align*}
+		\sum_{k \in \mathbf{S}}R_k < \log_2\Bigl(1 + \frac{\sum_{k\in\mathbf{S}\mathcal{E}_k}}{\sigma_n^2}\Bigr)\quad\forall\, \mathbf{S}
+	\end{align*}
+	\item[$\rightarrow$] $\mathbf{\mathcal{C}} $  has $ K! $ corner points which can all be achieved by successive interference cancellation (SIC) 
 \end{itemize}
+
 \end{document}
+
+
+
+				
