@@ -1,7 +1,8 @@
 \documentclass[a4paper, 10pt]{article}
 %\usepackage[utf8]{inputenc}			
 \usepackage[german]{babel}		% for german	
-\usepackage{graphicx}								
+\usepackage[dvips]{graphicx}		
+\usepackage{psfrag}						
 \usepackage{parskip}
 \usepackage{listings}
 \usepackage{xcolor}
@@ -13,11 +14,6 @@
 \usepackage{titlesec}	
 \usepackage{tikz}
 \usetikzlibrary{arrows, shapes}
-%\usepackage{tabularx}
-%\usepackage{pdfpages}
-%\usepackage{hyperref,breakurl}
-%\usepackage{url}
-%\usepackage{psfrag}
 \usepackage{epstopdf}
 \usepackage{dsfont}
 \usepackage{sectsty}
@@ -430,8 +426,12 @@ We consider:
 		\item $N_R $ dimensional channel vector of user k: $\mathbf{h}_k^H $
 		\item $n_k$: AWGN at user k
 		\item $\mathbf{x} $ transmit vector  
-	\begin{figure}[ht]\centering
-		\includegraphics[scale=0.8]{BroadcastChannel_scenario}
+	\begin{figure}[ht]
+		\centering
+		\psfrag{sender}[bl][bl][3]{$\underline{\text{x}}$}
+		\psfrag{CH1}[br][br]{$h_1^H$}
+		\psfrag{CH2}[br][br]{$h_2^H$}
+		\includegraphics[scale=0.8]{BroadcastChannel_scenario.eps}
 	\end{figure}
 	\end{itemize}
 	\item How many independent signal streams can we transmit?
