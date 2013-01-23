@@ -1,1 +1,3 @@
 inofficial latex lecture notes of winter-term 2012 lecture MIMO by Prof. Schober
+Da \psfrag benutzt um Text in *.eps Grafiken zu ersetzen:
+Kompilierung mit: Latex -> DVI -> PS -> PDF
