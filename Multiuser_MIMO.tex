@@ -144,7 +144,7 @@ Questions: What happens if there are multiple users?
 \paragraph{Rate Region for Single Antenna Users and Receivers}
 \begin{itemize}
 	\item Gaussian channel
-	\item $N_R = N_{T,k} = 1 \forall	k $
+	\item $N_R = N_{T,k} = 1 \forall\quad k $
 	\item received signal: 
 	\begin{align*}
 		y &= \sum\limits_{k = 1}^{K}x_k + n\\ * \mathcal{E}_k &= \mathcal{E}\bigl\{||x_k||^2\bigr\} \\ *\sigma_n^2 &= \bigl\{||n||^2\bigr\}
@@ -441,5 +441,141 @@ We consider:
 	\item received signal of user k: $y_k = \sum\limits_{k = 1}^{K}(\mathbf{h}_k^H\mathbf{n}_i)\mathbf{x}_i + n_k $
 	\item if all $\mathbf{h}_k $ were orthogonal and we chose $\mathbf{n}_k = \mathbf{h}_k $, the received signal would be: \\ $y_k = ||h_k||^2\mathbf{x}_k + n_k $
 	\item if $N_R \geq K$, we can transmit simultaneously and interference free to all K users\\ $\Rightarrow $ multiplexing gain $= \text{min}\{K,N_k\} $
+\item In practice, the $\mathbf{h}_k $ will not be orthogonal
+\begin{itemize}
+	\item[$\rightarrow$] choose $\mathbf{n}_k $ such that it lies in the null space of $\begin{bmatrix}
+	\mathbf{h}_1 & \ldots & \mathbf{h}_{k-1} & \mathbf{h}_{k+1} & \ldots & \mathbf{h}_K \end{bmatrix}	 $
+	\item[$\rightarrow$] always possible if $ \mathbf{h}_1,\ldots, \mathbf{h}_K $ are linearly independent
+	\item[$\rightarrow$] multiplexing gain ( $= $ degrees of freedom) is equal to $ \text{min}\{K, N_R\} $
 \end{itemize}
+\item we can transmit interference free to $K\leq N_R $ users \\ \quad \textit{Anmerkung: Falls TX viele Antennen, aber RX nur eine hat $\Rightarrow $ begrenzter Nutzen: SNR Verbesserung, kein Multiplexing Gain; falls TX viele Antennen und viele RX vorhanden sind $\Rightarrow $ RX erscheinen als Antennenarray $\rightarrow $ hoher Multiplexing Gain}
+\end{itemize}
+
+\subsubsection{Uplink\,-\,Downlink  Duality}
+\begin{itemize}
+	\item How should we choose signature vectors to achieve a certain SNR at users?
+	\item Difficult problem since optimal (in the SINR sense) $\mathbf{u}_k $ are not orthogonal $\rightarrow $ signature of user $k$, $\mathbf{u}_k $, influences SINR at all other users!
+	\item On the other hand, the uplink problem was much easier to solve, since the receive filter of user $k$, $\mathbf{f}_k$, was not affected by receive filters of other users! (vgl. Point\,-\,to\,-\,Point $\rightarrow $ detection problem
+	\item[$\Rightarrow$] We establish a duality between the uplink and downlink, that allows us to solve the more challenging downlink problem by solving an equivalent uplink problem.
+\end{itemize}
+\paragraph{Downlink:}
+\begin{itemize}
+	\item transmit signal
+	\begin{align*}
+		\mathbf{x}_{dl} = \sum\limits_{k = 1}^{K}\mathbf{u}_kx_{dl,k}
+	\end{align*}
+	\item received signal at user $k$
+	\begin{align*}
+		y_{dl,k} = \mathbf{h}_k^H\mathbf{u}_kx_{dl,k} + \sum\limits_{j \neq k}\mathbf{h}_k^H\mathbf{u}_jx_{dl,j} + u_{dl,k}
+	\end{align*}
+	\item SINR of user $k$
+	\begin{align*}
+		\text{SINR}_k^{dl} = \frac{\mathcal{E}_{dl,k}|\mathbf{u}_k^H\mathbf{h}_k|^2}{\sigma_n^2 + \sum\limits_{j \neq k}\mathcal{E}_{dl,j}|\mathbf{h}_j^H\mathbf{h}_k|^2},\quad 1\leq k \leq K
+	\end{align*}
+	\item where: $\mathcal{E}_{dl,k} = \mathcal{E}\bigl\{|x_{dl,k}|^2 \bigr\}; \quad \sigma_n^2 = \mathcal{E}\bigl\{|n_{dl,k}|^2\bigr\} $
+	\item Using: 
+	\begin{align*}
+		a_k = \frac{\text{SINR}_k^{dl}}{(1 + \text{SINR}_k^{dl})|\mathbf{h}_k^H\mathbf{u}K|^2}
+	\end{align*}
+	we can rewrite the the SINR expressions as:
+	\begin{align*}
+		\boxed{\bigl(\mathbf{I}_K - \text{diag}\{a_1, \ldots, a_k\}\mathbf{A}\bigr)\mathbf{p}_{dl} = \sigma_n^2\mathbf{a}}
+	\end{align*}
+	where:
+	\begin{align*}
+		\mathbf{a} &= \begin{bmatrix} a_1,\ldots,a_k\end{bmatrix}^T \\
+		\mathbf{A} &= 
+		\begin{bmatrix}
+			|u_1^Hh_1|^2 & |u_2^Hh_1|^2 & \ldots & |u_K^Hh_1|^2	\\
+			\vdots \\
+			|u_1^Hh_K|^2 & \ldots & & |u_K^Hh_K|^2		
+		\end{bmatrix} \\
+		\mathbf{p}_{dl} &= 
+		\begin{bmatrix}
+			\mathcal{E}_{dl,1},\ldots, \mathcal{E}_{dl,K}	
+		\end{bmatrix}^T
+	\end{align*}
+	\item[$\rightarrow$] We can easily calculate transmit powers $\mathcal{E}_{dl,k} $ required to achieve desired $\text{SINR}_k^{dl}, 1\leq k_1\leq K, $ for given signature (precoding) vectores $u_k, 1\leq k\leq K $ 
+	\item Block diagramm: \textbf{Hier Bild einf\"ugen}
+\end{itemize}
+\paragraph{Uplink:} 
+Use downlink signatures, $\mathbf{h}_k$, as receive filters, $\mathbf{f}_k$
+\begin{itemize}
+	\item block diagramm: \textbf{Hier Bild einf\"ugen}
+	\item Signal model:
+	\begin{align*}
+		y_{ul,k} &= \mathbf{u}_k^H\bigl(\mathbf{Hx}_{ul} + \mathbf{u}_{ul}\bigr) 
+	\end{align*}	
+		with 
+	\begin{align*}
+		\mathbf{H} &= 
+		\begin{bmatrix}
+			\mathbf{h}_1 & \ldots & \mathbf{h}_K
+		\end{bmatrix} ,\quad \mathbf{x}_{ul} = 
+		\begin{bmatrix}
+			x_{ul,1} & \ldots & x_{ul,K}
+		\end{bmatrix}^T , \quad \mathbf{u}_{ul} = 
+		\begin{bmatrix}
+			u_{ul,1} & \ldots & u_{ul,K}
+		\end{bmatrix}^T 
+	\end{align*}		
+	\begin{align}
+		\rightarrow y_{ul,k} &= \mathbf{u}_k^H\mathbf{h}_kx_{ul,k} + \sum\limits_{j \neq k}\mathbf{u}_k\mathbf{h}_jx_{ul,j} + \mathbf{n}_k^H\mathbf{u}_{ul}\\
+		\rightarrow \text{SINR}_k^{ul} &= \frac{\mathcal{E}_{ul,k}|\mathbf{u}^H\mathbf{h}_k|^2}{\sigma_n^2 + \sum\limits_{j\neq k}\mathcal{E}_{ul,j}|\mathbf{u}_k^H\mathbf{h}_j|^2}\label{eq:Formel_7}
+	\end{align}
+	where we used $\mathbf{u}_k^H\mathbf{u}_k = 1 $ and $ \mathcal{E}_{ul,K} = \mathcal{E}\bigl\{|x_{ul,K}|^2\bigr\} $ 
+	\item we define: $ b_k = \frac{\text{SINR}_k^{ul}}{(1 + \text{SINR}_k^{ul})|\mathbf{u}_k^H\mathbf{h}_k|^2} $
+	\item we can rewrite SINR epression \eqref{eq:Formel_7} as : 
+	\begin{align*}
+		\sigma_n^2 + \sum\limits_{j\neq k}\mathcal{E}_{ul,j}\bigl|\mathbf{u}_k^H\mathbf{h}_j\bigr|^2 = \frac{1}{\text{SINR}_k^{ul}} \mathcal{E}_{ul,k}\bigl|\mathbf{u}_k^H\mathbf{h}_k\bigr|^2
+	\end{align*}
+	\begin{align*}
+		\underbrace{\bigl(1 + \frac{1}{\text{SINR}_k^{ul}}\bigr)\bigl|\mathbf{u}_k^H\mathbf{h}_k\bigr|^2}_{\frac{1}{b_k}}\mathcal{E}_{ul,k} - \sum\limits_{j = 1}^{K}\mathcal{E}_{ul,k}\bigl|\mathbf{u}_k^H\mathbf{h}_k\bigr|^2 = \sigma_n^2
+	\end{align*}
+	\begin{align*}
+		\rightarrow \mathcal{E}_{ul,k} - b_k\sum\limits_{j = 1}^{K}\mathcal{E}_{ul,j}\bigl|\mathbf{u}_k^H\mathbf{h}_j\bigr|^2 = b_k\sigma_n^2
+	\end{align*}
+	\item matrix notation:
+	\begin{align*}
+		\begin{bmatrix}
+			\mathbf{I}_K - \text{diag}\bigl\{b_1,\ldots, b_K\bigr\}\mathbf{A}^T\mathbf{p}_{ul} = \sigma_n^2\cdot \mathbf{b}
+		\end{bmatrix}
+	\end{align*}
+	\item where: $\mathbf{A} $ was defined for downlink case
+	\begin{align*}
+		\mathbf{p}_{ul} &= \begin{bmatrix} \mathcal{E}_{ul,1} & \ldots & \mathcal{E}_{ul,K}\end{bmatrix}^T \\
+		\mathbf{b} &= \begin{bmatrix}b_1 & \ldots & b_K\end{bmatrix}^T				
+	\end{align*}
+	\item we can calculate power allocation vector $\mathbf{p}_{ul} $ for given $\text{SINR}_1^{ul} $ and $ \mathbf{u}_k,\quad 1\leq k \leq K $ 
+\end{itemize} 
+\paragraph{Comparison:} Assume, we want to achieve same SINR in uplink and downlink
+\begin{itemize}
+	\item[$\rightarrow$] $\text{SINR}_k^{ul}  = \text{SINR}_k^{dl} \quad \forall\quad k $ or equivalently $ a_k = b_k,\quad \forall\quad k $ !
+	\item[] What sum power do we need in both uses?
+	\begin{align*}
+		\mathbf{p}_{dl} &= \sigma_n^2\bigl(\mathbf{I} - \text{diag}\{a_1, \ldots, a_K\}\mathbf{A}\bigr)^{-1}\mathbf{a} = \\
+		&= \sigma_n^2\bigl(\mathbf{D}_a - \mathbf{A}\bigr)^{-1}\cdot\mathbf{1}
+	\end{align*}
+	where: $\mathbf{D}_a = \text{diag}\{\frac{1}{a_1}, \ldots, \frac{1}{a_K}\} $ and $ \mathbf{1} = \begin{bmatrix}	1 & 1 & 1 & \ldots & 1 \end{bmatrix}^T $ 
+	\begin{align*}
+		\mathbf{p}_{ul} = \sigma_n^2(\mathbf{D}_b - \mathbf{A}^T)^{-1}\cdot \mathbf{1}
+	\end{align*}
+	where: $\mathbf{D}_b = \text{diag}\{\frac{1}{b_1}, \ldots ,\frac{1}{b_K}\} $
+	\begin{align*}
+		\sum\limits_{k = 1}^{K}\mathcal{E}_{dl,k} &= \mathbf{1}^T\mathbf{p}_{dl} = \sigma_n^2\mathbf{1}^T\bigl(\mathbf{D}_a - \mathbf{A}\bigr)^{-1}\cdot\mathbf{1}\\
+		&= \sigma_n^2\mathbf{1}^T\bigl(\mathbf{D}_b - \mathbf{A}\bigr)^{-1}\mathbf{1} \\
+		&= \sigma_n^2\bigl[\mathbf{1}^T\bigl(\mathbf{D}_b - \mathbf{A}\bigr)^{-1}\mathbf{1}\bigr]^T \\
+		&= \sigma_n^2\mathbf{1}^T\bigl[\bigl(\mathbf{D}_b - \mathbf{A}\bigr)^{-1}\bigr]^T\mathbf{1} \\
+		&= \sigma_n^2\mathbf{1}^T\bigl(\underbrace{\mathbf{D}_b^T}_{\mathbf{D}_b} - \mathbf{A}^T\bigr)^{-1}\\cdot\mathbf{1} = \sum\limits_{k = 1}^{K}\mathcal{E}_{ul,k}
+	\end{align*}
+\end{itemize}
+\paragraph{Conclusions:}
+\begin{itemize}
+	\item We can achieve any desired $\text{SINR}_k^{dl},\forall\, k,$ in the downlink by using filters optimized for uplink transmission as signature (precoding) vectors and the same sum power as in the uplink
+	\item suitable filters may be MMSE or ZF filters $ \mathbf{u}_k = \mathbf{f}_k, \quad \forall \, k $
+	\item Note that, in general, $\mathcal{E}_{ul,k} \neq \mathcal{E}_{dl,k} $, only the sum powers are equal!
+	\item[$\rightarrow$] \fbox{\parbox{\textwidth}{For linear precoding, we can solve the more challenging problem via solving an equivalent uplink problem!}}
+\end{itemize}
+\paragraph{Extension:} This concept can be extended to nonlinear receivers as well. In this case the DFE receiver in the uplink is dual to a nonlinear Tamlinson\,-\,Harashima (TH) precoder in the downlink.
+
 \end{document}				
