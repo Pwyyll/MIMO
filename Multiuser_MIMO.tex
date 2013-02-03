@@ -578,4 +578,16 @@ Use downlink signatures, $\mathbf{h}_k$, as receive filters, $\mathbf{f}_k$
 \end{itemize}
 \paragraph{Extension:} This concept can be extended to nonlinear receivers as well. In this case the DFE receiver in the uplink is dual to a nonlinear Tamlinson\,-\,Harashima (TH) precoder in the downlink.
 
+\subsubsection{Rate Region (only SISO)}
+\begin{itemize}
+	\item two user case: $ y_k = h_kx + n_k\,,\quad k \in \{1,2\} $
+	\item Capacity can be achieved with so\,-\,called \textit{Costa Cor (dirty paper)} precoding
+	\item In this scheme, the signal of ine user is processed such that it does not impair the receiver of the other user, while the signal of the other user is treated as Gaussian noise at the receiver of the first user.
+	\item[$\rightarrow$] Thus, the achievable rates would be
+	\begin{align*}
+		R_1 &< \log_2\bigl(1 + \frac{|h_1|^2\mathcal{E}_1}{\sigma_n^2}\bigr)\\
+		R_2 &< \log_2\bigl(1 + \frac{|h_2|^2\mathcal{E}_2}{\sigma_n^2 + |h_1|^2\mathcal{E}_1}\bigr)			
+	\end{align*}	 
+	\item $\mathcal{E}_1 $ and $\mathcal{E}_2 $ can be optimized as they both occure at the same transmitter
+\end{itemize}
 \end{document}				
