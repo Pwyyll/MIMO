@@ -1,6 +1,6 @@
 \documentclass[a4paper, 10pt]{article}
 %\usepackage[utf8]{inputenc}			
-\usepackage[german]{babel}		% for german	
+\usepackage[english]{babel}		% for german	
 \usepackage[dvips]{graphicx}		
 \usepackage{psfrag}						
 \usepackage{parskip}
@@ -41,12 +41,16 @@
 \newcommand{\Rmnum}[1]{\expandafter\@slowromancap\romannumeral #1@}
 \makeatother
 %\renewcommand{\familydefault}{\sfdefault}
-
+\title{MIMO Skript\,-\,Wintersemester 2013 \\ Kapitel 4}
+\date{}
 
 \begin{document}
-\setcounter{section}{3}
+
+\maketitle
 \tableofcontents
+\setcounter{section}{3}
 \section{Distributed MIMO}
+
 \begin{itemize}
 	\item This research topic emerged ca. 10 years ago and is still a very active area of research
 	\item Simple relaying schemes have been included in recent standards such as IEEE 802.16 (WiMAX) and LTE\,-\,Advanced
@@ -66,7 +70,15 @@
 
 \subsection{Half\,-\,Duplex One\,-\,Way Relaying}
 \paragraph{Basic Relay Network}
-\textbf{Hier Bild einf\"ugen}
+\begin{figure}[ht]
+	\centering
+	\psfrag{h_SR}[bl][bl][1]{$h_{SR}$}
+	\psfrag{h_RD}[bl][bl][1]{$h_{RD}$}
+	\psfrag{h_SD}[bl][bl][1]{$h_{SD}$}
+	\includegraphics[scale=2]{Basic_Relay_Network}	
+	\caption{Basic Relay Network}
+	\label{fig:basic_relay_network}
+\end{figure}
 \begin{itemize}
 	\item Relay R assists source S in communication with destination D
 	\item Two basic nodes of transmission (at the relay):
@@ -74,15 +86,35 @@
 \paragraph{Full\,-\,Duplex relaying:} 
 R can receive and transmit at the same time and in the same frequency band \textit{(Anm.: effizient, da restliche Zeit und restliche Frequenzband von anderen genutzt werden kann)}
 \begin{itemize}
-	\item[$\rightarrow$] Since the TX signal power is orders of magnitude larger than the RX power, there is self\,-\,interference (at the relay) \textbf{Hier Bild einf\"ugen}
+	\item[$\rightarrow$] Since the TX signal power is orders of magnitude larger than the RX power, there is self\,-\,interference (at the relay) 
+		\begin{figure}[ht]
+			\centering
+			\psfrag{y_R}[bl][bl][1]{$y_{R}$}
+			\psfrag{s_R}[bl][bl][1]{$s_{R}$}
+			\includegraphics[scale=1]{Relay_self_interference}	
+			\caption{Relay with self-interference}
+			\label{fig:relay_self_interference}
+		\end{figure}	
 	\item[$\rightarrow$] Full\,-\,duplex relays are difficult to implement. The design of full\,-\,duplex relays is an active area of research.
 	\item[$\rightarrow$] Majority of existing literature assumes half\,-\,duplex relaying.
 \end{itemize}
 \paragraph{Half\,-\,duplex relaying:} 
 R transmits and receives in different time slots and/\,or different frequency bands. Typically, a two\,-\,phase protocoll is used:
 \begin{itemize}
-	\item[] \textbf{Phase 1}: S transmits, R and D receive \textbf{Hier Bild einf\"ugen}
-	\item[] \textbf{Phase 2}: R transmits, D receives, S may or may not transmit \textbf{Hier Bild einf\"ugen}
+	\item[] \textbf{Phase 1}: S transmits, R and D receive 
+	\begin{figure}[ht]
+		\centering
+		\includegraphics[scale=1.3]{Relay_HalfDuplex_1}	
+		\caption{Half-duplex Relaying: Phase 1}
+		\label{fig:relay_halfduplex_1}
+	\end{figure}
+	\item[] \textbf{Phase 2}: R transmits, D receives, S may or may not transmit 
+	\begin{figure}[ht]
+		\centering
+		\includegraphics[scale=1.3]{Relay_HalfDuplex_2}	
+		\caption{Half-duplex Relaying: Phase 2}
+		\label{fig:relay_halfduplex_2}
+	\end{figure}
 \end{itemize}
 There are different relaying strategies that differ in the processing applied at the relay. The most popular are:
 \begin{itemize}
@@ -92,7 +124,20 @@ There are different relaying strategies that differ in the processing applied at
 \end{itemize}
 
 \subsubsection{Decode\,-\,and\,-\,Forward (DF) Relaying}
-In DF relaying, the relay detects and decodes the signal received from the source before encoding it and  forwarding it to the destination.\textbf{Hier Bild einf\"ugen}
+In DF relaying, the relay detects and decodes the signal received from the source before encoding it and  forwarding it to the destination.
+	\begin{figure}[ht]
+		\centering
+		\psfrag{h_SR}[bl][bl][1]{$h_{SR}$}
+		\psfrag{h_RD}[bl][bl][1]{$h_{RD}$}
+		\psfrag{h_SD}[bl][bl][1]{$h_{SD}$}
+		\psfrag{y_R}[bl][bl][1]{$y_R$}
+		\psfrag{y_D1}[bl][bl][1]{$y_{D,1}$}
+		\psfrag{y_D2}[bl][bl][1]{$y_{D,2}$}
+		\psfrag{x_R}[bl][bl][1]{$x_R$}		
+		\includegraphics[scale=2]{DF_Relaying}	
+		\caption{Decode\,-\,and\,-\,forward Relaying}
+		\label{fig:df_relaying}
+	\end{figure}
 \paragraph{Phase 1:}
 \begin{itemize}
 	\item R receives: $ y_R = h_{SR}x + n_R $
