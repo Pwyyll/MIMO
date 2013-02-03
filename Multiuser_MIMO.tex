@@ -496,12 +496,37 @@ We consider:
 		\end{bmatrix}^T
 	\end{align*}
 	\item[$\rightarrow$] We can easily calculate transmit powers $\mathcal{E}_{dl,k} $ required to achieve desired $\text{SINR}_k^{dl}, 1\leq k_1\leq K, $ for given signature (precoding) vectores $u_k, 1\leq k\leq K $ 
-	\item Block diagramm: \textbf{Hier Bild einf\"ugen}
+	\item Block diagramm: 
+	\begin{figure}[ht]
+		\centering	
+		\psfrag{Eingang1}[bl][bl][1]{$x_{dl,1} $}
+		\psfrag{Eingang2}[bl][bl][1]{$x_{dl,K} $}
+		\psfrag{Nutzer1}[bl][bl][1]{$\mathbf{u}_1 $}
+		\psfrag{Nutzer2}[bl][bl][1]{$\mathbf{u}_2 $}
+		\psfrag{Kanalmatrix}[bl][bl][1]{$\mathbf{H}^* $}
+		\psfrag{Rauschen1}[bl][bl][1]{$n_{dl,1} $}
+		\psfrag{Rauschen2}[bl][bl][1]{$n_{dl,k} $}
+		\psfrag{Ausgang1}[bl][bl][1]{$y_{dl,1} $}
+		\psfrag{Ausgang2}[bl][bl][1]{$y_{dl,K} $}
+		\includegraphics[scale=0.8]{Downlink_MIMO}		
+	\end{figure}
 \end{itemize}
 \paragraph{Uplink:} 
 Use downlink signatures, $\mathbf{h}_k$, as receive filters, $\mathbf{f}_k$
 \begin{itemize}
-	\item block diagramm: \textbf{Hier Bild einf\"ugen}
+	\item block diagramm: 
+	\begin{figure}[ht]
+		\centering	
+		\psfrag{Eingang1}[bl][bl][1]{$x_{ul,1} $}
+		\psfrag{Eingang2}[bl][bl][1]{$x_{ul,K} $}
+		\psfrag{Nutzer1}[bl][bl][1]{$\mathbf{u}_1 $}
+		\psfrag{Nutzer2}[bl][bl][1]{$\mathbf{u}_2 $}
+		\psfrag{Kanalmatrix}[bl][bl][1]{$\mathbf{H}^* $}
+		\psfrag{Rauschen1}[bl][bl][1]{$n_{ul} $}
+		\psfrag{Ausgang1}[bl][bl][1]{$y_{ul,1} $}
+		\psfrag{Ausgang2}[bl][bl][1]{$y_{ul,K} $}
+		\includegraphics[scale=0.8]{Uplink_MIMO}		
+	\end{figure}
 	\item Signal model:
 	\begin{align*}
 		y_{ul,k} &= \mathbf{u}_k^H\bigl(\mathbf{Hx}_{ul} + \mathbf{u}_{ul}\bigr) 
@@ -521,11 +546,11 @@ Use downlink signatures, $\mathbf{h}_k$, as receive filters, $\mathbf{f}_k$
 	\end{align*}		
 	\begin{align}
 		\rightarrow y_{ul,k} &= \mathbf{u}_k^H\mathbf{h}_kx_{ul,k} + \sum\limits_{j \neq k}\mathbf{u}_k\mathbf{h}_jx_{ul,j} + \mathbf{n}_k^H\mathbf{u}_{ul}\\
-		\rightarrow \text{SINR}_k^{ul} &= \frac{\mathcal{E}_{ul,k}|\mathbf{u}^H\mathbf{h}_k|^2}{\sigma_n^2 + \sum\limits_{j\neq k}\mathcal{E}_{ul,j}|\mathbf{u}_k^H\mathbf{h}_j|^2}\label{eq:Formel_7}
+		\rightarrow \text{SINR}_k^{ul} &= \frac{\mathcal{E}_{ul,k}|\mathbf{u}^H\mathbf{h}_k|^2}{\sigma_n^2 + \sum\limits_{j\neq k}\mathcal{E}_{ul,j}|\mathbf{u}_k^H\mathbf{h}_j|^2}\label{eq:Formel_8}
 	\end{align}
 	where we used $\mathbf{u}_k^H\mathbf{u}_k = 1 $ and $ \mathcal{E}_{ul,K} = \mathcal{E}\bigl\{|x_{ul,K}|^2\bigr\} $ 
 	\item we define: $ b_k = \frac{\text{SINR}_k^{ul}}{(1 + \text{SINR}_k^{ul})|\mathbf{u}_k^H\mathbf{h}_k|^2} $
-	\item we can rewrite SINR epression \eqref{eq:Formel_7} as : 
+	\item we can rewrite SINR epression \eqref{eq:Formel_8} as : 
 	\begin{align*}
 		\sigma_n^2 + \sum\limits_{j\neq k}\mathcal{E}_{ul,j}\bigl|\mathbf{u}_k^H\mathbf{h}_j\bigr|^2 = \frac{1}{\text{SINR}_k^{ul}} \mathcal{E}_{ul,k}\bigl|\mathbf{u}_k^H\mathbf{h}_k\bigr|^2
 	\end{align*}
