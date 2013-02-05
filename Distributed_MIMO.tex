@@ -134,8 +134,8 @@ In DF relaying, the relay detects and decodes the signal received from the sourc
 		\psfrag{y_D1}[bl][bl][1]{$y_{D,1}$}
 		\psfrag{y_D2}[bl][bl][1]{$y_{D,2}$}
 		\psfrag{x_R}[bl][bl][1]{$x_R$}		
-		\includegraphics[scale=2]{DF_Relaying}	
-		\caption{Decode\,-\,and\,-\,forward Relaying}
+		\includegraphics[scale=1.5]{DF_Relaying}	
+		\caption{Block diagramm Decode\,-\,and\,-\,forward Relaying}
 		\label{fig:df_relaying}
 	\end{figure}
 \paragraph{Phase 1:}
@@ -187,8 +187,74 @@ In DF relaying, the relay detects and decodes the signal received from the sourc
 		\begin{align*}
 			\boxed{\gamma_{SR} < \underbrace{2^{2R} - 1}_{\gamma_T} \quad \text{or}\quad \gamma_{RD} < 2^{2R} - 1}
 		\end{align*}
+		\begin{align*}
+			P_{\text{out}} &= \text{Pr}\bigl\{\gamma_{SR} < \gamma_T \vee \gamma_{RD} < \gamma_T\bigr\}
+			= \text{Pr}\bigl\{\underbrace{\text{min}\bigl\{\gamma_{SR},\gamma_{RD}\bigr\}}_{ = \gamma_{eq}} < \gamma_T\bigr\} \\ &= 1- \text{Pr}\bigl\{\gamma_{SR} > \gamma_T \wedge \gamma_{RD} > \gamma_T\bigr\} = 1 - \text{Pr}\bigl\{\gamma_{SR} > \gamma_T\bigr\}\,\text{Pr}\bigl\{\gamma_{RD} > \gamma_T\bigr\} = \\ &= 1 - \bigl(1 - F_{\gamma_{SR}}(\gamma_T)\bigr)\bigl(1 - F_{\gamma_{RD}}(\gamma_T)\bigr) = \\ &= \underline{F_{\gamma_{SR}}(\gamma_T) + F_{\gamma_{RD}}(\gamma_T) - F_{\gamma_{SR}}(\gamma_T)\cdot F_{\gamma_{RD}}(\gamma_T)}
+		\end{align*}
+		\item[] with CDFs: $F_{\gamma_{SR}}(\cdot) $ and $F_{\gamma_{RD}}(\cdot) $ 
+		\item Rayleigh Fading: 
+		\begin{align*}
+		\rightarrow	F_{\gamma_{SR}}(\gamma) &= 1-\exp\bigl(\frac{-\gamma}{\bar{\gamma}_{SR}}\bigr)\,;\quad \bar{\gamma}_{SR} = \mathcal{E}\{\gamma_{SR}\} \\
+			F_{\gamma_{RD}}(\gamma) &= 1-\exp\bigl(\frac{-\gamma}{\bar{\gamma}_{RD}}\bigr)\,;\quad \bar{\gamma}_{RD} = \mathcal{E}\{\gamma_{RD}\}\\
+		\rightarrow P_{\text{out}} &= 1-\exp\bigl(\frac{-\gamma_T}{\bar{\gamma}_{SR}}\bigr) + 1-\exp\bigl(\frac{-\gamma_T}{\bar{\gamma}_{RD}}\bigr) - \Bigl(1-\exp\bigl(\frac{-\gamma_T}{\bar{\gamma}_{SR}}\bigr)\Bigr)\Bigl( 1-\exp\bigl(\frac{-\gamma_T}{\bar{\gamma}_{RD}}\bigr)\Bigr) = \\
+		&= 1 - \exp\Bigl(-\frac{\bar{\gamma}_{SR} + \bar{\gamma}_{RD}}{\bar{\gamma}_{SR}\bar{\gamma}_{RD}}	\cdot\gamma_T\Bigr)
+		\end{align*}
+		\item[$\rightarrow$] equivalent SNR $\gamma_{eq} = \min\bigl\{\gamma_{SR}, \gamma_{RD}\bigr\} $ is also exponentially distributed with \\ $\bar{\gamma}_{eq} = \frac{\bar{\gamma}_{SR}\bar{\gamma}_{RD}}{\bar{\gamma}_{SR} + \bar{\gamma}_{RD}} $ 
+		\item Diversity gain: Assume $\bar{\gamma}_{SR} = \alpha\bar{\gamma} $
+		\begin{align*}
+			\rightarrow P_{out} & \xrightarrow{\bar{\gamma} \rightarrow \inf} 1 - \Bigl(1-\frac{\alpha + \beta}{\alpha\beta}\cdot\frac{\gamma_T}{\bar{\gamma}}\Bigr) + \mathcal{O}\bigl(\bar{\gamma}^{-1}\bigr) = \\ 
+			&= \frac{\alpha + \beta}{\alpha\beta}\cdot\frac{\gamma_T}{\bar{\gamma}} + \mathcal{O}\bigl(\bar{\gamma}^{-1}\bigr) = \\
+			& \rightarrow \boxed{G_d = 1}
+		\end{align*}
+	\end{itemize}
+	\item Bit error rate (BER) of BPSK (uncoded)
+	\begin{itemize}
+		\item $\text{BER}\bigl(\gamma_{SR},\gamma_{RD}\bigr) = \Bigl(1 - \text{BER}_{SR}\bigl(\gamma_{SR}\bigl)\Bigl)\text{BER}_{RD}\bigl(\gamma_{RD}\bigr) + \Bigl(1 - \text{BER}_{RD}\bigl(\gamma_{RD}\bigl)\Bigl)\text{BER}_{SR}\bigl(\gamma_{SR}\bigr) $ 
+		\begin{itemize}
+			\item with BER of the S\,-\,R link, $\text{BER}_{SR}(\gamma_{SR}) $ and BER of the R\,-\,D link $\text{BER}_{RD}(\gamma_{RD}) $ 
+			\item for sufficiently high SNR $\leadsto \text{BER}_{SR}(\gamma_{SR}), \text{BER}_{RD}(\gamma_{RD}) \ll \text{BER}_{SR}(\gamma_{SR}) + \text{BER}_{RD}(\gamma_{RD}) $
+			\item[$\rightarrow$] $\underline{\text{BER}(\gamma_{SR},\gamma_{RD}) \approx \text{BER}_{SR}(\gamma_{SR}) + \text{BER}_{RD}(\gamma_{RD})} $
+			\item to average BER (Rayleigh Fading):
+			\begin{align*}
+				\text{BER} = \mathcal{E}_{\gamma_{SR},\gamma_{RD}}\Bigl\{\text{BER}\bigl(\gamma_{SR},\gamma_{RD}\bigr)\Bigr\} = \frac{1}{2}\Bigl(1-\sqrt{\frac{1}{1+\frac{1}{\bar{\gamma}_{SR}}}} + \frac{1}{2}\Bigl(1-\sqrt{\frac{1}{1+\frac{1}{\bar{\gamma}_{RD}}}}\Bigr)
+			\end{align*}
+			\item high SNR: 
+			\begin{align*}
+				\text{BER} &\approx \frac{1}{2}\bigl(1 - 1 + \frac{1}{2}\frac{1}{\bar{\gamma}_{SR}}\bigr) + \frac{1}{2}\bigl(1 - 1 + \frac{1}{2}\frac{1}{\bar{\gamma}_{RD}}\bigr) = \\ 
+				&= \frac{1}{4}\bigl(\frac{1}{\bar{\gamma}_{SR}} + \frac{1}{\bar{\gamma}_{RD}}\bigr)
+			\end{align*}
+			$\leadsto $ also indicates diversity gain $ G_d = 1 $
+		\end{itemize}		 
 	\end{itemize}
 \end{itemize}
-
-
+\subsubsection{Amplify\,-\,and\,-\,Forward (AF) Relaying}
+\begin{itemize}
+	\item Relay does not decode signal received from source but only amplifies it before forwarding it to the destination
+	\begin{figure}[ht]
+		\centering
+		\psfrag{y_R}[bl][bl]{$y_R$}
+		\psfrag{Ay_R}[bl][bl]{$Ay_R$}
+		\psfrag{h_SR}[bl][bl]{$h_{SR}$}
+		\psfrag{h_SD}[bl][bl]{$h_{SD}$}
+		\psfrag{h_RD}[bl][bl]{$h_{RD}$}	
+		\psfrag{y_D2}[bl][bl]{$y_{D,2}$}
+		\psfrag{y_D1}[bl][bl]{$y_{D,1}$}
+		\includegraphics[scale=1.5]{AF_Relaying}
+		\caption{Block diagramm AF\,-\,Relaying}	
+		\label{fig:af_relaying}
+	\end{figure}
+	\item Amplification gain $A $ may be constant on channel dependent and ensures a certain (average) transmit power
+	\item[] \textbf{Phase 1}:
+	\begin{itemize}
+		\item[-] R receives: $y_D = h_{SR}x + n_R $
+		\item[-] D receives: $y_{D,1} = h_{SD}x + n_{D,1} $
+	\end{itemize}
+	\item[] \textbf{Phase 2}:
+	\begin{itemize}
+		\item[-] R transmits: $s_R = Ay_R = A(h_{SR}x + n_R) $
+		\item[-] D receives: $y_{D,2} = h_{RD}Ay_R + n_{D,2} $  
+	\end{itemize}
+	\item We can use MRC to combine $y_{D,1} $ and $ y_{D,2} $ at D: $ y_{D,2} = Ah_{RD}h_{SR}x + h_{RD}An_R + n_{D,2} $,\quad where: $ h_{RD}An_R + n_{D,2} $ is effective noise $n_{\text{eff}} $ with variance $\sigma_{n_\text{eff}}^2 = \sigma_n^2\bigl(|h_{RD}|^2A^2 + 1\bigr) $
+	\item[$\rightarrow$] make noise variances of both branches equal
+\end{itemize}
 \end{document}				
