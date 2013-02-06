@@ -256,5 +256,43 @@ In DF relaying, the relay detects and decodes the signal received from the sourc
 	\end{itemize}
 	\item We can use MRC to combine $y_{D,1} $ and $ y_{D,2} $ at D: $ y_{D,2} = Ah_{RD}h_{SR}x + h_{RD}An_R + n_{D,2} $,\quad where: $ h_{RD}An_R + n_{D,2} $ is effective noise $n_{\text{eff}} $ with variance $\sigma_{n_\text{eff}}^2 = \sigma_n^2\bigl(|h_{RD}|^2A^2 + 1\bigr) $
 	\item[$\rightarrow$] make noise variances of both branches equal
+	\begin{align*}
+		\bar{y}_{D,2} &= \frac{1}{\sqrt{|h_{RD}|^2A^2+1}}\cdot y_{D,2} = \frac{Ah_{RD}h_{SR}}{\sqrt{A^2|h_{RD}|^2 + 1}} \cdot x + \tilde{n}_{\text{eff}} \\
+		\text{MRC:}\quad r &= h_{SD}^*y_{D,1} + \frac{Ah_{RD}^*h_{SR}^*}{\sqrt{A^2|h_{RD}|^2+1}}\cdot\bar{y}_{D,2} = \underbrace{h_{SD}^*y_{D,1} + \frac{Ah_{RD}^*h_{SR}^*}{A^2|h_{RD}|^2 + 1}\cdot y_{D,2}}_{ = \text{decision variable!}}		
+	\end{align*}
+	\item Choice of A: The goal is to ensure en (average) transmit power of $\mathcal{E}_R $	
 \end{itemize}
+\paragraph{a) Variable gain relaying:}
+In this case we introduce an instantaneous power constraint. \textit{Anm.: A muss abh\"angig von $h_{SR} $ sein, um es kompensieren zu k\"onnen.}
+\begin{align*}
+	\mathcal{E}_{x,n}\bigl\{|S_R|^2\bigr\} &= \mathcal{E}_{x,n}\bigl\{A^2\bigl(|h_{SR}|^2|x|^2 + |n_R|^2\bigr)\bigr\} = \\ &= A^2\bigl(|h_{SR}|^2\mathcal{E}_S + \sigma_n^2\bigr) \overset{!}{=} \mathcal{E}_R \\ \rightarrow A^2 &= \frac{\mathcal{E}_R}{|h_{SR}|^2\mathcal{E}_S + \sigma_n^2}	 
+\end{align*}
+\begin{itemize}
+	\item A is channel dependent
+	\item Instantaneous transmit power is \underline{not} channel dependent 
+\end{itemize}
+\paragraph{b) Fixed gain relaying:} In this case, we introduce an average (with respect to the channel) power constraint
+\begin{align*}
+	\mathcal{E}\bigl\{|S_R|^2\bigr\} &= \mathcal{E}\bigl\{A^2\bigl(|h_{SR}|^2|x|^2 + |n_R|^2\bigr)\bigr\} = \\ &= A^2\bigl( \underbrace{\mathcal{E}\bigl\{|h_{SR}|^2\bigr\}}_{\sigma_{SR}^2}\mathcal{E}_S + \sigma_n^2\bigr) \overset{!}{=} \mathcal{E}_R \\ \rightarrow A^2 &= \frac{\mathcal{E}_R}{\mathcal{E}_S\sigma_{SR}^2 + \sigma_n^2}	 
+\end{align*}
+\begin{itemize}
+	\item A is not channel dependent
+	\item Instantaneous power of $S_R $ depends on channel and may actually vary widely
+\end{itemize}
+Equivalent SNR for variable gain AF relaying (inly relayed link)
+\begin{align*}
+	y_{D,2} = Ah_{RD}h_{SR}x + h_{RD}An_R + n_{D,2}
+\end{align*}
+\begin{align*}
+	\text{SNR: }\quad \gamma_{eq}^{AF} &= \frac{A^2|h_{SR}|^2|h_{RD}|^2\mathcal{E}_S}{A^2|h_{RD}|^2\sigma_n^2 + \sigma_n^2} = \frac{\frac{\mathcal{E}_S}{\sigma_n^2}|h_{SR}|^2|h_{RD}|^2}{|h_{RD}|^2 + \frac{1}{\mathcal{E}_R}(|h_{SR}|^2\mathcal{E}_S + \sigma_n^2)} = \\ &= \frac{\frac{\mathcal{E}_S}{\sigma_n^2}|h_{SR}|^2\cdot\frac{\mathcal{E}_R}{\sigma_n^2}|h_{RD}|^2}{\frac{\mathcal{E}_R}{\sigma_n^2}|h_{RD}|^2 + \frac{\mathcal{E}_S}{\sigma_n^2}|h_{SR}|^2 + 1} = \\ &= \frac{\gamma_{SR}\gamma_{RD}}{\gamma_{SR} + \gamma_{RD} + 1}
+\end{align*}
+high SNR: $\gamma_{SR},\,\gamma_{RD} \gg 1 $
+\begin{align*}
+	\boxed{\gamma_{eq}^{AF} = \frac{\gamma_{SR}\gamma_{RD}}{\gamma_{SR} + \gamma_{RD}}}
+\end{align*}
+Comparison with equivalent SNF of DF:
+\begin{align*}
+	\boxed{\gamma_{eq}^{DF} = \min\bigl\{\gamma_{SR},\,\gamma_{RD}\bigr\}}
+\end{align*}
+
 \end{document}				
