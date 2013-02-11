@@ -2,6 +2,7 @@
 %\usepackage[utf8]{inputenc}			
 \usepackage[english]{babel}		% for german	
 \usepackage[dvips]{graphicx}		
+\usepackage{graphicx}	
 \usepackage{psfrag}						
 \usepackage{parskip}
 \usepackage{listings}
@@ -12,6 +13,7 @@
 \usepackage{mathrsfs}
 \usepackage{empheq}
 \usepackage{titlesec}	
+\usepackage{pdfpages}
 \usepackage{tikz}
 \usetikzlibrary{arrows, shapes}
 \usepackage{epstopdf}
@@ -287,12 +289,81 @@ Equivalent SNR for variable gain AF relaying (inly relayed link)
 	\text{SNR: }\quad \gamma_{eq}^{AF} &= \frac{A^2|h_{SR}|^2|h_{RD}|^2\mathcal{E}_S}{A^2|h_{RD}|^2\sigma_n^2 + \sigma_n^2} = \frac{\frac{\mathcal{E}_S}{\sigma_n^2}|h_{SR}|^2|h_{RD}|^2}{|h_{RD}|^2 + \frac{1}{\mathcal{E}_R}(|h_{SR}|^2\mathcal{E}_S + \sigma_n^2)} = \\ &= \frac{\frac{\mathcal{E}_S}{\sigma_n^2}|h_{SR}|^2\cdot\frac{\mathcal{E}_R}{\sigma_n^2}|h_{RD}|^2}{\frac{\mathcal{E}_R}{\sigma_n^2}|h_{RD}|^2 + \frac{\mathcal{E}_S}{\sigma_n^2}|h_{SR}|^2 + 1} = \\ &= \frac{\gamma_{SR}\gamma_{RD}}{\gamma_{SR} + \gamma_{RD} + 1}
 \end{align*}
 high SNR: $\gamma_{SR},\,\gamma_{RD} \gg 1 $
-\begin{align*}
-	\boxed{\gamma_{eq}^{AF} = \frac{\gamma_{SR}\gamma_{RD}}{\gamma_{SR} + \gamma_{RD}}}
-\end{align*}
+\begin{align}
+	\boxed{\gamma_{eq}^{AF} = \frac{\gamma_{SR}\gamma_{RD}}{\gamma_{SR} + \gamma_{RD}}} \label{eq:Formel_01}
+\end{align}
+\textit{Anm.: Vgl. Formel \ref{eq:Formel_01} mit Berechnung zweier paralleler Widerst\"ande.}
 Comparison with equivalent SNF of DF:
-\begin{align*}
-	\boxed{\gamma_{eq}^{DF} = \min\bigl\{\gamma_{SR},\,\gamma_{RD}\bigr\}}
-\end{align*}
-
+\begin{align}
+	\boxed{\gamma_{eq}^{DF} = \min\bigl\{\gamma_{SR},\,\gamma_{RD}\bigr\}}\label{eq:Formel_02}
+\end{align}
+\underline{3 cases:}
+\begin{align}
+	&\text{a)}\quad \gamma_{SR} = \gamma_{RD} = \gamma\quad \rightarrow \quad \gamma_{eq}^{AF} = \frac{1}{2}\gamma = \frac{1}{2}\gamma_{eq}^{DF}\label{eq:Formel_03} \\
+	&\text{b)}\quad \gamma_{SR} \gg \gamma_{RD} \quad \rightarrow \quad \gamma_{eq}^{AF} = \gamma_{RD} = \gamma_{eq}^{DF}\label{eq:Formel_04} \\
+	&\text{c)}\quad \gamma_{SR} \ll \gamma_{RD} \quad \rightarrow \quad \gamma_{eq}^{AF} = \gamma_{SR} = \gamma_{eq}^{DF}\label{eq:Formel_05}
+\end{align}
+\textit{Anm.: F\"alle \ref{eq:Formel_04} und \ref{eq:Formel_05} sind am wahrscheinlichsten.}
+Decision errors mostly occur if one of the two link SNRs is much smaller than the other. The probability, that both SNRs are small at the same time is much smaller, than the probability, that just one link SNR is small. 
+\begin{itemize}
+	\item[$\rightarrow$] $\gamma_{eq}^{AF} = \gamma_{eq}^{DF} $ holds most of the time
+	\item[$\rightarrow$] AF relaying with variable gain has the same performance as DF relaying in high SNR, vgl Plot vom 07.02.13
+\end{itemize}
+\subsubsection{Buffer\,-\,aided DF Relaying}
+\begin{itemize}
+	\item For conventional relaying, the performance is always limited by the weaker (bottleneck) link since the relay has to immediately retransmit
+	\begin{figure}[ht]
+		\centering
+		\psfrag{gamma_SR}[bl][bl]{$\gamma_{SR}$}
+		\psfrag{gamma_RD}[bl][bl]{$\gamma_{RD}$}
+		\psfrag{d_i_0}[bl][bl]{$d(i) = 0$}
+		\psfrag{d_i_1}[bl][bl]{$d(i) = 1$}
+		\psfrag{Phase 1}[bl][bl]{Phase 1}
+		\psfrag{Phase 2}[bl][bl]{Phase 2}
+		\includegraphics[scale=1.4]{Buffer_Aided_DF_Relaying}
+		\caption{Buffer\,-\,aided DF Relaying}
+		\label{fig:Buffer_Aided_DF_Relaying}
+	\end{figure}
+	\item In practice, the nodes in the network have buffers. Thus, we can use the stronger link and wait until the channel conditions of the weaker link have sufficiently improved.
+	\item To avoid buffer over\,- or underflow at the relay, we demand that the average rate of the source relay channel (S\,-\,R) is equal to the average rate of the R\,-\,D channel
+	\item We introduce a binary selection variable $d(i) $ for time slot $i = \{1,\,2,\,\ldots\} $, where:
+	\begin{align*}
+		d(i) = 0 \quad &\Rightarrow \quad \text{S transmits, R receives} \\
+		d(i) = 1 \quad &\Rightarrow \quad \text{R transmits, D receives}
+	\end{align*}
+	\item Note: For conventional relaying we have $ d(1) = 0,\, d(2) = 1,\, d(3) = 0,\, d(4) = 1, \ldots $
+	\item The average rate in the S\,-\,R link is:
+	\begin{align*}
+		R_{SR} = \frac{1}{N}\sum_{i=1}^{N}\bigl(1 - d(i)\bigr)\log_2\bigl(1 + \gamma_{SR}(i)\bigr)
+	\end{align*}
+	and that of the R\,-\,D link is:
+	\begin{align*}
+		R_{RD} = \frac{1}{N}\sum_{i=1}^{N}d(i)\log_2\bigl(1 + \gamma_{RD}(i)\bigr)
+	\end{align*}
+	where N denotes the total number of time slots.
+	\item $\gamma_{SR}(i) $ and $ \gamma_{RD}(i) $ change from one time slot to the next following e.g. a Rayleigh distribution
+	\item At the relay, we have the constraint $ R_{SR} = R_{RD} $ to avoid buffer over\,-\,/\,underflow
+	\item To maximize the achievable throughput, we formulate an optimization problem:
+	\begin{align*}
+		&\underset{d(i) \forall i}{\max}\, R_{RD} \\ 
+		\text{subject to:}\, &\text{C1:}\quad R_{RD} = R_{SR} \\
+		&\text{C2:}\quad d(i) \in \{0,\,1\}
+	\end{align*}
+	\item For finite N, this problem is very difficult to solve.
+	\item For infinte N, a simple solution exists.
+	\item[$\rightarrow$] Solution can be found by Langrange method
+	\item Solution $(\text{for }\, N \rightarrow \inf )$: The optimal $d(i) $ is given by:
+	\begin{align*}
+		d(i) = 
+		\begin{cases}
+			&1\quad \text{if}\quad \log_2\bigl( 1 + \gamma_{RD}(i)\bigr) \geq \rho \log_2\bigl( 1 + \gamma_{SR}(i)\bigr) \\
+			&0\quad \text{otherwise} 
+		\end{cases}
+\end{align*}	 
+	where $\rho $\, is a constant, that only depends on the statistics of $\gamma_{SR}(i) $ and $ \gamma_{RD}(i) $ and can be obtained from (numerical search needed):
+	\begin{align*}
+		\mathcal{E}_{\gamma_{SR}(i)}\bigl\{\bigl(1 - d(i)\bigr)\log_2\bigl(1 + \gamma_{SR}(i)\bigr)\bigr\} = \mathcal{E}_{\gamma_{RD}(i)}\bigl\{d(i)\cdot\log_2\bigl(1 + \gamma_{RD}(i)\bigr)\bigr\}
+	\end{align*}
+	\item Since always: the ``best" of two links is selected, this scheme can achieve a diversity gain of $G_d = 2 $ (Rayleigh Fading)
+\end{itemize}
 \end{document}				
