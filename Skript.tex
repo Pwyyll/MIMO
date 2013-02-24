@@ -245,7 +245,7 @@ where \begin{math} w_n\end{math} depends on the particular combining scheme.
 	\item Diversity gain is not affected by correlation as the branches are not \underline{fully} correlated
 	\item Diversity gain depends on fading distribution 
 \end{itemize}
-\paragraph*{Outage probability}
+\paragraph{Outage probability}
 \begin{align*}
 	P_{out} &= \int_{0}^{\gamma _T}p_{\gamma _t}(x)~dx = \frac{1}{\bar{\gamma}^{N_R}}\int_{0}^{\gamma _T}\frac{x^{N_R-1}}{(N_R - 1)!}e^{-\frac{x}{\bar{\gamma}}}~dx \\ &= 1- e^{-\frac{\gamma _T}{\bar{\gamma}}}\cdot \sum_{n = 1}^{N_R}\frac{\bigl (\frac{\gamma _T}{\bar{\gamma}}\bigr )^n}{(n - 1)!}
 \end{align*}
@@ -1098,7 +1098,7 @@ $\Phi_{ee}$ is not in general a diagonal matrix
 	\end{figure}
 	
 \paragraph{SNR (biased vs. unbiased)}
-\paragraph*{a) biased SNR}
+\paragraph{a) biased SNR}
 \begin{align*}
 	\text{SNR}_{\text{bias,m}} &= \frac{\epsilon_s}{[\boldsymbol{\Phi}_{ee}]_{mm}} = \frac{\epsilon_s}{\epsilon_s(1 - K_{mm})} = \frac{1}{1 - K_{mm}}, \quad 1\leq m \leq 4 
 \end{align*}
@@ -1109,7 +1109,7 @@ but:
 	\item $ \mathbf{r} = \mathbf{FHx} + \mathbf{Fn} = \mathbf{Kx} + \underbrace{\mathbf{F}\mathbf{n} }_{\mathbf{\tilde{n}} = [\tilde{n}_1, \dots,\tilde{n}_{N_T}]^T } $
 	\item $r_m = \underbrace{K_{mm}}_{<1}x_m + \underset{ n\neq m}{\sum\limits^{N_T}_{n = 1}}K_{mn}x_n + \tilde{n}_m $
 \end{itemize}
-\paragraph*{b) unbiased SNR}
+\paragraph{b) unbiased SNR}
 \label{unbiased_SNR}
 \begin{itemize}
 	\item remove bias: $r_m^\prime = \dfrac{r_m}{K_{mm}} = x_m + \underbrace{\dfrac{\tilde{e}_m}{K_{mm}}}_{e^\prime_m} $
@@ -1436,7 +1436,7 @@ Bring metric into a suitable form:
 		\end{itemize}
 		\item[$\rightarrow$] the $n$-th term in the above sum contains only $ \tilde{x}_1, \tilde{x}_2, \ldots,\tilde{x}_n $
 \end{itemize}
-\paragraph*{Step 2}
+\paragraph{Step 2}
 Sphere decoding algorithm\\ 
 \underline{\textbf{Define:}}
 \begin{align*}
@@ -1458,7 +1458,7 @@ Sphere decoding algorithm\\
 	\end{itemize}
 	\item Use tree structure to represent all possible $\tilde{\mathbf{x}} $ 
 \end{itemize}
-\subparagraph*{Example:}	
+\subparagraph{Example:}	
 \underline{ BPSK = 2, $N_T = 2$}\\
 
 % Optionen für Stil, der im Bild verwendet werden kann
