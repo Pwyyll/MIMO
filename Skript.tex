@@ -1,7 +1,8 @@
 \documentclass[a4paper, 10pt]{article}
 %\usepackage[utf8]{inputenc}			
 \usepackage[english]{babel}		% for german	
-\usepackage{graphicx}								
+\usepackage{graphicx}
+\usepackage{psfrag}								
 \usepackage{parskip}
 \usepackage{listings}
 \usepackage{xcolor}
@@ -45,11 +46,18 @@
 \newcommand{\Rmnum}[1]{\expandafter\@slowromancap\romannumeral #1@}
 \makeatother
 %\renewcommand{\familydefault}{\sfdefault}
-
+\title{MIMO Skript\,-\,Wintersemester 2013 \\ Kapitel 2}
+\date{}
 
 \begin{document}
-\section{SIMO Systems}
-\subsubsection*{Remarks}
+\maketitle
+\tableofcontents
+\setcounter{section}{1}
+\section{Point\,-\,to\,-\,Point MIMO Systems}
+\subsection{MIMO Channel Capacity}
+Inhalt: s. Skript in VL ausgeteilt
+\subsection{SIMO Systems}
+\paragraph{Remarks}
 \begin{itemize}
 	\item In SIMO Systems only \underline{coding} and \underline{diversity} \underline{gains} can be exploited (no multiplexing gains)
 	\item To realize these gains diversity combining has to be performed
@@ -73,6 +81,7 @@
 \end{itemize}
 \begin{minipage}[hbt]{7cm}
 	\centering
+	\psfrag{GC_SNR_GD}[hl][hl]{$(G_c\cdot\text{SNR})^{-G_d}$}
 	\includegraphics[width=7cm]{SIMO_BER_SNR_Kurve}
 \end{minipage}
 \hfill
@@ -84,22 +93,22 @@
 		\end{itemize}
 \end{minipage}
 
-\subsection{Preliminaries}
+\subsubsection{Preliminaries}
 Consider an equivalent system:
 \begin{align*}
 	y &= hx +n;\\
-	\mathcal{E}\{|x^2|\} &= E_s; & \mathcal{E}\{|n^2|\} &= \sigma_n^2; & \mathcal{E}\{|h|^2\} &= 1
+	\mathcal{E}\{|x^2|\} &= \mathcal{E}_s; & \mathcal{E}\{|n^2|\} &= \sigma_n^2; & \mathcal{E}\{|h|^2\} &= 1
 \end{align*}
 \begin{itemize}
-	\item Instantaneous SNR: $\gamma_t = \frac{E_s}{\sigma_n^2}\cdot |h|^2$
-\item Average SNR: $\bar{\gamma}_t = \mathcal{E}\{\gamma_t\} = \frac{E_s}{\sigma_n^2}$
+	\item Instantaneous SNR: $\gamma_t = \frac{\mathcal{E}_s}{\sigma_n^2}\cdot |h|^2$
+\item Average SNR: $\bar{\gamma}_t = \mathcal{E}\{\gamma_t\} = \frac{\mathcal{E}_s}{\sigma_n^2}$
 \end{itemize}
 \paragraph{Bit and Symbol Error Rate}
 \begin{itemize}
 	\item The Bit and Symbol Error Rate of many modulation schemes can be expressed for given $\gamma_t$ as:
 \end{itemize}
 \begin{align*}
-	P_e(\gamma_t) = aQ\bigl\{ \sqrt{b\gamma_t}\bigr\}
+	P_e(\gamma_t) = aQ\bigl( \sqrt{b\gamma_t}\bigr)
 \end{align*}
 where:
 \begin{itemize}
@@ -126,7 +135,7 @@ where:
 	\item Using alternative representation of Q-function we get:
 		\begin{align*}
 			P_e &= \int_{0}^{\infty}\frac{a}{\pi}\int_{0}^{\frac{\pi}{2}}e^{-\frac{bx}{2sin^2\theta}}p_{\gamma_t}(x)~d\theta ~dx\\
-			&= \frac{a}{\pi}\int_{0}^{\frac{\pi}{2}}\int_{0}^{\infty}p_{\gamma_t}(x)e^{-\frac{b}{2sin^2\theta}}~dx~d\theta &= \frac{a}{\pi}\int_{0}^{\frac{\pi}{2}}M_{\gamma_t}\bigl ( \frac{b}{2sin^2\theta} \bigr )~d\theta
+			&= \frac{a}{\pi}\int_{0}^{\frac{\pi}{2}}\int_{0}^{\infty}p_{\gamma_t}(x)e^{-\frac{b}{2sin^2\theta}x}~dx~d\theta &= \frac{a}{\pi}\int_{0}^{\frac{\pi}{2}}M_{\gamma_t}\bigl ( \frac{b}{2sin^2\theta} \bigr )~d\theta
 		\end{align*}
 where:
 		\begin{itemize}
@@ -141,11 +150,11 @@ where:
 \begin{itemize}
 	\item The outage probability is the probability that the channel cannot support a certain rate, R, i.e. (where \begin{math} \gamma_T \end{math} is the threshold SNR):
 		\begin{align*}
-			C = \log_2(1+\gamma_t) < R \quad \leftrightarrow \quad \gamma_t < 2^R - 1 \triangleq \gamma_T
+			C = \log_2(1+\gamma_t) < R \quad \leftrightarrow \quad \gamma_t < 2^R - 1 \hat{=} \gamma_T
 		\end{align*}\\
 		Thus, the outage probability is given by:
 		\begin{align*}
-			P_{out} &= P_0 {\gamma_t <\gamma-T}  \;= \int_{0}^{\gamma_T}p_{\gamma_t}(x)~dx
+			P_{out} &= P_0 \{\gamma_t <\gamma_T\}  \,= \int_{0}^{\gamma_T}p_{\gamma_t}(x)~dx
 		\end{align*}
 \item Using the inverse Laplace Transform\\
 \begin{minipage}[hbt]{7cm}
@@ -177,10 +186,10 @@ where:
 \paragraph{General combining scheme}
 \begin{align*}
 	y &= \Bigl (\sum_{n = 1}^{N_R}h_nw_n\Bigr )x + \sum_{n = 1}^{N_R}w_nn_n \\
-	\gamma _t &= \frac{\epsilon _s \Bigl | \sum_{n = 1}^{N_R}h_nw_n\Bigr |^2 }{\sigma _n^2 \sum_{N = 1}^{N_R}|w_n|^2}
+	\gamma _t &= \frac{\mathcal{E}_s \Bigl | \sum_{n = 1}^{N_R}h_nw_n\Bigr |^2 }{\sigma _n^2 \sum_{n = 1}^{N_R}|w_n|^2}
 \end{align*}
 where \begin{math} w_n\end{math} depends on the particular combining scheme.
-\subsection{MRC (Maximum Ratio Combining)}
+\subsubsection{MRC (Maximum Ratio Combining)}
 \begin{itemize}
 	\item what weight \begin{math}w_n\end{math} maximize \begin{math}\gamma _t\end{math}?
 	\begin{itemize}
@@ -191,13 +200,13 @@ where \begin{math} w_n\end{math} depends on the particular combining scheme.
 	where equality holds if and only if \begin{math}w_n = c\cdot h_n^*\end{math} for some non-zero constant \begin{math}c\end{math}.
 		\item for \begin{math}w_n = h_n^*\end{math}, we obtain
 		\begin{align*}
-			\gamma _t = \frac{\epsilon _s}{\sigma _n^2}\cdot \frac{\Bigl ( \sum_{n = 1}^{N_R}|h_n|^2\Bigr ) ^2}{\sum_{n = 1}^{N_R}|h_n|^2} = \frac{\epsilon _s}{\sigma _n^2}\sum_{n = 1}^{N_R}|h_n|^2
+			\gamma _t = \frac{\mathcal{E}_s}{\sigma _n^2}\cdot \frac{\Bigl ( \sum_{n = 1}^{N_R}|h_n|^2\Bigr ) ^2}{\sum_{n = 1}^{N_R}|h_n|^2} = \frac{\epsilon _s}{\sigma _n^2}\sum_{n = 1}^{N_R}|h_n|^2
 		\end{align*}
-		\item \begin{math}w_n = h_n^* \forall n\end{math} are the MRC combining weights.	
+		\item \begin{math}w_n = h_n^*\, \forall \, n\end{math} are the MRC combining weights.	
 	\end{itemize}
 	\item For performance analysis we assume \underline{independent identically distributed (IID)} Rayleigh fading
 		\begin{align*}
-			\rightarrow \mathcal{E}\{|h_n|^2\} &= 1; \quad \bar{\gamma} = \frac{\epsilon _s}{\sigma	_n^2}; \quad \gamma _n = \frac{\epsilon _s}{\sigma _n^2}|h_n|^2\\
+			\rightarrow \mathcal{E}\{|h_n|^2\} &= 1; \quad \bar{\gamma} = \frac{\mathcal{E}_s}{\sigma	_n^2}; \quad \gamma _n = \frac{\mathcal{E}_s}{\sigma _n^2}|h_n|^2\\
 			p_{\gamma}(x) &= \frac{1}{\bar{\gamma}}e^{-\frac{x}{\bar{\gamma}}}; \quad x\geq 0\\
 			M_{\gamma}(s) &= \frac{1}{1+s\bar{\gamma}}
 		\end{align*}		
@@ -225,7 +234,7 @@ where \begin{math} w_n\end{math} depends on the particular combining scheme.
 			\item high SNR: \quad \begin{math}\bar{\gamma}\rightarrow \infty \Longleftrightarrow \frac{1}{\bar{\gamma}}\rightarrow 0 \end{math}
 	\begin{align*}
 				p_e &= \frac{a}{\pi}\cdot\frac{1}{\bar{\gamma}^{N_R}}\cdot \Bigl (\frac{2}{b}\Bigr )^{N_R}\int_{0}^{\frac{\pi}{2}}\sin ^{2N_R}\theta ~d\theta \\
-				 (\text{from MGF approach: }  &\int_{0}^{\frac{\pi}{2}}\sin ^{2N_R}\theta ~d\theta = \frac{\pi}{2^{N_R + 1}}\cdot \begin{pmatrix} 2N_R \\ N_R) \end{pmatrix}\\ &= \frac{a}{2^{N_R+1}\cdot b^{N_R}}\begin{pmatrix}2N_R & N_R\end{pmatrix}\frac{1}{\bar{\gamma}^{N_R}}\quad \text{as } \bar{\gamma} \rightarrow \infty \\ &\stackrel{!}{=} \Bigl (\frac{1}{G_c\bar{\gamma}}\Bigr )\\
+				 (\text{from MGF approach: }  &\int_{0}^{\frac{\pi}{2}}\sin ^{2N_R}\theta ~d\theta = \frac{\pi}{2^{N_R + 1}}\cdot \begin{pmatrix} 2N_R \\ N_R \end{pmatrix}\\ &= \frac{a}{2^{N_R+1}\cdot b^{N_R}}\begin{pmatrix}2N_R & N_R\end{pmatrix}\frac{1}{\bar{\gamma}^{N_R}}\quad \text{as } \bar{\gamma} \rightarrow \infty \\ &\stackrel{!}{=} \Bigl (\frac{1}{G_c\bar{\gamma}}\Bigr )\\
 				\text{where: Diversity gain: } & G_d = N_R\\	
 				\text{Combining/Coding gain: } & G_c = 2b\Bigl (\frac{a}{2}\begin{pmatrix}2N_R \\ N_R\end{pmatrix}\Bigr )^{-\frac{1}{N_R}}	
 	\end{align*}	
@@ -248,9 +257,9 @@ where \begin{math} w_n\end{math} depends on the particular combining scheme.
 	\item Diversity and coding gain can also be defined for $P_{out}$
 \end{itemize}
 
-\subsection{EGC (Equal Gain Combining)}
+\subsubsection{EGC (Equal Gain Combining)}
 
-\paragraph*{Combining Weights}
+\paragraph{Combining Weights}
 \begin{itemize}
 	\item For MRC, both, the amplitudes and phases of the channel gains $h_n=|h_n|e^{j\varphi_n}$ have to be known (or estimated in practice)
 	\item In EGC it is assumed that only the phases are known and weights $w_n=e^{-j\varphi_n}$ are used.
@@ -260,7 +269,7 @@ where \begin{math} w_n\end{math} depends on the particular combining scheme.
 	&=\frac{1}{N_R}\left(\sum\limits_{n=1}^{N_R}\sqrt{\gamma_n}\right)^2;\text{  with  }\gamma_n=\frac{E_s}{\sigma_n^2}|h_n|^2
 \end{align*}
 \end{itemize}
-\paragraph*{Performance Analysis}
+\paragraph{Performance Analysis}
 \begin{itemize}
 	\item IID case \\
 	$\Rightarrow$ $\sqrt{\gamma_n}$ is Rayleigh distributed\\
@@ -324,14 +333,14 @@ where \begin{math} w_n\end{math} depends on the particular combining scheme.
 	\end{itemize}
 \end{itemize}
 A similar asymptotic analysis can be conducted for the outage probability.
-\subsection{SC (Selection Combining)}
-\paragraph*{Combining weights}
+\subsubsection{SC (Selection Combining)}
+\paragraph{Combining weights}
 	\begin{itemize}
 		\item only the strongest branch is chosen
 		\item strongest branch: $\hat{n} = \underset{n}{\text{argmax}} \gamma _n \longrightarrow \gamma _t = \gamma _{\hat{n}}$
 		\item only on RF receiver chain required $\rightarrow$\; saves hardware complexity 
 	\end{itemize}
-\paragraph*{Performance analysis}
+\paragraph{Performance analysis}
 	\begin{itemize}
 		\item cdf of: $\gamma _t$
 			\begin{align*}
@@ -346,7 +355,7 @@ A similar asymptotic analysis can be conducted for the outage probability.
 				\rightarrow p_{\gamma _t}(x) &= \frac{N_R}{\bar{\gamma}}\bigl( 1 - e^{-\frac{x}{\bar{\gamma}}}\bigr)^{N_R-1}e^{-\frac{x}{\bar{\gamma}}};\quad x\geq 0
 			\end{align*}
 	\end{itemize}
-\paragraph*{Error probability}
+\paragraph{Error probability}
 	\begin{itemize}
 		\item direct approach $\rightarrow$ closed-form solution possible
 		\item MGF approach
@@ -384,14 +393,15 @@ A similar asymptotic analysis can be conducted for the outage probability.
 			\item[] $\Longrightarrow \text{Combining gain: } G_c = 2b\left(\frac{2N_R!}{a(2N_R)!}\right)^{\frac{1}{N_R}}$
 			%\item[] vergleiche auch Blatt mit Kurven \rom{III} und \rom{IV}
 		\end{itemize}
-		\item Outage Probability
+	\end{itemize}
+\end{itemize}
+\paragraph{Outage Probability}
 		\begin{align*}
 			P_{out}&=\mathrm{Pr}\{\gamma_{\hat{n}} \leq \gamma_T \}=P_{\gamma_{\hat{n}}}(\gamma_T)=\left[1-\mathrm{exp}\left(-\frac{\gamma_T}{\bar{\gamma}}\right)\right]^{N_R}\\
 			\text{high SNR: } P_{out}&=\left(\frac{\gamma_T}{\bar{\gamma}}\right)^{N_R}+O\left(\bar{\gamma}^{-N_R}\right)
 		\end{align*}
-		\end{itemize}
-	\end{itemize}
-\subsection{Comparison}
+
+\subsubsection{Comparison}
 	\begin{itemize}
 		\item Diversity Gain:\\
 			MRC, EGC and SC all achieve the maximum possible diversity gain of $G_d=N_R$
@@ -423,14 +433,14 @@ A similar asymptotic analysis can be conducted for the outage probability.
 			\end{itemize}
 	\end{itemize}
 	\newpage
-\section{MISO Systems}
-\subsubsection*{Remarks}
+\subsection{MISO Systems}
+\paragraph{Remarks}
 	\begin{itemize}
 		\item Similar to SIMO systems, in MISO systems only coding and diversity gains can be obtained.
 		\item To realize these gains, a careful transmitter design is necessary
 		\item System design depends on whether or not channel state information (\textbf{CSI}) is available at transmitter
 	\end{itemize}
-\subsection{Naive Approach}
+\subsubsection{Naive Approach}
 \begin{itemize}	
 	\item Assume we simply send the same signal over all $N_T$ transmit antennas
 \end{itemize}
@@ -449,7 +459,7 @@ A similar asymptotic analysis can be conducted for the outage probability.
 		\item \underline{more sophisticated transmitter designs necessary}
 	\end{itemize}
 \end{itemize}
-\subsection{Full CSI Available at the Transmitter}
+\subsubsection{Full CSI Available at the Transmitter}
 \begin{itemize}
 	\item $h_n, n \in \{1,\dots,N_T\}$ is known at the transmitter
 	\item Perform ``precoding'' (beamforming) with coefficients $w_n$
@@ -469,7 +479,7 @@ A similar asymptotic analysis can be conducted for the outage probability.
 	\end{itemize}
 	\item Recveived signal: $y=\underbrace{\sum\limits^{N_T}_{n=1}w^*_nh_n}_{h}x+n$ (equivalent SISO channel)
 \end{itemize}
-\subsubsection*{Maximum Ratio Transmission (MRT)}
+\paragraph{Maximum Ratio Transmission (MRT)}
 \begin{itemize}
 	\item we have only the average power constraint: $ \sum\limits_{n = 1}^{N_T} |w_n|^2 = 1 $
 	\item SNR:  \scalebox{1.3}[1.3]{$\gamma	 _t = \frac{E_s|h|^2}{\sigma _n^2} = \frac{\mathcal{E}_s\left|\sum\limits_{n = 1}^{N_T}w_n^*\cdot h_n \right|^2}{\sigma _n^2} $} 
@@ -500,7 +510,7 @@ A similar asymptotic analysis can be conducted for the outage probability.
 			\item[$\rightarrow$] has the same performance as MRC with $N_T\cdot N_R$ receive antennas and one transmit antenna
 		\end{itemize}
 	\end{itemize}
-\subsubsection*{Equal Gain Transmission (EGT)}
+\paragraph{Equal Gain Transmission (EGT)}
 \begin{itemize}
 	\item we employ gains: $w_n = \frac{1}{\sqrt{N_T}}\cdot \frac{h_n}{|h_m|} \rightarrow |w_n| = \frac{1}{\sqrt{N_T}} $
 	\item SNR:
@@ -512,7 +522,7 @@ A similar asymptotic analysis can be conducted for the outage probability.
 	\end{align*}
 	\item[$\rightarrow$] EGC with $ N_T$ transmit antennas achieves the same performance as EGC with $ N_T$ receive antennas
 \end{itemize}
-\subsubsection*{Transmit Antennas Selection}
+\paragraph{Transmit Antennas Selection}
 \begin{itemize}
 	\item select antenna with maximum channel gain for transmission:
 		\begin{align*} 
@@ -524,7 +534,7 @@ A similar asymptotic analysis can be conducted for the outage probability.
 		\end{align*}
 	\item antenna selection with $ N_T$ transmit antennas achieves the same performance as \textit{Selection Combining} with $ N_T$ receive antennas
 \end{itemize}
-\subsection{No CSI at Transmitter - Space-Time-Coding}
+\subsubsection{No CSI at Transmitter - Space\,-\,Time\,-\,Coding}
 \begin{itemize}
 	\item $h_n, n\in\{1,\dots ,N_T\}$, is only known at the receiver
 	\item ``Space-time-coding'' has to be employed to realize diversity gain
@@ -563,7 +573,7 @@ A similar asymptotic analysis can be conducted for the outage probability.
 			{\small[Alamouti: A simple transmit diversity technique for wireless communication, IEEE JSAC 1998]}
 		\end{itemize}
 \end{itemize}
-\subsubsection{Optimal Detection}
+\paragraph{Optimal Detection}
 \begin{itemize}
 	\item Signal model:
 	\begin{align*}
@@ -587,7 +597,7 @@ A similar asymptotic analysis can be conducted for the outage probability.
 		$\rightarrow$ complexity increases exponentially with $K$
 	\end{itemize}
 \end{itemize}
-\subsubsection{Types of STBCs}
+\paragraph{Types of STBCs}
 \begin{itemize}
 	\item Orthogonal STBCs (OSTBCs)
 	\begin{itemize}
@@ -705,7 +715,7 @@ because of symmetry it suffices to consider $r_1$
 		\item noncoherent STBCs (On-Off-Keying)
 	\end{itemize}
 \end{itemize}
-\subsubsection{Space Time Code Design}
+\paragraph{Space Time Code Design}
 Given: 
 \begin{itemize}
 	\item Code  $\mathscr{X} = \bigl\{\textbf{X}_1,\dots ,\textbf{X}_{|\mathscr{X}|}\bigr\}$
@@ -812,7 +822,7 @@ for given $\mathbf{h}$, $z$ is a gaussian random variable
 	\item diversity increases to $N_TN_R$ if $N_K$ receive antennas are available
 	\item Example: see B\"aro, Bauch, Hansmann: Improved codes for space-time trellis coded modulation. IEEE Comm. Letters, 2000.
 \end{itemize}
-\subsection{Partial or Imperfect CSI at the Transmitter}
+\subsubsection{Partial or Imperfect CSI at the Transmitter}
 \begin{itemize}
 	\item In practice, the CSI cannot be perfect. Channel estimation, quantization and noisy feedback channels introduce errors.
 	\item If the system is optimized for perfect CSI (\textit{e.g.} using MRT or EGT), the performance for imperfect CSI may be worse than for a system designed for no CSI(\textit{e.g.} space-time coding)
@@ -842,7 +852,7 @@ for given $\mathbf{h}$, $z$ is a gaussian random variable
 	\item $\mathbf{W}$ can be optimized under the assumptions for given $\rho$ and $\hat{h}_i$\\
 	$\rightarrow$ see for details: J\"ongren, Skorglund and Ottersten: "Combining Beamforming and Orthogonal Space-time Block Coding", IEEE on IT, 2002.
 \end{itemize}
-\section{MIMO Systems without CSI at the transmitter}
+\subsection{MIMO Systems without CSI at the transmitter}
 \begin{itemize}
 	\item We consider $N_T\times N_R$ MIMO system and assume that the channel matrix $\mathbf{H}$ is not known at the transmitter\\
 	$\rightarrow$ no CSI at the transmitter (CSIT)
@@ -864,7 +874,7 @@ for given $\mathbf{h}$, $z$ is a gaussian random variable
 			\item complexity
 		\end{itemize}
 \end{itemize}
-\subsection{Optimum Detection}
+\subsubsection{Optimum Detection}
 \begin{itemize}
 	\item Elements of $\mathbf{n}$ are gaussian random variables with variance $\sigma_n^2$
 	\item $\mathbf{H}$ is known at the receiver
@@ -914,7 +924,7 @@ for given $\mathbf{h}$, $z$ is a gaussian random variable
 			(Hier geh\"oren die detection performance kurven f\"ur BPSK hin)
 	\end{itemize}
 \end{itemize}
-\subsection{Linear Receivers}
+\subsubsection{Linear Receivers}
 \begin{itemize}
 	\item How can we avoid the complexity associated wit the joint detection of the elements of $\mathbf{x}$?
 	\item Idea: Employ linear filter (matrix) to seperate  the elements of $\mathbf{x}$
@@ -935,7 +945,7 @@ for given $\mathbf{h}$, $z$ is a gaussian random variable
 		\item minimum mean squared error (MMSE) crtiterion
 	\end{itemize}
 \end{itemize}
-\subsubsection{ZF Detection}
+\paragraph{ZF Detection}
 \begin{align*}
 	\mathbf{r}=\mathbf{Fy}=\mathbf{F}(\mathbf{Hx}+\mathbf{n})=\mathbf{FHx}+\mathbf{Fn}
 \end{align*}
@@ -1029,7 +1039,7 @@ $\Phi_{ee}$ is not in general a diagonal matrix
 		\item[] \underline{Example:} \begin{align*} N_T &= N_R = 3 \\ G_d^{ZF} &= 1 \text{ but } G_d^{ML} = N_R = 3 \end{align*} $ \rightarrow $ huge performance loss because of linear ZF
 	\end{itemize}		
 \end{itemize}
-\subsubsection{MMSE detection}
+\paragraph{MMSE detection}
 \begin{itemize}
 \item ZF criterion may be too strict and leads to noise enhancement
 	\begin{itemize}
@@ -1087,7 +1097,7 @@ $\Phi_{ee}$ is not in general a diagonal matrix
 		\label{MMSE}
 	\end{figure}
 	
-\subsubsection{SNR (biased vs. unbiased)}
+\paragraph{SNR (biased vs. unbiased)}
 \paragraph*{a) biased SNR}
 \begin{align*}
 	\text{SNR}_{\text{bias,m}} &= \frac{\epsilon_s}{[\boldsymbol{\Phi}_{ee}]_{mm}} = \frac{\epsilon_s}{\epsilon_s(1 - K_{mm})} = \frac{1}{1 - K_{mm}}, \quad 1\leq m \leq 4 
@@ -1117,7 +1127,7 @@ but:
 	\item[$\rightarrow$]the SNR after bias removal is by ``$1$'' smaller than the biased SNR $\rightarrow$ general result valid for any type of
 	MMSE estimation
 \end{itemize}
-\subsection{Decision - Feadback Equalization (Detection)}
+\subsubsection{Decision\,-\,Feadback Equalization (Detection)}
 \begin{itemize}
 	\item Also known as: 
 	\begin{itemize}
@@ -1126,7 +1136,7 @@ but:
 	\end{itemize}
 	\item Problem of linear receiver: Noise enhancementbecause of linear filtering $\rightarrow$ nonlinear filtering processing necessary
 \end{itemize}
-\subsubsection{Basic Idea}
+\paragraph{Basic Idea}
 \begin{itemize}
 	\item Recall (linear filter): $\mathbf{FH} = \mathbf{I} $ for linear ZF receiver $\rightarrow$ $i$th row of $\mathbf{F}, \mathbf{f}_i, $ is orthogonal to the $j$th column of $\mathbf{H}, \mathbf{h}_j$, if $ i \neq j$ (if $i = j$: inner product = 1)  
 	\item we can detect $x_i$, based on $r_i = \mathbf{f}_i\mathbf{y} $
@@ -1165,7 +1175,7 @@ but:
 		\item \textit{(Anmerkung: der schlechteste Fall dominiert (Stage 1), weitere koennen nur schwer beeinflussen)}
 	\end{itemize}
 \end{itemize}
-\subsubsection{ZF - DFE - Matrix Model}
+\paragraph{ZF - DFE - Matrix Model}
 \begin{itemize}
 	\item Signal model: $ \mathbf{y} = \mathbf{Hx} + \mathbf{n} = \underbrace{\mathbf{HP}}_{\tilde{\mathbf{H}}}\cdot\underbrace{\mathbf{P}^{-1}\mathbf{x}}_{\tilde{\mathbf{x}}} + \mathbf{n} $ with permutation matrix $\mathbf{P} $
 	\item $\mathbf{P} $ has one \glqq 1\grqq\, per column and row, all other elements are \glqq 0\grqq 
@@ -1271,7 +1281,7 @@ but:
 	\end{align*}
 \end{itemize}
 
-\subsubsection*{MMSE-DFE}
+\paragraph{MMSE-DFE}
 \begin{figure}[h]
 	\centering
 	\input{MMSE_DFE.pstex_t}
@@ -1362,7 +1372,7 @@ but:
 		\end{align*}
 	\end{itemize}
 \end{itemize}
-%War in der letzten VL vor den Weihnachtsferien nicht da, deswegen beginn ich mit der VL vom 07.01. ;-)
+
 \subsubsection{Sphere Decoding}
 
 \begin{itemize}
