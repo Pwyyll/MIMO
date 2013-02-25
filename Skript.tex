@@ -69,8 +69,19 @@ Inhalt: s. Skript in VL ausgeteilt
 		\item Selection combining (SC)
 	\end{itemize}
 	\item Diversity combining problem
-	\begin{figure}[h]\centering
+	\begin{figure}[ht]
+		\centering
+		\psfrag{h_1}[hl][hl]{$h_1$}
+		\psfrag{n_1}[hl][hl]{$n_1$}
+		\psfrag{w_1}[hl][hl]{$h_1$}
+		\psfrag{h_NR}[hl][hl]{$h_{N_R}$}
+		\psfrag{n_NR}[hl][hl]{$n_{N_R}$}
+		\psfrag{w_NR}[hl][hl]{$w_{N_R}$}
+		\psfrag{x_dach}[hl][hl]{$\hat{x}$}
+		\psfrag{x}[hl][hl]{$x$}		
 		\includegraphics[width=0.8\textwidth]{Multi_Channel}
+		\caption{Block Diagramm for SIMO}
+		\label{fig:Multi_Channel}	
 	\end{figure}		
 	
 	\begin{itemize}
@@ -79,10 +90,16 @@ Inhalt: s. Skript in VL ausgeteilt
 		\item what \underline{diversity} and coding/combining gain is achieved?
 	\end{itemize}
 \end{itemize}
+
+\begin{figure}
 \begin{minipage}[hbt]{7cm}
-	\centering
-	\psfrag{GC_SNR_GD}[hl][hl]{$(G_c\cdot\text{SNR})^{-G_d}$}
-	\includegraphics[width=7cm]{SIMO_BER_SNR_Kurve}
+	
+		\centering
+		\psfrag{GC_SNR_GD}[hl][hl]{$(G_c\cdot\text{SNR})^{-G_d}$}
+		\includegraphics[width=7cm]{SIMO_BER_SNR_Kurve}
+		\caption{Exemplary BER for SIMO}
+		\label{fig:SIMO_BER_SNR_Kurve}
+	
 \end{minipage}
 \hfill
 \begin{minipage}[hbt]{5cm}
@@ -92,6 +109,7 @@ Inhalt: s. Skript in VL ausgeteilt
 			\item $G_d$ : Diversity gain
 		\end{itemize}
 \end{minipage}
+\end{figure}
 
 \subsubsection{Preliminaries}
 Consider an equivalent system:
@@ -121,7 +139,7 @@ where:
 \begin{itemize}
 	\item Alternative representation of Q\;-\;function:
 			\begin{align*} 
-			Q(x) = \frac{1}{\pi}\int_{0}^{\frac{\pi}{2}} e^{-\frac{x^2}{2sin^2\theta}}~d\theta
+			Q(x) = \frac{1}{\pi}\int_{0}^{\frac{\pi}{2}} e^{-\frac{x^2}{2\sin^2\theta}}~d\theta
 			\end{align*}
 			$\rightarrow$ Integral limits are fixed and do not depend on integration variables!
 	\item Average error probability
@@ -134,8 +152,8 @@ where:
 		\end{itemize}
 	\item Using alternative representation of Q-function we get:
 		\begin{align*}
-			P_e &= \int_{0}^{\infty}\frac{a}{\pi}\int_{0}^{\frac{\pi}{2}}e^{-\frac{bx}{2sin^2\theta}}p_{\gamma_t}(x)~d\theta ~dx\\
-			&= \frac{a}{\pi}\int_{0}^{\frac{\pi}{2}}\int_{0}^{\infty}p_{\gamma_t}(x)e^{-\frac{b}{2sin^2\theta}x}~dx~d\theta &= \frac{a}{\pi}\int_{0}^{\frac{\pi}{2}}M_{\gamma_t}\bigl ( \frac{b}{2sin^2\theta} \bigr )~d\theta
+			P_e &= \int_{0}^{\infty}\frac{a}{\pi}\int_{0}^{\frac{\pi}{2}}e^{-\frac{bx}{2\sin^2\theta}}p_{\gamma_t}(x)~d\theta ~dx\\
+			&= \frac{a}{\pi}\int_{0}^{\frac{\pi}{2}}\int_{0}^{\infty}p_{\gamma_t}(x)e^{-\frac{b}{2\sin^2\theta}x}~dx~d\theta &= \frac{a}{\pi}\int_{0}^{\frac{\pi}{2}}M_{\gamma_t}\bigl ( \frac{b}{2\sin^2\theta} \bigr )~d\theta
 		\end{align*}
 where:
 		\begin{itemize}
@@ -200,7 +218,7 @@ where \begin{math} w_n\end{math} depends on the particular combining scheme.
 	where equality holds if and only if \begin{math}w_n = c\cdot h_n^*\end{math} for some non-zero constant \begin{math}c\end{math}.
 		\item for \begin{math}w_n = h_n^*\end{math}, we obtain
 		\begin{align*}
-			\gamma _t = \frac{\mathcal{E}_s}{\sigma _n^2}\cdot \frac{\Bigl ( \sum_{n = 1}^{N_R}|h_n|^2\Bigr ) ^2}{\sum_{n = 1}^{N_R}|h_n|^2} = \frac{\epsilon _s}{\sigma _n^2}\sum_{n = 1}^{N_R}|h_n|^2
+			\gamma _t = \frac{\mathcal{E}_s}{\sigma _n^2}\cdot \frac{\Bigl ( \sum_{n = 1}^{N_R}|h_n|^2\Bigr ) ^2}{\sum_{n = 1}^{N_R}|h_n|^2} = \frac{\mathcal{E}_s}{\sigma _n^2}\sum_{n = 1}^{N_R}|h_n|^2
 		\end{align*}
 		\item \begin{math}w_n = h_n^*\, \forall \, n\end{math} are the MRC combining weights.	
 	\end{itemize}
@@ -224,22 +242,32 @@ where \begin{math} w_n\end{math} depends on the particular combining scheme.
 			\end{align*}
 	\item Direct approach 
 		\begin{align*}
-			p_e &= \int_{0}^{\infty}a\cdot Q\bigl (\sqrt{ax} \bigr )p_{\gamma _t}(x)~dx = a\Bigl (\frac{1 - \mu}{2}\Bigr )^{N_R} \cdot \sum_{n = 0}^{N_R - 1}\begin{pmatrix} N_R - 1 + n \\ n\end{pmatrix}\Bigl (\frac{1 + \mu}{2}\Bigr )^n \\ \text{where}\; \mu &= \sqrt{\frac{b\bar{\gamma}}{2 + b\bar{\gamma}}}
+			P_e &= \int_{0}^{\infty}a\cdot Q\bigl (\sqrt{ax} \bigr )p_{\gamma _t}(x)~dx = a\Bigl (\frac{1 - \mu}{2}\Bigr )^{N_R} \cdot \sum_{n = 0}^{N_R - 1}\begin{pmatrix} N_R - 1 + n \\ n\end{pmatrix}\Bigl (\frac{1 + \mu}{2}\Bigr )^n \\ \text{where}\; \mu &= \sqrt{\frac{b\bar{\gamma}}{2 + b\bar{\gamma}}}
 		\end{align*}
 		\item MGF approach
 			\begin{align*}
-				p_e &= \frac{a}{\pi}\int_{0}^{\frac{\pi}{2}}M_{\gamma _t}\Bigl ( \frac{b}{2\sin ^2\theta}\Bigr )~d\theta \\
+				P_e &= \frac{a}{\pi}\int_{0}^{\frac{\pi}{2}}M_{\gamma _t}\Bigl ( \frac{b}{2\sin ^2\theta}\Bigr )~d\theta \\
 				&= \frac{a}{\pi}\int_{0}^{\frac{\pi}{2}}\frac{1}{\bar{\gamma}^{N_R}\bigl (\frac{b}{\sin ^2\theta} + \frac{1}{\bar{\gamma}}\bigr )^{N_R}}~d\theta \quad \text{(numerisch berechnen!)}
 			\end{align*}
-			\item high SNR: \quad \begin{math}\bar{\gamma}\rightarrow \infty \Longleftrightarrow \frac{1}{\bar{\gamma}}\rightarrow 0 \end{math}
+			\item with high SNR: \quad \begin{math}\bar{\gamma}\rightarrow \infty \Longleftrightarrow \frac{1}{\bar{\gamma}}\rightarrow 0 \end{math} and with MGF approach this leads to Average Error Probability $P_e$:
 	\begin{align*}
-				p_e &= \frac{a}{\pi}\cdot\frac{1}{\bar{\gamma}^{N_R}}\cdot \Bigl (\frac{2}{b}\Bigr )^{N_R}\int_{0}^{\frac{\pi}{2}}\sin ^{2N_R}\theta ~d\theta \\
-				 (\text{from MGF approach: }  &\int_{0}^{\frac{\pi}{2}}\sin ^{2N_R}\theta ~d\theta = \frac{\pi}{2^{N_R + 1}}\cdot \begin{pmatrix} 2N_R \\ N_R \end{pmatrix}\\ &= \frac{a}{2^{N_R+1}\cdot b^{N_R}}\begin{pmatrix}2N_R & N_R\end{pmatrix}\frac{1}{\bar{\gamma}^{N_R}}\quad \text{as } \bar{\gamma} \rightarrow \infty \\ &\stackrel{!}{=} \Bigl (\frac{1}{G_c\bar{\gamma}}\Bigr )\\
-				\text{where: Diversity gain: } & G_d = N_R\\	
-				\text{Combining/Coding gain: } & G_c = 2b\Bigl (\frac{a}{2}\begin{pmatrix}2N_R \\ N_R\end{pmatrix}\Bigr )^{-\frac{1}{N_R}}	
+		P_e &= \frac{a}{\pi}\cdot\frac{1}{\bar{\gamma}^{N_R}}\cdot \Bigl (\frac{2}{b}\Bigr )^{N_R}\int_{0}^{\frac{\pi}{2}}\sin ^{2N_R}\theta ~d\theta \\
+		&= \frac{a}{2^{N_R+1}\cdot b^{N_R}}\begin{pmatrix}2N_R \\ N_R\end{pmatrix}\frac{1}{\bar{\gamma}^{N_R}}\quad \text{as } \bar{\gamma} \rightarrow \infty \\ 
+		&\stackrel{!}{=} \Bigl (\frac{1}{G_c\bar{\gamma}}\Bigr )
 	\end{align*}	
-	\begin{figure}
+	where: 
+	\begin{itemize}
+		\item $ \int_{0}^{\frac{\pi}{2}}\sin ^{2N_R}\theta ~d\theta = \frac{\pi}{2^{N_R + 1}}\cdot \begin{pmatrix} 2N_R \\ N_R \end{pmatrix}$
+		\item Diversity gain: $ G_d = N_R $ 
+		\item Combining/Coding gain: $ G_c = 2b\biggl (\frac{a}{2}\begin{pmatrix}2N_R \\ N_R\end{pmatrix}\biggr )^{-\frac{1}{N_R}} $
+	\end{itemize}		
+	\begin{figure}[ht]
+		\centering
+		\psfrag{G_C}[hl][hl]{$G_c$}
+		\psfrag{gamma_Mittelwert}[hl][hl]{$\bar{\gamma}$}
 		\includegraphics[width = 0.7\textwidth]{SIMO_BER_gamma_Kurve}
+		\caption{BER for average SNR $\bar{\gamma_t}$}
+		\label{fig:SIMO_BER_gamma_Kurve}
 	\end{figure}
 	\item MRC exploits the maximal possible diversity
 	\item Diversity gain is not affected by correlation as the branches are not \underline{fully} correlated
@@ -444,7 +472,13 @@ A similar asymptotic analysis can be conducted for the outage probability.
 \begin{itemize}	
 	\item Assume we simply send the same signal over all $N_T$ transmit antennas
 \end{itemize}
-\input{MISO_NAIVE.pstex_t}
+\begin{figure}[ht]
+	\centering
+	\input{MISO_NAIVE.pstex_t}
+	\caption{Block Diagramm of naive MISO}
+	\label{fig:MISO_NAIVE.pstex_t}
+\end{figure}
+
 \begin{itemize}
 	\item Transmit power: $\mathcal{E}\left\{\left|\frac{1}{\sqrt{N_T}}x\right|^2+,\dots,\left|\frac{1}{\sqrt{N_T}}x\right|^2\right\}=\mathcal{E}\left\{N_T\frac{1}{N_T}|x|^2\right\}=E_s$
 	\item Received signal: $y=\frac{1}{\sqrt{N_T}}\sum\limits_{n=1}^{N_T}h_n\cdot x+n$
@@ -464,7 +498,12 @@ A similar asymptotic analysis can be conducted for the outage probability.
 	\item $h_n, n \in \{1,\dots,N_T\}$ is known at the transmitter
 	\item Perform ``precoding'' (beamforming) with coefficients $w_n$
 \end{itemize}
-\input{MISO_CSI.pstex_t}
+\begin{figure}[ht]
+	\input{MISO_CSI.pstex_t}	
+	\caption{Block Diagramm of MISO with CSI}
+	\label{fig:MISO_CSI.pstex_t}
+\end{figure}
+
 \begin{itemize}
 	\item Transmit Power: Two constraints maybe considered
 	\begin{itemize}
@@ -828,9 +867,11 @@ for given $\mathbf{h}$, $z$ is a gaussian random variable
 	\item If the system is optimized for perfect CSI (\textit{e.g.} using MRT or EGT), the performance for imperfect CSI may be worse than for a system designed for no CSI(\textit{e.g.} space-time coding)
 	\item In this case, it is advantageous to use a hybrid approach and combine beamforming and space-time coding.
 \end{itemize}
-\begin{figure}[h]
+\begin{figure}[ht]
 	\centering
 	\input{STBEAM.pstex_t}
+	\caption{Block Diagramm of MISO with Beamforming}
+	\label{fig:STBEAM.pstex_t}
 \end{figure}
 \begin{itemize}
 	\item $\mathbf{W}$ is the beamforming matrix which depends on the reliability of the CSI
@@ -860,18 +901,22 @@ for given $\mathbf{h}$, $z$ is a gaussian random variable
 	\begin{align*}
 		N_R \updownarrow\mathbf{y}=N_R \updownarrow \overset{\overset{N_T}{\longleftrightarrow}}{\mathbf{H}}\mathbf{x}\updownarrow N_T+\mathbf{n} \updownarrow N_R
 	\end{align*}
-	\begin{figure}[h]
-		\centering
-		\input{SIGMOD.pstex_t}
-	\end{figure}
+
+\begin{figure}[ht]
+	\centering
+	\input{SIGMOD.pstex_t}
+	\caption{Block Diagramm of MISO without CSI}
+	\label{fig:SIGMOD.pstex_t}
+\end{figure}
+
 	\item $x_n$ are $M$-ary i.i.d. scalar symbols taken \textit{e.g} from an $M$-PSK or $M$-QAM symbol alphabet $\mathscr{A}$
 	\item This scheme is often called ``spatial multiplexing''
 	\item We transmit $N_T$ symbols per symbol interval\\
 	$\rightarrow$ rate $R=\log_2(M)\cdot N_T$ for uncoded transmission
 	\item Problem: How to detect $\mathbf{x}$ at the receiver considering
 		\begin{itemize}
-			\item performance
-			\item complexity
+			\item performance and
+			\item complexity?
 		\end{itemize}
 \end{itemize}
 \subsubsection{Optimum Detection}
@@ -1094,7 +1139,7 @@ $\Phi_{ee}$ is not in general a diagonal matrix
 		\centering
 		\includegraphics[width = \textwidth]{MMSE}
 		\caption{MMSE}
-		\label{MMSE}
+		\label{fig:MMSE}
 	\end{figure}
 	
 \paragraph{SNR (biased vs. unbiased)}
@@ -1110,7 +1155,7 @@ but:
 	\item $r_m = \underbrace{K_{mm}}_{<1}x_m + \underset{ n\neq m}{\sum\limits^{N_T}_{n = 1}}K_{mn}x_n + \tilde{n}_m $
 \end{itemize}
 \paragraph{b) unbiased SNR}
-\label{unbiased_SNR}
+\label{par:unbiased_SNR}
 \begin{itemize}
 	\item remove bias: $r_m^\prime = \dfrac{r_m}{K_{mm}} = x_m + \underbrace{\dfrac{\tilde{e}_m}{K_{mm}}}_{e^\prime_m} $
 	\item SNR?
@@ -1158,7 +1203,7 @@ but:
 		\centering
 		\resizebox{\textwidth}{!}{\input{DFE.pstex_t}}
 		\caption{DFE Blockdiagram}
-		\label{DFE}
+		\label{fig:DFE.pstex_t}
 	\end{figure}
 	\item Observations:
 	\begin{itemize}
@@ -1191,7 +1236,7 @@ but:
 		\centering
 		\resizebox{\textwidth}{!}{\input{ZF_DFE_Matrix.pstex_t}}
 		\caption{ZF-DFE Matrix Model}
-		\label{ZF-DFE-Matrix}
+		\label{fig:ZF-DFE-Matrix_pstex_t}
 	\end{figure}
 	\item DFE Filters:
 	\begin{itemize}
@@ -1286,7 +1331,7 @@ but:
 	\centering
 	\input{MMSE_DFE.pstex_t}
 	\caption{MMSE-DFE Blockdiagram}
-	\label{MMSE_DFE_Block}
+	\label{fig:MMSE_DFE.pstex_t}
 \end{figure}
 \begin{itemize}
 	\item $\mathbf{B}=\mathbf{L}-\mathbf{I}$ has to be lower triangular matrx with all-zero main diagonal elements because of causality.
@@ -1316,7 +1361,7 @@ but:
 		\centering
 		\resizebox{\textwidth}{!}{\input{DFE_MMSE_EQUIV.pstex_t}}
 		\caption{MMSE-DFE Equivalence}
-		\label{MMSE_DFE_Equiv}
+		\label{fig:MMSE_DFE_Equiv.pstex_t}
 	\end{figure}
 	\item Optimal $\mathbf{L}$:
 	\begin{align*}
@@ -1430,7 +1475,7 @@ Bring metric into a suitable form:
 			 \end{bmatrix}		 
 		\end{align*}
 		\item we have 
-		\begin{align}\label{Sphere_Decoding_Formel_1}
+		\begin{align}\label{eq:Sphere_Decoding_01}
 			||\bar{\mathbf{y}} - \mathbf{L}\tilde{\mathbf{x}}||^2 = (\bar{y} - l_{11}\tilde{x}_1)^2 + (\bar{y}_2 - l_{21}\tilde{x}_1 - l_{22}\tilde{x}_2)^2 + (\bar{y}_3 - l_{31}\tilde{x}_1 - l_{32}\tilde{x}_2 - l_{33}\tilde{x}_3)^2 + \ldots
 		\end{align}
 		\end{itemize}
