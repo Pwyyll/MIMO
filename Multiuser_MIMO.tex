@@ -61,8 +61,11 @@
 	\begin{itemize}
 		\item typical uplink scenario in cellular systems
 		\item information theoretical channel model: Multiple Access Channel (MAC)
-		\begin{figure}[h]\centering
+		\begin{figure}[h]
+			\centering
 			\includegraphics[scale=0.8]{MAC}
+			\caption{Multiple Access Channel}
+			\label{fig:MAC}		
 		\end{figure}
 %		\begin{tikzpicture}
 %			\node (user1) at (0,0) [draw] {User 1};
@@ -84,8 +87,11 @@
 	\begin{itemize}
 		\item typical downlink scenarion in cellular systems
 		\item information theoretical channel model: Broadcast Channel (BC)
-		\begin{figure}[h]\centering
+		\begin{figure}[h]
+			\centering
 			\includegraphics[scale=0.8]{BC}
+			\caption{Broadcast Channel}		
+			\label{fig:BC}
 		\end{figure}	
 	\end{itemize}
 	\item Advantage of multiuser MIMO compared to point\,-\,to\,-\,point MIMO
@@ -102,8 +108,11 @@ We consider two aspects:
 \end{itemize}
 \subsubsection{Detector structures}
 \paragraph*{Channel model:}
-\begin{figure}[h]\centering
+\begin{figure}[h]
+	\centering
 	\includegraphics[scale=0.8]{Detector_Structures_Channel_Model}
+	\caption{Block Diagramm of Channel Model}
+	\label{fig:Detector_Structures_Channel_Model}
 \end{figure}
 $\rightarrow  $ general MAC: $\mathbf{y} = \sum\limits_{k = 1}^{K}\mathbf{H}_k\mathbf{x}_k + \mathbf{n} $\\
 with: \begin{itemize}
@@ -155,8 +164,11 @@ Questions: What happens if there are multiple users?
 	\end{align*}
 \end{itemize}
 \subparagraph*{Example: 2 Users}
-\begin{figure}[h]\centering
+\begin{figure}[h]
+	\centering
 	\includegraphics[scale=0.6]{Rate_Region_Example}
+	\caption{Block Diagramm}
+	\label{fig:Rate_Region_Example}
 \end{figure}
 \begin{itemize}
 	\item How should we choose $R_1 $ and $R_2 $ to ensure error free decoding of \underline{both} signal streams?
@@ -435,7 +447,9 @@ We consider:
 		\psfrag{sender}[bl][bl][3]{$\underline{\text{x}}$}
 		\psfrag{CH1}[br][br]{$h_1^H$}
 		\psfrag{CH2}[br][br]{$h_2^H$}
-		\includegraphics[scale=0.8]{BroadcastChannel_scenario.eps}
+		\includegraphics[scale=0.8]{BroadcastChannel_scenario}
+		\caption{Scenario for Broadcast Channel}
+		\label{fig:BroadcastChannel_scenario}
 	\end{figure}
 	\end{itemize}
 	\item How many independent signal streams can we transmit?
@@ -500,7 +514,6 @@ We consider:
 		\end{bmatrix}^T
 	\end{align*}
 	\item[$\rightarrow$] We can easily calculate transmit powers $\mathcal{E}_{dl,k} $ required to achieve desired $\text{SINR}_k^{dl}, 1\leq k_1\leq K, $ for given signature (precoding) vectores $u_k, 1\leq k\leq K $ 
-	\item Block diagramm: 
 	\begin{figure}[ht]
 		\centering	
 		\psfrag{Eingang1}[bl][bl][1]{$x_{dl,1} $}
@@ -512,7 +525,9 @@ We consider:
 		\psfrag{Rauschen2}[bl][bl][1]{$n_{dl,k} $}
 		\psfrag{Ausgang1}[bl][bl][1]{$y_{dl,1} $}
 		\psfrag{Ausgang2}[bl][bl][1]{$y_{dl,K} $}
-		\includegraphics[scale=0.8]{Downlink_MIMO}		
+		\includegraphics[scale=0.8]{Downlink_MIMO}	
+		\caption{Block Diagramm of MIMO in Downlink}	
+		\label{fig:Downlink_MIMO}
 	\end{figure}
 \end{itemize}
 \paragraph{Uplink:} 
@@ -529,7 +544,9 @@ Use downlink signatures, $\mathbf{h}_k$, as receive filters, $\mathbf{f}_k$
 		\psfrag{Rauschen1}[bl][bl][1]{$n_{ul} $}
 		\psfrag{Ausgang1}[bl][bl][1]{$y_{ul,1} $}
 		\psfrag{Ausgang2}[bl][bl][1]{$y_{ul,K} $}
-		\includegraphics[scale=0.8]{Uplink_MIMO}		
+		\includegraphics[scale=0.8]{Uplink_MIMO}	
+		\caption{Block Diagramm of MIMO in Uplink}
+		\label{fig:Uplink_MIMO}	
 	\end{figure}
 	\item Signal model:
 	\begin{align*}
