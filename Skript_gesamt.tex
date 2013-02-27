@@ -1116,7 +1116,7 @@ $\Phi_{ee}$ is not in general a diagonal matrix
 		\end{itemize}
 		\item Comparison:
 		\begin{align*}
-			 \mathbf{F}_{\text{MMSE}} = \bigl( \mathbf{H}^H\mathbf{H} + \frac{\sigma_n^2}{\mathcal{E}_s}\mathbf{I} \bigr)^{-1}\cdot\mathbf{H}^H &\xrightarrow[{\frac{\sigma_n^2}{\epsilon} \to 0}]{}\bigl(\mathbf{H}^H\cdot\mathbf{H}\bigr)^{-1}\mathbf{H}^H = \mathbf{F}_{ZF}\\ &\xrightarrow[\frac{\sigma_n^2}{\mathcal{E}_s} \to\infty]{} \frac{\mathcal{E}_s}{\sigma_n^2} \cdot\mathbf{H}^H = \mathbf{F}_{MF} \quad \widehat{=} \text{matched filter}
+			 \mathbf{F}_{\text{MMSE}} = \bigl( \mathbf{H}^H\mathbf{H} + \frac{\sigma_n^2}{\mathcal{E}_s}\mathbf{I} \bigr)^{-1}\cdot\mathbf{H}^H &\xrightarrow[{\frac{\sigma_n^2}{\mathcal{E}_s} \to 0}]{}\bigl(\mathbf{H}^H\cdot\mathbf{H}\bigr)^{-1}\mathbf{H}^H = \mathbf{F}_{ZF}\\ &\xrightarrow[\frac{\sigma_n^2}{\mathcal{E}_s} \to\infty]{} \frac{\mathcal{E}_s}{\sigma_n^2} \cdot\mathbf{H}^H = \mathbf{F}_{MF} \quad \widehat{=} \text{matched filter}
 		\end{align*}
 		\item[$\Rightarrow$] For high SNR, $\frac{\mathcal{E}_s}{\sigma_n^2}$, the MMSE filter approaches the ZF-Filter, for low SNR, it approaches the matched filter. \medskip\\ $\rightarrow$ MMSE receiver yields the same diversity gain as the ZF receiver \medskip\\ $G_d^{MMSE} = G_d^{ZF} = N_R - N_T + 1\leq G_d^{ML} = N_R$
 		\item End-to-End Channel: $\mathbf{K} = \mathbf{FH} = \bigl(\mathbf{H}^H\mathbf{H} + \frac{\sigma_n^2}{\mathcal{E}_s}\cdot\mathbf{I}\bigr)^{-1}\cdot\mathbf{H}^H\cdot\mathbf{H} \neq \text{diagonal matrix}$
