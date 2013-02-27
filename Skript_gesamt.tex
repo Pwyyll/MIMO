@@ -347,7 +347,7 @@ where \begin{math} w_n\end{math} depends on the particular combining scheme.
         {\frac{\pi}{2^{2N_R+1}}\binom{2N_R}{N_R}=\frac{\pi(2N_R)!}{2^{2N_R+1}(N_R!)^2}}
         +O\left(\frac{1}{\bar{\gamma}^{N_R}}\right)\\
         &= \frac{aN_R^{N_R}}{2b^{N_R}N_R!}\frac{1}{\bar{\gamma}^{N_R}}+O\left(\frac{1}{\bar{\gamma}^{N_R}}\right)
-        \overset{!}{=}\left(\frac{1}{G_c}\right)^{G_d}
+        \overset{!}{=}\left(\frac{1}{G_c\cdot\bar{\gamma}}\right)^{G_d}
 \end{align*}
 
 \begin{itemize}
@@ -454,7 +454,7 @@ A similar asymptotic analysis can be conducted for the outage probability.
 			\item nur Abst\"ande sind unterschiedlich $\Rightarrow G_c $ wird in MRC besser \glqq genutzt\grqq\ als in EGC und SC
 		\end{itemize}
 	\end{itemize}
-
+	\newpage
 \subsection{MISO Systems}
 \paragraph{Remarks}
 	\begin{itemize}
@@ -514,9 +514,9 @@ A similar asymptotic analysis can be conducted for the outage probability.
 \end{itemize}
 \paragraph{Maximum Ratio Transmission (MRT)}
 \begin{itemize}
-	\item we have only the average power constraint: $ \sum\limits_{n = 1}^{N_T} |w_n|^2 = 1 $
-	\item SNR:  \scalebox{1.3}[1.3]{$\gamma	 _t = \frac{\mathcal{E}_s|h|^2}{\sigma _n^2} = \frac{\mathcal{E}_s\left|\sum\limits_{n = 1}^{N_T}w_n^*\cdot h_n \right|^2}{\sigma _n^2} $} 
-	\item Maximize SNR under constraint $ \sum\limits _{n = 1}^{N_T}|w_n|^2 = 1 $
+	\item we have only the average power constraint: $ \sum_{n = 1}^{N_T} |w_n|^2 = 1 $
+	\item SNR:  $\gamma	 _t = \frac{\mathcal{E}_s|h|^2}{\sigma _n^2} = \frac{\mathcal{E}_s\left|\sum_{n = 1}^{N_T}w_n^*\cdot h_n \right|^2}{\sigma _n^2} $ 
+	\item Maximize SNR under constraint $ \sum_{n = 1}^{N_T}|w_n|^2 = 1 $
 	\item constraint optimization problem $\rightarrow $ Lagrange method
 		\begin{align*}
 			L = \frac{\mathcal{E}_s}{\sigma _n^2}\left| \sum_{n = 1}^{N_T}w_n^*\cdot h_n \right |^2 + \lambda\left ( \sum_{n = 1}^{N_T}|w_n|^2 - 1\right ); \quad \text{where: } \lambda = \text{Lagrange Multiplier}
@@ -527,15 +527,15 @@ A similar asymptotic analysis can be conducted for the outage probability.
 			\frac{\partial x^2}{\partial x} &= 2x; \quad \frac{\partial (z^*)^2}{\partial z^*} = 2\cdot z^*;  \frac{\partial |z|^2}{\partial z} = z^*
 		\end{align*}
 		\begin{align*}
-			\frac{\partial L}{\partial w_m^*} = \frac{\epsilon _s}{\sigma _n^2}\Bigl ( \sum_{n = 1}^{N_T}w_n^*\cdot h_n\Bigr )^*h_m + \lambda w_m
+			\frac{\partial L}{\partial w_m^*} = \frac{\mathcal{E}_s}{\sigma _n^2}\Bigl ( \sum_{n = 1}^{N_T}w_n^*\cdot h_n\Bigr )^*h_m + \lambda w_m
 		\end{align*}
 		\begin{itemize}
-			\item[$\rightarrow$] \scalebox{1.3}[1.3]{$   w_m =\underset{\text{const., independent of } m:=c}{\frac{\epsilon _s}{\sigma _n^2 \cdot \lambda}\Bigl ( \sum\limits_{n = 1}^{N_T}w_n^*h_n \Bigr )^*}h_m $}
-			\item[$\rightarrow$] \scalebox{1.3}[1.3]{$  w_m = c\cdot h_m$}
-			\item[$\rightarrow$] \scalebox{1.3}[1.3]{$ \sum\limits_{n = 1}^{N_T} |w_n|^2 = 1 \rightarrow c^2 = \frac{1}{\sum\limits_{n = 1}^{N_T}|h_n|^2}  $}
-			\item[$\rightarrow$] \scalebox{1.3}[1.3]{$  w_n = \frac{h_n}{\sqrt{\sum\limits_{n = 1}^{N_T}|h_n|^2}} \equiv $} MRT gains 
+			\item[$\rightarrow$] $   w_m =\underset{\text{const., independent of } m:=c}{\frac{\mathcal{E}_s}{\sigma _n^2 \cdot \lambda}\Bigl ( \sum\limits_{n = 1}^{N_T}w_n^*h_n \Bigr )^*}h_m $
+			\item[$\rightarrow$] $  w_m = c\cdot h_m$
+			\item[$\rightarrow$] $ \sum_{n = 1}^{N_T} |w_n|^2 = 1 \rightarrow c^2 = \frac{1}{\sum\limits_{n = 1}^{N_T}|h_n|^2}  $
+			\item[$\rightarrow$] $  w_n = \frac{h_n}{\sqrt{\sum_{n = 1}^{N_T}|h_n|^2}} \equiv $ MRT gains 
 		\end{itemize}
-		\item[$\rightarrow$] SNR \scalebox{1.3}[1.3]{$ = \frac{\mathcal{E}_s}{\sigma _n^2}\Bigl | \sum\limits_{n = 1}^{N_T}\frac{|h_n|^2}{\sqrt{\sum_{n = 1}^{N_T}|h_m|^2}}\Bigr |^2 = \frac{\epsilon _s}{\sigma _n^2}\sum\limits_{n = 1}^{N_T}|h_n|^2 $}
+		\item[$\rightarrow$] SNR $ = \frac{\mathcal{E}_s}{\sigma _n^2}\Bigl | \sum_{n = 1}^{N_T}\frac{|h_n|^2}{\sqrt{\sum_{m = 1}^{N_T}|h_m|^2}}\Bigr |^2 = \frac{\mathcal{E}_s}{\sigma _n^2}\sum_{n = 1}^{N_T}|h_n|^2 $
 		\item[$\Rightarrow$] same SNR as for maximum ration combining (MRC)
 		\item[$\Rightarrow$] MRT with $N_T$ transmit antennas achieves the same performance as MRC with $N_T$ receive antennas
 		\item[$\Rightarrow$] MRT/MRC can be extended to $ N_T\times N_R $ MIMO systems
@@ -545,12 +545,14 @@ A similar asymptotic analysis can be conducted for the outage probability.
 	\end{itemize}
 \paragraph{Equal Gain Transmission (EGT)}
 \begin{itemize}
-	\item we employ gains: $w_n = \frac{1}{\sqrt{N_T}}\cdot \frac{h_n}{|h_m|} \rightarrow |w_n| = \frac{1}{\sqrt{N_T}} $
+	\item we employ gains: $w_n = \frac{1}{\sqrt{N_T}}\cdot \frac{h_n}{|h_n|} \rightarrow |w_n| = \frac{1}{\sqrt{N_T}} $
 	\item SNR:
 	\begin{align*}
-		\gamma _t &= \frac{\mathcal{E}_s}{\sigma _n^2}\left|\sum_{n = 1}^{N_T} w_n^*h_n \right |^2\\
-		&= \frac{\mathcal{E}_s}{\sigma _n^2}\left|\sum_{n = 1}^{N_T}\frac{1}{\sqrt{N_T}\cdot \frac{|h_n|^2}{|h_n|}} \right|^2 = \frac{1}{N_T}\cdot \frac{\mathcal{E}_s}{\sigma _n^2} \left|\sum_{n = 1}^{N_T}|h_n| \right|^2\\
-		\gamma _n &= \frac{\mathcal{E}_s}{\sigma _n^2}|h_n|^2\\
+		\gamma _t 
+		&= \frac{\mathcal{E}_s}{\sigma _n^2}\left|\sum_{n = 1}^{N_T} w_n^*h_n \right |^2\\
+		&= \frac{\mathcal{E}_s}{\sigma _n^2}\left|\sum_{n = 1}^{N_T}\frac{1}{\sqrt{N_T}}\cdot \frac{|h_n|^2}{|h_n|} \right|^2 = \frac{1}{N_T}\cdot \frac{\mathcal{E}_s}{\sigma _n^2} \left|\sum_{n = 1}^{N_T}|h_n| \right|^2\\
+		\gamma _n 
+		&= \frac{\mathcal{E}_s}{\sigma _n^2}|h_n|^2\\
 		&\text{same SNR as for EGC} \rightarrow \gamma _t = \frac{1}{N_T} \left| \sum_{n = 1}{N_T}\sqrt{\gamma _n} \right|^2
 	\end{align*}
 	\item[$\rightarrow$] EGC with $ N_T$ transmit antennas achieves the same performance as EGC with $ N_T$ receive antennas
@@ -567,7 +569,7 @@ A similar asymptotic analysis can be conducted for the outage probability.
 		\end{align*}
 	\item antenna selection with $ N_T$ transmit antennas achieves the same performance as \textit{Selection Combining} with $ N_T$ receive antennas
 \end{itemize}
-\subsubsection{No CSI at the Transmitter - Space\,-\,Time\,-\,Coding}
+\subsubsection{No CSI at Transmitter - Space\,-\,Time\,-\,Coding}
 \begin{itemize}
 	\item $h_n, n\in\{1,\dots ,N_T\}$, is only known at the receiver
 	\item ``Space-time-coding'' has to be employed to realize diversity gain
@@ -618,15 +620,15 @@ A similar asymptotic analysis can be conducted for the outage probability.
 		\item $\mathbf{h}$ is known at receiver
 		\item $\mathbf{n}$ is AWGN with $\mathcal{E}\{\mathbf{n}\cdot\mathbf{n^H}\}=\sigma_{\mathbf{n}}^2\cdots \mathbf{I}_{T\times T}$
 		\begin{align*}
-		p(\mathbf{y}|\mathbf{X}) 
+		p(\mathbf{y}|\mathbf{X})
 		&=\frac{1}{\pi^T|\sigma_n^2\mathbf{I}_{T\times T}|}\mathrm{exp}\left(-(\mathbf{y - Xh})^H(\sigma_n^2\mathbf{I}_{T\times T})^{-1}(\mathbf{y-Xh})\right)\\
 		&=\frac{1}{\pi^T\sigma_n^{2T}}\mathrm{exp}\left(-\frac{1}{\sigma_n^2}(\mathbf{y-Xh})^H(\mathbf{y-Xh})\right)=\frac{1}{\pi^T\sigma_n^{2T}}\mathrm{exp}\left(||\mathbf{y-Xh}||^2\right)
 		\end{align*}
 		$\rightarrow$ the optimal estimate $\hat{\mathbf{X}}$ or equivalently the optimal estimate $\hat{\mathbf{s}}$ can be obtained as
 		\begin{align*}
-			\hat{\mathbf{s}}=\underset{\mathbf{s}\in\mathcal{A}^K}{\mathrm{argmax}}\ p(\mathbf{y|X})=\underset{\mathbf{s}\in\mathcal{A}^K}{\mathrm{argmin}}||\mathbf{y-hX}||^2
+			\hat{\mathbf{s}}=\underset{\mathbf{s}\in\mathcal{A}^K}{\mathrm{argmax}}\;p(\mathbf{y|X})=\underset{\mathbf{s}\in\mathcal{A}^K}{\mathrm{argmin}}||\mathbf{y-Xh}||^2
 		\end{align*}
-		\item Disadvantage: In general, metric $||\mathbf{y-hX}||^2$ has to be calculated $M^K$ times\\
+		\item Disadvantage: In general, metric $||\mathbf{y-Xh}||^2$ has to be calculated $M^K$ times\\
 		$\rightarrow$ complexity increases exponentially with $K$
 	\end{itemize}
 \end{itemize}
@@ -710,9 +712,9 @@ because of symmetry it suffices to consider $r_1$
 		\begin{align*}
 			n_{eq} &= \sqrt{2}\;\frac{h_1^*n_1 + h_2n_2^*}{|h_1|^2 + |h_2|^2}\\
 			\text{SNR} \rightarrow \gamma _t  &= \frac{\mathcal{E}_s\cdot 1^2}{\sigma _{eq}^2}\quad \text{with}\quad \mathcal{E}\bigl\{ |s_1|^2\bigr\} = \mathcal{E}_s\\ 	
-			\sigma _{eq}^2 &= 2\frac{|h_1|^2\sigma _n^2 + |h_2|^2\sigma _{eq}}{\bigl(|h_1|^2 + |h_2|^2\bigr)^2} = \frac{2\sigma _n^2}{|h_1|^2 + |h_2|^2}
+			\sigma _{eq}^2 &= 2\frac{|h_1|^2\sigma_n^2 + |h_2|^2\sigma_n^2}{\bigl(|h_1|^2 + |h_2|^2\bigr)^2} = \frac{2\sigma _n^2}{|h_1|^2 + |h_2|^2}
 		\end{align*}
-		\item[$\rightarrow$] $\gamma _t = \frac{1}{2}\frac{\mathcal{E}_s}{\sigma _n}\bigl ( |h_1|^2 + |h_2|^2\bigr)$
+		\item[$\rightarrow$] $\gamma _t = \frac{1}{2}\frac{\mathcal{E}_s}{\sigma_n^2}\bigl ( |h_1|^2 + |h_2|^2\bigr)$
 		\item[$\rightarrow$] $\text{SNR}_{\text{Alamouti}} = \frac{1}{2}\text{SNR}_{\text{MRC}} = \frac{1}{2}\text{SNR}_{\text{MRT}}$
 		\item[$\rightarrow$] Alamouti code has diversity gain $G_d = 2$
 		\item[$\rightarrow$] Transmission with Alamouti STBC requires 3dB higher SNR to achieve same performance as MRT $\rightarrow$  3dB loss in coding gain $G_c$
@@ -754,8 +756,8 @@ Given:
 	\item Code  $\mathscr{X} = \bigl\{\textbf{X}_1,\dots ,\textbf{X}_{|\mathscr{X}|}\bigr\}$
 	\item Channel: IID Rayleigh-fading: 
 	\begin{itemize}
-		\item $h_n \sim \text{C}\mathcal{N}(0,1);\quad n \in \{1, 2, \dots , N_T \} $
-		\item AWGN $ n \sim \text{C}\mathcal{N}(0,\sigma _n^2) $
+		\item $h_n \sim \mathcal{CN}(0,1);\quad n \in \{1, 2, \dots , N_T \} $
+		\item AWGN $ n \sim \mathcal{CN}(0,\sigma _n^2) $
 	\end{itemize}
 \end{itemize}
 Problem: How should we design codebook $\mathscr{X}$?
@@ -779,9 +781,12 @@ Problem: How should we design codebook $\mathscr{X}$?
 Recall: $\hat{\mathbf{x}}=\underset{\mathbf{x}\in\mathscr{X}}{\mathrm{argmin}}||\mathbf{y-xh}||^2$\\
 Now, $\mathbf{x}_i$ and $\mathbf{x}_j$ are the only alternatives and an error is made if $||\mathbf{y-x_{\mathnormal{i}}h}||^2>||\mathbf{y-x_{\mathnormal{j}}h}||^2$ since $\mathbf{x}_i$ was sent but $\mathbf{x}_j$ was detected
 	\begin{align*}
-	\rightarrow	||\mathbf{x_{\mathnormal{i}}h+n-x_{\mathnormal{i}}h}||^2 &>||\mathbf{x_{\mathnormal{i}}h+n-x_{\mathnormal{j}}h}||^2\\
-			||\mathbf{n}||&>||\mathbf{(x_{\mathnormal{i}}-x_{\mathnormal{j}})h+n}||^2\\
-	\rightarrow	||\mathbf{n}||&>\underbrace{\mathbf{h^{\mathnormal{H}}(x_{\mathnormal{i}}-x_{\mathnormal{j}})^{\mathnormal{H}}(x_{\mathnormal{i}}-x_{\mathnormal{j}})h}}_{\Delta}
+	\rightarrow	||\mathbf{x_{\mathnormal{i}}h+n-x_{\mathnormal{i}}h}||^2 
+	&>||\mathbf{x_{\mathnormal{i}}h+n-x_{\mathnormal{j}}h}||^2\\
+	||\mathbf{n}||^2
+	&>||\mathbf{(x_{\mathnormal{i}}-x_{\mathnormal{j}})h+n}||^2\\
+	\rightarrow	||\mathbf{n}||^2
+	&>\underbrace{\mathbf{h^{\mathnormal{H}}(x_{\mathnormal{i}}-x_{\mathnormal{j}})^{\mathnormal{H}}(x_{\mathnormal{i}}-x_{\mathnormal{j}})h}}_{\Delta}
 			+\mathbf{h^{\mathnormal{H}}(x_{\mathnormal{i}}-x_{\mathnormal{j}})n+n^{\mathnormal{H}}(x_{\mathnormal{i}}-x_{\mathnormal{j}})h+||n||^{\mathnormal{2}}}
 	\end{align*}
 	\begin{align*}
@@ -887,8 +892,8 @@ for given $\mathbf{h}$, $z$ is a gaussian random variable
 	\item $\mathbf{W}$ can be optimized under the assumptions for given $\rho$ and $\hat{h}_i$\\
 	$\rightarrow$ see for details: J\"ongren, Skorglund and Ottersten: "Combining Beamforming and Orthogonal Space-time Block Coding", IEEE on IT, 2002.
 \end{itemize}
-
-\subsection{MIMO Systems without CSI at the Transmitter}
+\newpage
+\subsection{MIMO Systems without CSI at the transmitter}
 \begin{itemize}
 	\item We consider $N_T\times N_R$ MIMO system and assume that the channel matrix $\mathbf{H}$ is not known at the transmitter\\
 	$\rightarrow$ no CSI at the transmitter (CSIT)
@@ -1065,12 +1070,12 @@ $\Phi_{ee}$ is not in general a diagonal matrix
 	\begin{itemize}
 		\item e.g. SISO model:  $ r_i = \mathbf{f}_i\cdot\mathbf{h}_i\mathbf{x}_i + \mathbf{f}_i\cdot\mathbf{n}_i $
 		\begin{itemize}
-			\item[$\rightarrow$] $ \text{SNR}_{\text{eq}} $\scalebox{1.3}[1.3]{ $= \frac{\epsilon_s|\mathbf{f}_i\mathbf{h}_i|^2}{\sigma_n^2\|\mathbf{f}_i\|^2} = \frac{\epsilon_s}{\sigma_n^2}\left | \tilde{\mathbf{f}}_i\cdot\mathbf{h}_i\right | $},\quad  where $\mathbf{f}_i =\alpha\mathbf{f}_i  $ with $\|\tilde{\mathbf{f}}_i \|^2 = 1$  
+			\item[$\rightarrow$] $ \text{SNR}_{\text{eq}} $$= \frac{\mathcal{E}_s|\mathbf{f}_i\mathbf{h}_i|^2}{\sigma_n^2\|\mathbf{f}_i\|^2} = \frac{\mathcal{E}_s}{\sigma_n^2}\left | \tilde{\mathbf{f}}_i\cdot\mathbf{h}_i\right | $,\quad  where $\mathbf{f}_i =\alpha\mathbf{f}_i  $ with $\|\tilde{\mathbf{f}}_i \|^2 = 1$  
 			\item[] we can represent $\mathbf{f}_i$ as: $\tilde{\mathbf{f}}_i^T = \alpha\mathbf{M}\boldsymbol{\beta}$,\medskip\\ where: $\mathbf{M} \in \mathbb{C}^{N_R\times(N_R-N_T+1)} \text{ and } \boldsymbol{\beta} \in \mathbb{C}^{(N_R - N_T +1)\times 1} \quad\widehat{=} $ basis of subspace
 			\item[$\rightarrow$] $\tilde{\mathbf{f}}_i\textbf{M}_i = \boldsymbol{\beta}^T\mathbf{M}_i^T\mathbf{M}_i $,\medskip\\  where: $\mathbf{M}^H\mathbf{M} = \tilde{\mathbf{M}}_i = \mathbf{I} $ and $ \tilde{\mathbf{M}}_i \rightarrow \mathcal{CN} (0, \sigma_n^2\mathbf{I}_{(N_R - N_T + 1)} $\medskip\\ (since rows of $\mathbf{M}^T$ are orthogonal)
 			\item[] 
 				\begin{align*}		
-					\text{SNR}_{\text{eq}} = \frac{\epsilon_s}{\sigma_n^2}\alpha^2\left| \sum\limits_{j = 1}^{N_R - N_T+1}\boldsymbol{\beta}_{ji}\tilde{\mathbf{h}}_ji \right|^2; \tilde{\mathbf{h}}_i &= \begin{pmatrix}
+					\text{SNR}_{\text{eq}} = \frac{\mathcal{E}_s}{\sigma_n^2}\alpha^2\left| \sum\limits_{j = 1}^{N_R - N_T+1}\boldsymbol{\beta}_{ji}\tilde{\mathbf{h}}_ji \right|^2; \tilde{\mathbf{h}}_i &= \begin{pmatrix}
 					\tilde{h}_{1i}, & \tilde{h}_{2i}, & \dots , & \tilde{h}_{N_R - N_T +1}\end{pmatrix}^T\\ \boldsymbol{\beta}_i &= \begin{pmatrix}\beta_{1i}, & \dots , & \beta_{N_R - N_T +1,i}\end{pmatrix}^T										  
 				\end{align*}  		
 			\item[$\rightarrow$] $\text{SNR}_{\text{eq}} $ includes only $ N_R - N_T + 1$ independent Gaussian RV
@@ -1099,33 +1104,33 @@ $\Phi_{ee}$ is not in general a diagonal matrix
 		\item $\Phi_{ee}= \mathcal{E}\{\mathbf{ee}^H\} = \mathcal{E}\{(\mathbf{Fy} - \mathbf{x})(\mathbf{Fy} - \mathbf{x})^H \} = \mathbf{F}\cdot\boldsymbol{\Phi}_{yy}\cdot\mathbf{F}^H - \mathbf{F}\cdot\boldsymbol{\Phi}_{yx} - \boldsymbol{\Phi}_{xx}\cdot\boldsymbol{\Phi}_{xy}\cdot\mathbf{F}^H + \boldsymbol{\Phi}_{xx} $
 		\item[] with:
 		\begin{align*}
-			\boldsymbol{\Phi}_{yy} &= \mathcal{E}\{ \mathbf{yy}^H\} = \mathcal{E}\{(\mathbf{Hx} + \mathbf{n})(\mathbf{Hx} + \mathbf{n})^H\} = \epsilon_s \cdot\mathbf{H}\mathbf{H}^H + \sigma_n^2\cdot\mathbf{I}_{N_R\times N_T}\\
-			\boldsymbol{\Phi}_{yx} &= \mathcal{E}\{ \mathbf{yx}^H\} = \mathcal{E}\{ (\mathbf{Hx} + \mathbf{n})\cdot\mathbf{x}^H\} = \epsilon_s\cdot\mathbf{H}^H = \boldsymbol{\Phi}_{xy}^H\\
-			\boldsymbol{\Phi}_{xx} &= \epsilon_s\cdot\mathbf{I}_{N_T\times N_R}
+			\boldsymbol{\Phi}_{yy} &= \mathcal{E}\{ \mathbf{yy}^H\} = \mathcal{E}\{(\mathbf{Hx} + \mathbf{n})(\mathbf{Hx} + \mathbf{n})^H\} = \mathcal{E}_s \cdot\mathbf{H}\mathbf{H}^H + \sigma_n^2\cdot\mathbf{I}_{N_R\times N_T}\\
+			\boldsymbol{\Phi}_{yx} &= \mathcal{E}\{ \mathbf{yx}^H\} = \mathcal{E}\{ (\mathbf{Hx} + \mathbf{n})\cdot\mathbf{x}^H\} = \mathcal{E}_s\cdot\mathbf{H}^H = \boldsymbol{\Phi}_{xy}^H\\
+			\boldsymbol{\Phi}_{xx} &= \mathcal{E}_s\cdot\mathbf{I}_{N_T\times N_R}
 		\end{align*}
 		\item $\mathbf{F}_{\text{opt}} \quad \rightarrow \quad \frac{d}{d\mathbf{F}^*}\Bigl ( \text{tr}\{\mathbf{F}\boldsymbol{\Phi}_{yy}\mathbf{F}^H\} - \text{tr}\{\mathbf{F}\boldsymbol{\Phi}_{yx}\} - \text{tr}\{ \boldsymbol{\Phi}_{xy}\mathbf{F}^H\} + \text{tr}\{\boldsymbol{\Phi}_{xx}\}\Bigr )\overset{!}{=} 0 $
 		\item[] with Table \Rmnum{4} in paper by Hjoranges $\&$ Gesbert:
 		\begin{itemize}
 			\item[$\Rightarrow$] $\mathbf{F}\cdot\boldsymbol{\Phi}_{yy} - \boldsymbol{\Phi}_{xy} = 0$  	
-			\item[$\Rightarrow$] $ \mathbf{F}_{\text{opt}} = \boldsymbol{\Phi}_{xy}\cdot\boldsymbol{\Phi}_{yy}^{-1} = \epsilon_s\mathbf{H}^H\bigl(\epsilon_s\mathbf{H}\mathbf{H}^H + \sigma_n^2\mathbf{I}\bigr)^{-1} \medskip\\ = \text{(Matrix inversion Lemma)} =\medskip \\ = \bigl( \mathbf{H}^H\mathbf{H} + \frac{\sigma_n^2}{\epsilon_s}\mathbf{I}\bigr)^{-1}\cdot\mathbf{H}^H$
+			\item[$\Rightarrow$] $ \mathbf{F}_{\text{opt}} = \boldsymbol{\Phi}_{xy}\cdot\boldsymbol{\Phi}_{yy}^{-1} = \mathcal{E}_s\mathbf{H}^H\bigl(\mathcal{E}_s\mathbf{H}\mathbf{H}^H + \sigma_n^2\mathbf{I}\bigr)^{-1} \medskip\\ = \text{(Matrix inversion Lemma)} =\medskip \\ = \bigl( \mathbf{H}^H\mathbf{H} + \frac{\sigma_n^2}{\mathcal{E}_s}\mathbf{I}\bigr)^{-1}\cdot\mathbf{H}^H$
 		\end{itemize}
 		\item Comparison:
 		\begin{align*}
-			 \mathbf{F}_{\text{MMSE}} = \bigl( \mathbf{H}^H\mathbf{H} + \frac{\sigma_n^2}{\epsilon_s}\mathbf{I} \bigr)^{-1}\cdot\mathbf{H}^H &\xrightarrow[{\frac{\sigma_n^2}{\epsilon} \to 0}]{}\bigl(\mathbf{H}^H\cdot\mathbf{H}\bigr)^{-1}\mathbf{H}^H = \mathbf{F}_{ZF}\\ &\xrightarrow[\frac{\sigma_n^2}{\epsilon_s} \to\infty]{} \frac{\epsilon_s}{\sigma_n^2} \cdot\mathbf{H}^H = \mathbf{F}_{MF} \quad \widehat{=} \text{matched filter}
+			 \mathbf{F}_{\text{MMSE}} = \bigl( \mathbf{H}^H\mathbf{H} + \frac{\sigma_n^2}{\mathcal{E}_s}\mathbf{I} \bigr)^{-1}\cdot\mathbf{H}^H &\xrightarrow[{\frac{\sigma_n^2}{\epsilon} \to 0}]{}\bigl(\mathbf{H}^H\cdot\mathbf{H}\bigr)^{-1}\mathbf{H}^H = \mathbf{F}_{ZF}\\ &\xrightarrow[\frac{\sigma_n^2}{\mathcal{E}_s} \to\infty]{} \frac{\mathcal{E}_s}{\sigma_n^2} \cdot\mathbf{H}^H = \mathbf{F}_{MF} \quad \widehat{=} \text{matched filter}
 		\end{align*}
-		\item[$\Rightarrow$] For high SNR, $\frac{\epsilon_s}{\sigma_n^2}$, the MMSE filter approaches the ZF-Filter, for low SNR, it approaches the matched filter. \medskip\\ $\rightarrow$ MMSE receiver yields the same diversity gain as the ZF receiver \medskip\\ $G_d^{MMSE} = G_d^{ZF} = N_R - N_T + 1\leq G_d^{ML} = N_R$
-		\item End-to-End Channel: $\mathbf{K} = \mathbf{FH} = \bigl(\mathbf{H}^H\mathbf{H} + \frac{\sigma_n^2}{\epsilon_s}\cdot\mathbf{I}\bigr)^{-1}\cdot\mathbf{H}^H\cdot\mathbf{H} \neq \text{diagonal matrix}$
+		\item[$\Rightarrow$] For high SNR, $\frac{\mathcal{E}_s}{\sigma_n^2}$, the MMSE filter approaches the ZF-Filter, for low SNR, it approaches the matched filter. \medskip\\ $\rightarrow$ MMSE receiver yields the same diversity gain as the ZF receiver \medskip\\ $G_d^{MMSE} = G_d^{ZF} = N_R - N_T + 1\leq G_d^{ML} = N_R$
+		\item End-to-End Channel: $\mathbf{K} = \mathbf{FH} = \bigl(\mathbf{H}^H\mathbf{H} + \frac{\sigma_n^2}{\mathcal{E}_s}\cdot\mathbf{I}\bigr)^{-1}\cdot\mathbf{H}^H\cdot\mathbf{H} \neq \text{diagonal matrix}$
 		\begin{itemize}
 			\item[$\Rightarrow$] crosstalk/interference between elements $\mathbf{x}$ in received signal after filtering $\mathbf{r}$.
 			\item[] elements of $\mathbf{K}: K_{l,n}$		
 		\end{itemize}
 		\item Covariance for $\mathbf{F}_{\text{opt}}$				
 		\begin{align*}
-			\boldsymbol{\Phi}_{ee}  &= \boldsymbol{\Phi}_{xy}\cdot\overbrace{\boldsymbol{\Phi}_{yy}^{-1} \cdot\boldsymbol{\Phi}_{yy}\cdot\boldsymbol{\Phi}_{yy}^{-1}}^{\boldsymbol{\Phi}_{yy}^{-1}}\cdot \boldsymbol{\Phi}_{xy}^H - \boldsymbol{\Phi}_{xy}\cdot\boldsymbol{\Phi}_{yy}^{-1}\cdot\boldsymbol{\Phi}_{yx} - \boldsymbol{\Phi}_{xy}\cdot\boldsymbol{\Phi}_{yy}^{-1}\cdot\boldsymbol{\Phi}_{xy}^H + \boldsymbol{\Phi}_{xx} \\ &= \boldsymbol{\Phi}_{xx} - \overbrace{\boldsymbol{\Phi}_{xy}\cdot\boldsymbol{\Phi}_{yy}^{-1}}^{\mathbf{F}_{\text{opt}}}\cdot\boldsymbol{\Phi}_{yx}\\ &= \epsilon_s\mathbf{I} - \epsilon_s\bigl(\mathbf{H}^H\mathbf{H} + \frac{\sigma_n^2}{\epsilon_s}\cdot\mathbf{I}\bigr)^{-1}\cdot\mathbf{H}^H\mathbf{H}	 = \text{(Matrix inversion Lemma)}\\ &= \sigma_n^2 \bigl(\mathbf{H}^H\mathbf{H} + \frac{\sigma_n^2}{\epsilon_s}\cdot\mathbf{I}\bigr)^{-1}\\
-			\boldsymbol{\Phi}_{ee} &= \epsilon_s(\mathbf{I} - \mathbf{K})	
+			\boldsymbol{\Phi}_{ee}  &= \boldsymbol{\Phi}_{xy}\cdot\overbrace{\boldsymbol{\Phi}_{yy}^{-1} \cdot\boldsymbol{\Phi}_{yy}\cdot\boldsymbol{\Phi}_{yy}^{-1}}^{\boldsymbol{\Phi}_{yy}^{-1}}\cdot \boldsymbol{\Phi}_{xy}^H - \boldsymbol{\Phi}_{xy}\cdot\boldsymbol{\Phi}_{yy}^{-1}\cdot\boldsymbol{\Phi}_{yx} - \boldsymbol{\Phi}_{xy}\cdot\boldsymbol{\Phi}_{yy}^{-1}\cdot\boldsymbol{\Phi}_{xy}^H + \boldsymbol{\Phi}_{xx} \\ &= \boldsymbol{\Phi}_{xx} - \overbrace{\boldsymbol{\Phi}_{xy}\cdot\boldsymbol{\Phi}_{yy}^{-1}}^{\mathbf{F}_{\text{opt}}}\cdot\boldsymbol{\Phi}_{yx}\\ &= \mathcal{E}_s\mathbf{I} - \mathcal{E}_s\bigl(\mathbf{H}^H\mathbf{H} + \frac{\sigma_n^2}{\mathcal{E}_s}\cdot\mathbf{I}\bigr)^{-1}\cdot\mathbf{H}^H\mathbf{H}	 = \text{(Matrix inversion Lemma)}\\ &= \sigma_n^2 \bigl(\mathbf{H}^H\mathbf{H} + \frac{\sigma_n^2}{\mathcal{E}_s}\cdot\mathbf{I}\bigr)^{-1}\\
+			\boldsymbol{\Phi}_{ee} &= \mathcal{E}_s(\mathbf{I} - \mathbf{K})	
 		\end{align*}
   		\begin{itemize}
-  			\item[$\rightarrow$] $ 0 \leq K_{m,m} \leq 1 $ since main diagonal elements of $ \boldsymbol{\Phi}_{ee} $ are $ 0 \leq [\boldsymbol{\Phi}_{ee}]_{m,m} \leq \epsilon_s $
+  			\item[$\rightarrow$] $ 0 \leq K_{m,m} \leq 1 $ since main diagonal elements of $ \boldsymbol{\Phi}_{ee} $ are $ 0 \leq [\boldsymbol{\Phi}_{ee}]_{m,m} \leq \mathcal{E}_s $
   			\item[] siehe auch Abbildung \ref{MMSE}
   		\end{itemize}	
 	\end{itemize}
@@ -1140,7 +1145,7 @@ $\Phi_{ee}$ is not in general a diagonal matrix
 \paragraph{SNR (biased vs. unbiased)}
 \paragraph{a) biased SNR}
 \begin{align*}
-	\text{SNR}_{\text{bias,m}} &= \frac{\epsilon_s}{[\boldsymbol{\Phi}_{ee}]_{mm}} = \frac{\epsilon_s}{\epsilon_s(1 - K_{mm})} = \frac{1}{1 - K_{mm}}, \quad 1\leq m \leq 4 
+	\text{SNR}_{\text{bias,m}} &= \frac{\mathcal{E}_s}{[\boldsymbol{\Phi}_{ee}]_{mm}} = \frac{\mathcal{E}_s}{\mathcal{E}_s(1 - K_{mm})} = \frac{1}{1 - K_{mm}}, \quad 1\leq m \leq 4 
 \end{align*}
 	\textit{Anmerkung: } $\mathbf{K} = \mathbf{F}_{\text{opt}}\cdot\mathbf{H} \rightarrow \text{SNR} = 1 $ \textit{falls } $ \mathbf{K} = \text{zeros()} \Rightarrow \text{woher SNR } = 1 $ \textit{ bei keiner Uebertragung?} $\Rightarrow $ \textit{ nicht vorteilhaft: siehe: b) unbiased SNR}  % \ref{unbiased_SNR}
 but: 
@@ -1157,10 +1162,11 @@ but:
 	\item scaling matrix: $ \mathbf{C} = \text{diag}\bigl\{\frac{1}{K_{11}}, \frac{1}{K_{22}}, \dots, \frac{1}{K_{N_TN_T}}  \bigr\} $
 	\item $\mathbf{r}^\prime = \mathbf{Cr} \rightarrow \mathbf{e}^\prime = [e^\prime_1, \dots, e^\prime_{N_T}]^T = \mathbf{r}^\prime - \mathbf{x}  = \mathbf{Cr} - \mathbf{x} = \mathbf{CFy} - \mathbf{x} $
 	\item $\boldsymbol{\Phi}_{e^\prime e^\prime} = \mathcal{E}\Bigl\{\bigr(\mathbf{CFy} - \mathbf{x}\bigr)\bigl(\mathbf{CFy} - \mathbf{x}\bigr)^H\Bigr\} = \mathbf{CF}\boldsymbol{\Phi}_{yy}\mathbf{F}^H\mathbf{C}^H - \mathbf{CF}\boldsymbol{\Phi}_{yx} - \boldsymbol{\Phi}_{xy}\mathbf{F}^H\mathbf{C}^H + \boldsymbol{\Phi}_{xx}$
-	\item $ \mathbf{F} = 	\mathbf{F}_{\text{opt}} \rightarrow \mathbf{F}_{\text{opt}}\boldsymbol{\Phi}_{yy} = \boldsymbol{\Phi}_{xy} = \epsilon_s\cdot\mathbf{H}^H $
-	\item[$\rightarrow$] $\boldsymbol{\Phi}_{e^\prime e^\prime} = \epsilon_s\mathbf{C}\underbrace{\mathbf{H}^H\mathbf{F}^H}_{\mathbf{K}^H}\mathbf{C}^H - \epsilon_s\mathbf{C}\underbrace{\mathbf{FH}}_{\mathbf{K}} - \epsilon_s\underbrace{\mathbf{H}^H\mathbf{F}^H}_{\mathbf{K}^H}\mathbf{C}  + \epsilon_s\mathbf{I} \\ \quad = \epsilon_s\bigl[\mathbf{I} + (\mathbf{C} - \mathbf{I})\mathbf{K}^H\mathbf{C}^H - \mathbf{CK}\bigr]$  
+	\item $ \mathbf{F} = 	\mathbf{F}_{\text{opt}} \rightarrow \mathbf{F}_{\text{opt}}\boldsymbol{\Phi}_{yy} = \boldsymbol{\Phi}_{xy} = \mathcal{E}_s\cdot\mathbf{H}^H $
+	\item[$\rightarrow$] $\boldsymbol{\Phi}_{e^\prime e^\prime} = \mathcal{E}_s\mathbf{C}\underbrace{\mathbf{H}^H\mathbf{F}^H}_{\mathbf{K}^H}\mathbf{C}^H - \mathcal{E}_s\mathbf{C}\underbrace{\mathbf{FH}}_{\mathbf{K}} - \mathcal{E}_s\underbrace{\mathbf{H}^H\mathbf{F}^H}_{\mathbf{K}^H}\mathbf{C}  + \mathcal{E}_s\mathbf{I} \\ \quad = \mathcal{E}_s\bigl[\mathbf{I} + (\mathbf{C} - \mathbf{I})\mathbf{K}^H\mathbf{C}^H - \mathbf{CK}\bigr]$  
 	\item[] \textit{Anmerkung: nur Hauptdiagonalelemente interessieren, da diese die Varianz darstellen}
-	\item[$\rightarrow$] maindiagonal elements of $\boldsymbol{\Phi}_{e^\prime e^\prime} =  $ variances of $ e^\prime _m \quad = \epsilon_s\Bigl ( 1 + \bigl (\frac{1}{K_{mm}} - 1\bigr )   K_{mm}\frac{1}{K_{mm}}  - \frac{1}{K_{mm}}  K_{mm}\Bigr )  = \epsilon_s\frac{1 - K_{mm}}{K_{mm}}$
+	\item[$\rightarrow$] maindiagonal elements of $\boldsymbol{\Phi}_{e^\prime e^\prime} =  $ variances of $ e^\prime _m \quad = \mathcal{E}_s\Bigl ( 1 + \bigl (\frac{1}{K_{mm}} - 1\bigr )   K_{mm}\frac{1}{K_{mm}}  - \frac{1}{K_{mm}}  K_{mm}\Bigr )  = 
+	\frac{1 - K_{mm}}{K_{mm}}$
 	\item[$\rightarrow$] vgl. Abbildung \ref{MMSE}
 	\item[$\rightarrow$]$SNR_{unbiased}=\dfrac{\mathcal{E}_s}{[\boldsymbol{\Phi}_{e^\prime e^\prime}]_{mm}}=\dfrac{\mathcal{E}_s}{\mathcal{E}_s\dfrac{1-K_{mm}}{K_{mm}}}
 	=\dfrac{K_{mm}}{1-K_{mm}}, \quad 1\leq m \leq N_T$
@@ -1499,7 +1505,6 @@ Sphere decoding algorithm\\
 	\item Use tree structure to represent all possible $\tilde{\mathbf{x}} $ 
 \end{itemize}
 \subparagraph{Example:}	
-\underline{ BPSK = 2, $N_T = 2$}\\
 
 % Optionen für Stil, der im Bild verwendet werden kann
 % Verwendung: \node [baumnode]
@@ -1508,7 +1513,10 @@ Sphere decoding algorithm\\
 % 	baumnode/.style = {fill = gray, circle,draw}
 % } 
 % 
-\newpage
+%\newpage
+\begin{figure}[h]
+
+\scalebox{0.8}[0.8]{ 
 \begin{tikzpicture}[->,>=stealth']
 \tikzstyle{every node} = [font = \small]
 	\node [circle , draw]  (Start) {Start} 
@@ -1522,7 +1530,8 @@ Sphere decoding algorithm\\
 		}
 	;
 \end{tikzpicture}
-
+}
+\begin{center}
 \begin{tikzpicture}%[rotate = 90]
 \tikzstyle{level 1}=[sibling distance = 77mm]
 \tikzstyle{level 2}=[sibling distance = 40mm]
@@ -1615,9 +1624,17 @@ Sphere decoding algorithm\\
 			}
 			;
 			\draw[->,>=stealth'] (10)--(x_ML)	;
-\end{tikzpicture}\\
+
+\end{tikzpicture}
+	\caption{$\text{BPSK} = 2,\ N_T = 2$}
+	\label{fig:tikz_Sphere_Decoding}
+\end{center}
+\end{figure}
+
+
 
 \begin{itemize}
+	\item Siehe dazu Abbildung \ref{fig:tikz_Sphere_Decoding} auf S. \pageref{fig:tikz_Sphere_Decoding}
 	\item Assume $\tilde{\mathbf{x}}_{\text{subopt}} = \begin{bmatrix} -1 & -1 & -1 & 1	\end{bmatrix}^T $ \\ $ \quad \Rightarrow d(\tilde{x}_{\text{subopt}} = 1 + 2 + 2 + 2 = 7 = R $
 	\item For $\tilde{x}_1 = 1 $ we find $ d_2(1,1) = 5 + 3 = 8 > R $ and $ d(1,-1) = 5 + 4 > R $ \\ $ \quad\Rightarrow $ we don't have to calculate metrics for remaining branches, i.e., for nodes $19, \ldots ,31 $
 	\item For $ \tilde{x}_1 = -1 $ and $ \tilde{x}_2 = 1$ , we find that $d_3(-1, 1, -1) = 8 > R $ and $ d_3(-1, 1, 1) = 9 > R$ \\ $ \quad\Rightarrow $ remaining branches emerging from nodes 6 and 7 can be discarded
