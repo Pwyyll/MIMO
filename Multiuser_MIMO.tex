@@ -1,6 +1,6 @@
 \documentclass[a4paper, 10pt]{article}
 %\usepackage[utf8]{inputenc}			
-\usepackage[english]{babel}		% for german	
+\usepackage[ngerman]{babel}		% for german	
 \usepackage[dvips]{graphicx}		
 \usepackage{psfrag}						
 \usepackage{parskip}
@@ -187,7 +187,7 @@ Questions: What happens if there are multiple users?
 	\end{align}
 	\item Interpretation:
 	\begin{itemize}
-		\item \eqref{eq:Formel_1} and \eqref{eq:Formel_2}  (= single\,-to\,user constraint) are the ``single\,-\,user bounds´´, i.e., the maximum rates of user 1 and 2, if the other user was not there
+		\item \eqref{eq:Formel_1} and \eqref{eq:Formel_2}  (= single\,-to\,user constraint) are the  \glqq  single\,-\,user bounds\grqq , i.e., the maximum rates of user 1 and 2, if the other user was not there
 		\item \eqref{eq:Formel_3} can be interpreted as the maximum rate if streams of users 1 and 2 were jointly encoded. The separate encoding in the MAC cannot yield a better performance
 		\item Graphical represantation: \\
 		\begin{tikzpicture}
@@ -238,7 +238,7 @@ Questions: What happens if there are multiple users?
 			\end{align*}
 			\item once $x_1 $ is known, we form 
 			\begin{align*}
-				y -x_1 &= x_2 + n\\ \rightarrow R_2 &< \log_2\bigl(1 + \frac{\mathcal{E}_s}{\sigma_n^2}\bigr)
+				y -x_1 &= x_2 + n\\ \rightarrow R_2 &< \log_2\bigl(1 + \frac{\mathcal{E}_2}{\sigma_n^2}\bigr)
 			\end{align*}
 			\item this approach is referred to as successive interference cancellation (SIC) and is a direct result of the chain rule in information theory:\\ $I(X_1, X_2, Y) = I(X_1, Y) + I(X_2; Y|X_1) $
 		\end{itemize}
@@ -392,7 +392,7 @@ Questions: What happens if there are multiple users?
 		R_1 &= \log_2\bigl|\mathbf{I} + \frac{1}{\sigma_n^2}(\mathbf{I} + \frac{1}{\sigma_n^2}\mathbf{H}_2\mathbf{Q}_2\mathbf{H}_2^H)^{-1}\mathbf{H}_1\mathbf{Q}_1\mathbf{H}_1^H\bigr|
 	\end{align*}
 	\item How to achieve rates at B? $\rightarrow $ Treat $\mathbf{H}_2\mathbf{x}_2 + \mathbf{n} $ in equation  \ref{eq:Formel_7} as noise with covariance matrix $ \mathbf{Q}_N = \mathbf{H}_2\mathbf{Q}_2\mathbf{H}_2^H + \sigma_n^2\mathbf{I} $
-	\item[$\rightarrow$] equivalent channel matrix with white noise: $\mathbf{r} = \mathbf{Q}_N^{-\frac{1}{2}}\mathbf{y} = 	\mathbf{Q}_N^{-\frac{1}{2}}\mathbf{H}_1\mathbf{x}_1 + \tilde{\mathbf{n}} $ where $ \tilde{\mathbf{n}} $ is white noise with covariance $\mathbf{I}$. \\ \textit{Anmerkung: Rauschen war vorher farbig, muss ``gewei"st"\  werden.} 
+	\item[$\rightarrow$] equivalent channel matrix with white noise: $\mathbf{r} = \mathbf{Q}_N^{-\frac{1}{2}}\mathbf{y} = 	\mathbf{Q}_N^{-\frac{1}{2}}\mathbf{H}_1\mathbf{x}_1 + \tilde{\mathbf{n}} $ where $ \tilde{\mathbf{n}} $ is white noise with covariance $\mathbf{I}$. \\ \textit{Anmerkung: Rauschen war vorher farbig, muss \glqq gewei"st\grqq\ werden.} 
 	\begin{align*}
 		\rightarrow R_1 &= \log_2\bigl|\mathbf{I} + \underbrace{\mathbf{Q}_N^{-\frac{1}{2}} \mathbf{H}_1}_{\mathbf{H}}\mathbf{Q}_1\underbrace{\mathbf{H}_1^H\mathbf{Q}_N^{-\frac{1}{2}}}_{\mathbf{H_{eq}^H}}\bigr|  = \log_2\Bigl(\bigl|\mathbf{Q}_N^{\frac{1}{2}} + \mathbf{Q}_N^{-\frac{1}{2}}\mathbf{H}_1\mathbf{Q}_1\mathbf{H}_1^H\bigr|\cdot\bigl|\mathbf{Q}_N^{-\frac{1}{2}}\bigr|\Bigr)\\
 		&= \log_2\bigl|\mathbf{I} + \mathbf{Q}_N^{-1}\mathbf{H}_1\mathbf{Q}_1\mathbf{H}_1^H\bigr| = \\
@@ -437,7 +437,7 @@ We consider:
 \paragraph{Downlink scenarios:}
 \begin{itemize}
 	\item $N_R $ antennas at transmitter, single antennas at the users
-	\item user k receives: $ \mathbf{y}_k = \mathbf{h}_k^H\mathbf{x} + \mathbf{n}_k $, with:
+	\item user k receives: $ y_k = \mathbf{h}_k^H\mathbf{x} + n_k $, with:
 	\begin{itemize}
 		\item $N_R $ dimensional channel vector of user k: $\mathbf{h}_k^H $
 		\item $n_k$: AWGN at user k
@@ -452,12 +452,12 @@ We consider:
 		\label{fig:BroadcastChannel_scenario}
 	\end{figure}
 	\end{itemize}
-	\item How many independent signal streams can we transmit?
-	\begin{itemize}
-		\item Consider transmit signal: $\mathbf{x} = \sum\limits_{k = 1}^{K}\mathbf{h}_k\mathbf{x}_k $, with TX transmit vector $\mathbf{n}_k $ and symbol $x_k $ is intended for user k
-	\end{itemize}
-	\item received signal of user k: $y_k = \sum\limits_{k = 1}^{K}(\mathbf{h}_k^H\mathbf{n}_i)\mathbf{x}_i + n_k $
-	\item if all $\mathbf{h}_k $ were orthogonal and we chose $\mathbf{n}_k = \mathbf{h}_k $, the received signal would be: \\ $y_k = ||h_k||^2\mathbf{x}_k + n_k $
+\end{itemize}
+\paragraph{How many independent signal streams can we transmit?}
+\begin{itemize}
+	\item Consider transmit signal: $\mathbf{x} = \sum\limits_{k = 1}^{K}\mathbf{u}_kx_k $, with TX transmit vector $\mathbf{u}_k $ and symbol $x_k $ is intended for user k
+	\item received signal of user k: $y_k = \sum\limits_{k = 1}^{K}(\mathbf{h}_k^H\mathbf{u}_k)x_k + n_k $
+	\item if all $\mathbf{h}_k $ were orthogonal and we chose $\mathbf{u}_k = \mathbf{h}_k $, the received signal would be: \\ $y_k = ||\mathbf{h}_k||^2x_k + n_k $ \\ \textit{Anmerkung: restliche Beitr"age fallen in obiger Summe weg, da alle Vektoren orthogonal aufeinander sind.} 
 	\item if $N_R \geq K$, we can transmit simultaneously and interference free to all K users\\ $\Rightarrow $ multiplexing gain $= \text{min}\{K,N_k\} $
 \item In practice, the $\mathbf{h}_k $ will not be orthogonal
 \begin{itemize}
@@ -466,7 +466,7 @@ We consider:
 	\item[$\rightarrow$] always possible if $ \mathbf{h}_1,\ldots, \mathbf{h}_K $ are linearly independent
 	\item[$\rightarrow$] multiplexing gain ( $= $ degrees of freedom) is equal to $ \text{min}\{K, N_R\} $
 \end{itemize}
-\item we can transmit interference free to $K\leq N_R $ users \\ \quad \textit{Anmerkung: Falls TX viele Antennen, aber RX nur eine hat $\Rightarrow $ begrenzter Nutzen: SNR Verbesserung, kein Multiplexing Gain; falls TX viele Antennen und viele RX vorhanden sind $\Rightarrow $ RX erscheinen als Antennenarray $\rightarrow $ hoher Multiplexing Gain}
+\item we can transmit interference free to $K\leq N_R $ users
 \end{itemize}
 
 \subsubsection{Uplink\,-\,Downlink  Duality}
@@ -484,7 +484,7 @@ We consider:
 	\end{align*}
 	\item received signal at user $k$
 	\begin{align*}
-		y_{dl,k} = \mathbf{h}_k^H\mathbf{u}_kx_{dl,k} + \sum\limits_{j \neq k}\mathbf{h}_k^H\mathbf{u}_jx_{dl,j} + u_{dl,k}
+		y_{dl,k} = \mathbf{h}_k^H\mathbf{u}_kx_{dl,k} + \sum\limits_{j \neq k}\mathbf{h}_k^H\mathbf{u}_jx_{dl,j} + n_{dl,k}
 	\end{align*}
 	\item SINR of user $k$
 	\begin{align*}
@@ -493,12 +493,12 @@ We consider:
 	\item where: $\mathcal{E}_{dl,k} = \mathcal{E}\bigl\{|x_{dl,k}|^2 \bigr\}; \quad \sigma_n^2 = \mathcal{E}\bigl\{|n_{dl,k}|^2\bigr\} $
 	\item Using: 
 	\begin{align*}
-		a_k = \frac{\text{SINR}_k^{dl}}{(1 + \text{SINR}_k^{dl})|\mathbf{h}_k^H\mathbf{u}K|^2}
+		a_k = \frac{\text{SINR}_k^{dl}}{(1 + \text{SINR}_k^{dl})|\mathbf{h}_k^H\mathbf{u}_k|^2}
 	\end{align*}
-	we can rewrite the the SINR expressions as:
-	\begin{align*}
-		\boxed{\bigl(\mathbf{I}_K - \text{diag}\{a_1, \ldots, a_k\}\mathbf{A}\bigr)\mathbf{p}_{dl} = \sigma_n^2\mathbf{a}}
-	\end{align*}
+	we can rewrite the SINR expressions as:
+	\begin{align}
+		\boxed{\bigl(\mathbf{I}_K - \text{diag}\{a_1, \ldots, a_k\}\mathbf{A}\bigr)\mathbf{p}_{dl} = \sigma_n^2\mathbf{a}} \label{eq:Formel_7}
+	\end{align}
 	where:
 	\begin{align*}
 		\mathbf{a} &= \begin{bmatrix} a_1,\ldots,a_k\end{bmatrix}^T \\
@@ -531,7 +531,7 @@ We consider:
 	\end{figure}
 \end{itemize}
 \paragraph{Uplink:} 
-Use downlink signatures, $\mathbf{h}_k$, as receive filters, $\mathbf{f}_k$
+Use downlink signatures, $\mathbf{u}_k$, as receive filters, $\mathbf{f}_k$
 \begin{itemize}
 	\item block diagramm: 
 	\begin{figure}[ht]
@@ -541,7 +541,7 @@ Use downlink signatures, $\mathbf{h}_k$, as receive filters, $\mathbf{f}_k$
 		\psfrag{Nutzer1}[bl][bl][1]{$\mathbf{u}_1 $}
 		\psfrag{Nutzer2}[bl][bl][1]{$\mathbf{u}_2 $}
 		\psfrag{Kanalmatrix}[bl][bl][1]{$\mathbf{H}^* $}
-		\psfrag{Rauschen1}[bl][bl][1]{$n_{ul} $}
+		\psfrag{Rauschen1}[bl][bl][1]{$\mathbf{n}_{ul} $}
 		\psfrag{Ausgang1}[bl][bl][1]{$y_{ul,1} $}
 		\psfrag{Ausgang2}[bl][bl][1]{$y_{ul,K} $}
 		\includegraphics[scale=0.8]{Uplink_MIMO}	
@@ -550,7 +550,7 @@ Use downlink signatures, $\mathbf{h}_k$, as receive filters, $\mathbf{f}_k$
 	\end{figure}
 	\item Signal model:
 	\begin{align*}
-		y_{ul,k} &= \mathbf{u}_k^H\bigl(\mathbf{Hx}_{ul} + \mathbf{u}_{ul}\bigr) 
+		y_{ul,k} &= \mathbf{u}_k^H\bigl(\mathbf{Hx}_{ul} + \mathbf{n}_{ul}\bigr) 
 	\end{align*}	
 		with 
 	\begin{align*}
@@ -560,33 +560,34 @@ Use downlink signatures, $\mathbf{h}_k$, as receive filters, $\mathbf{f}_k$
 		\end{bmatrix} ,\quad \mathbf{x}_{ul} = 
 		\begin{bmatrix}
 			x_{ul,1} & \ldots & x_{ul,K}
-		\end{bmatrix}^T , \quad \mathbf{u}_{ul} = 
+		\end{bmatrix}^T , \quad \mathbf{n}_{ul} = 
 		\begin{bmatrix}
-			u_{ul,1} & \ldots & u_{ul,K}
+			n_{ul,1} & \ldots & n_{ul,K}
 		\end{bmatrix}^T 
 	\end{align*}		
 	\begin{align}
-		\rightarrow y_{ul,k} &= \mathbf{u}_k^H\mathbf{h}_kx_{ul,k} + \sum\limits_{j \neq k}\mathbf{u}_k\mathbf{h}_jx_{ul,j} + \mathbf{n}_k^H\mathbf{u}_{ul}\\
-		\rightarrow \text{SINR}_k^{ul} &= \frac{\mathcal{E}_{ul,k}|\mathbf{u}^H\mathbf{h}_k|^2}{\sigma_n^2 + \sum\limits_{j\neq k}\mathcal{E}_{ul,j}|\mathbf{u}_k^H\mathbf{h}_j|^2}\label{eq:Formel_8}
+		\rightarrow y_{ul,k} &= \mathbf{u}_k^H\mathbf{h}_kx_{ul,k} + \sum\limits_{j \neq k}\mathbf{u}_k\mathbf{h}_jx_{ul,j} + \mathbf{u}_k^H\mathbf{n}_{ul}\\
+		\rightarrow \text{SINR}_k^{ul} &= \frac{\mathcal{E}_{ul,k}|\mathbf{u}_k^H\mathbf{h}_k|^2}{\sigma_n^2 + \sum\limits_{j\neq k}\mathcal{E}_{ul,j}|\mathbf{u}_k^H\mathbf{h}_j|^2}\label{eq:Formel_8}
 	\end{align}
-	where we used $\mathbf{u}_k^H\mathbf{u}_k = 1 $ and $ \mathcal{E}_{ul,K} = \mathcal{E}\bigl\{|x_{ul,K}|^2\bigr\} $ 
-	\item we define: $ b_k = \frac{\text{SINR}_k^{ul}}{(1 + \text{SINR}_k^{ul})|\mathbf{u}_k^H\mathbf{h}_k|^2} $
+	where we used $\mathbf{u}_k^H\mathbf{u}_k = 1 $ and $ \mathcal{E}_{ul,k} = \mathcal{E}\bigl\{|x_{ul,k}|^2\bigr\} $ 
+	\item we define: 
+	\begin{align*}
+		b_k = \frac{\text{SINR}_k^{ul}}{(1 + \text{SINR}_k^{ul})|\mathbf{u}_k^H\mathbf{h}_k|^2}
+	\end{align*}		
 	\item we can rewrite SINR epression \eqref{eq:Formel_8} as : 
 	\begin{align*}
 		\sigma_n^2 + \sum\limits_{j\neq k}\mathcal{E}_{ul,j}\bigl|\mathbf{u}_k^H\mathbf{h}_j\bigr|^2 = \frac{1}{\text{SINR}_k^{ul}} \mathcal{E}_{ul,k}\bigl|\mathbf{u}_k^H\mathbf{h}_k\bigr|^2
 	\end{align*}
 	\begin{align*}
-		\underbrace{\bigl(1 + \frac{1}{\text{SINR}_k^{ul}}\bigr)\bigl|\mathbf{u}_k^H\mathbf{h}_k\bigr|^2}_{\frac{1}{b_k}}\mathcal{E}_{ul,k} - \sum\limits_{j = 1}^{K}\mathcal{E}_{ul,k}\bigl|\mathbf{u}_k^H\mathbf{h}_k\bigr|^2 = \sigma_n^2
+		\underbrace{\bigl(1 + \frac{1}{\text{SINR}_k^{ul}}\bigr)\bigl|\mathbf{u}_k^H\mathbf{h}_k\bigr|^2}_{\frac{1}{b_k}}\mathcal{E}_{ul,k} - \sum\limits_{j = 1}^{K}\mathcal{E}_{ul,j}\bigl|\mathbf{u}_k^H\mathbf{h}_j\bigr|^2 = \sigma_n^2
 	\end{align*}
 	\begin{align*}
 		\rightarrow \mathcal{E}_{ul,k} - b_k\sum\limits_{j = 1}^{K}\mathcal{E}_{ul,j}\bigl|\mathbf{u}_k^H\mathbf{h}_j\bigr|^2 = b_k\sigma_n^2
 	\end{align*}
 	\item matrix notation:
-	\begin{align*}
-		\begin{bmatrix}
-			\mathbf{I}_K - \text{diag}\bigl\{b_1,\ldots, b_K\bigr\}\mathbf{A}^T\mathbf{p}_{ul} = \sigma_n^2\cdot \mathbf{b}
-		\end{bmatrix}
-	\end{align*}
+	\begin{align}
+	\boxed{\bigl(\mathbf{I}_K - \text{diag}\bigl\{b_1,\ldots, b_K\bigr\}\mathbf{A}^T\bigr)\mathbf{p}_{ul} = \sigma_n^2\cdot \mathbf{b}}\label{eq:Formel_9}
+	\end{align}
 	\item where: $\mathbf{A} $ was defined for downlink case
 	\begin{align*}
 		\mathbf{p}_{ul} &= \begin{bmatrix} \mathcal{E}_{ul,1} & \ldots & \mathcal{E}_{ul,K}\end{bmatrix}^T \\
@@ -597,14 +598,15 @@ Use downlink signatures, $\mathbf{h}_k$, as receive filters, $\mathbf{f}_k$
 \paragraph{Comparison:} Assume, we want to achieve same SINR in uplink and downlink
 \begin{itemize}
 	\item[$\rightarrow$] $\text{SINR}_k^{ul}  = \text{SINR}_k^{dl} \quad \forall\quad k $ or equivalently $ a_k = b_k,\quad \forall\quad k $ !
-	\item[] What sum power do we need in both uses?
+	\item[] What sum power do we need in both cases?\\ From \eqref{eq:Formel_7} on page \pageref{eq:Formel_7} and \eqref{Formel_9} on page \pageref{eq:Formel_9}
 	\begin{align*}
 		\mathbf{p}_{dl} &= \sigma_n^2\bigl(\mathbf{I} - \text{diag}\{a_1, \ldots, a_K\}\mathbf{A}\bigr)^{-1}\mathbf{a} = \\
 		&= \sigma_n^2\bigl(\mathbf{D}_a - \mathbf{A}\bigr)^{-1}\cdot\mathbf{1}
 	\end{align*}
 	where: $\mathbf{D}_a = \text{diag}\{\frac{1}{a_1}, \ldots, \frac{1}{a_K}\} $ and $ \mathbf{1} = \begin{bmatrix}	1 & 1 & 1 & \ldots & 1 \end{bmatrix}^T $ 
 	\begin{align*}
-		\mathbf{p}_{ul} = \sigma_n^2(\mathbf{D}_b - \mathbf{A}^T)^{-1}\cdot \mathbf{1}
+		\mathbf{p}_{ul} &= \sigma_n^2\bigl(\mathbf{I} - \text{diag}\{b_1, \ldots, b_K\}\mathbf{A}\bigr)^{-1}\mathbf{b} = \\
+		&= \sigma_n^2(\mathbf{D}_b - \mathbf{A}^T)^{-1}\cdot \mathbf{1}
 	\end{align*}
 	where: $\mathbf{D}_b = \text{diag}\{\frac{1}{b_1}, \ldots ,\frac{1}{b_K}\} $
 	\begin{align*}
@@ -612,7 +614,7 @@ Use downlink signatures, $\mathbf{h}_k$, as receive filters, $\mathbf{f}_k$
 		&= \sigma_n^2\mathbf{1}^T\bigl(\mathbf{D}_b - \mathbf{A}\bigr)^{-1}\mathbf{1} \\
 		&= \sigma_n^2\bigl[\mathbf{1}^T\bigl(\mathbf{D}_b - \mathbf{A}\bigr)^{-1}\mathbf{1}\bigr]^T \\
 		&= \sigma_n^2\mathbf{1}^T\bigl[\bigl(\mathbf{D}_b - \mathbf{A}\bigr)^{-1}\bigr]^T\mathbf{1} \\
-		&= \sigma_n^2\mathbf{1}^T\bigl(\underbrace{\mathbf{D}_b^T}_{\mathbf{D}_b} - \mathbf{A}^T\bigr)^{-1}\\cdot\mathbf{1} = \sum\limits_{k = 1}^{K}\mathcal{E}_{ul,k}
+		&= \sigma_n^2\mathbf{1}^T\bigl(\underbrace{\mathbf{D}_b^T}_{\mathbf{D}_b} - \mathbf{A}^T\bigr)^{-1}\cdot\mathbf{1} = \sum\limits_{k = 1}^{K}\mathcal{E}_{ul,k}
 	\end{align*}
 \end{itemize}
 \paragraph{Conclusions:}
@@ -628,7 +630,7 @@ Use downlink signatures, $\mathbf{h}_k$, as receive filters, $\mathbf{f}_k$
 \begin{itemize}
 	\item two user case: $ y_k = h_kx + n_k\,,\quad k \in \{1,2\} $
 	\item Capacity can be achieved with so\,-\,called \textit{Costa Cor (dirty paper)} precoding
-	\item In this scheme, the signal of ine user is processed such that it does not impair the receiver of the other user, while the signal of the other user is treated as Gaussian noise at the receiver of the first user.
+	\item In this scheme, the signal of one user is processed such that it does not impair the receiver of the other user, while the signal of the other user is treated as Gaussian noise at the receiver of the first user.
 	\item[$\rightarrow$] Thus, the achievable rates would be
 	\begin{align*}
 		R_1 &< \log_2\bigl(1 + \frac{|h_1|^2\mathcal{E}_1}{\sigma_n^2}\bigr)\\
