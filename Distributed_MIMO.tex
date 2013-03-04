@@ -1,6 +1,6 @@
 \documentclass[a4paper, 10pt]{article}
 %\usepackage[utf8]{inputenc}			
-\usepackage[ngerman]{babel}		% for german	
+\usepackage[english]{babel}		% for german	
 \usepackage[dvips]{graphicx}		
 \usepackage{graphicx}	
 \usepackage{psfrag}						
@@ -56,7 +56,7 @@
 	\item Challenges in relays\,-\,assisted communication:
 	\begin{itemize}
 		\item Network architectures are becoming more complex
-		\item Synchronization across different nodes may be necessary \textit{(Anm.: untersch. Tr\"agerfrequenzen der Relays $\rightarrow $ Offset, Fehler, etc.)}
+		\item Synchronization across different nodes may be necessary
 		\item Exchange of channel state information (CSI) across nodes may be required
 	\end{itemize}
 \end{itemize}
@@ -89,7 +89,7 @@
 	\item Two basic nodes of transmission (at the relay):
 \end{itemize}
 \paragraph{Full\,-\,Duplex relaying:} 
-R can receive and transmit at the same time and in the same frequency band \textit{(Anm.: effizient, da restliche Zeit und restliche Frequenzband von anderen genutzt werden kann)}
+R can receive and transmit at the same time and in the same frequency band 
 \begin{itemize}
 	\item[$\rightarrow$] Since the TX signal power is orders of magnitude larger than the RX power, there is self\,-\,interference (at the relay), see figure \ref{fig:relay_self_interference}.
 	
@@ -157,10 +157,10 @@ In DF relaying, the relay detects and decodes the signal received from the sourc
 		\item we assume: S is silent in Phase 2		 
 	\end{itemize}
 \end{itemize}
-\paragraph{}
+\paragraph{Performance analysis}
 \begin{itemize}
 	\item The capacity at the three node relay channel is not known!
-	\item We provide an achievable rate under the following simplifying assumption: The direct source\,-\,relay link is not used/\,exploited.
+	\item We provide an achievable rate under the following simplifying assumption: The direct source\,-\,destination link is not used/\,exploited.
 	\item Achievable rate without S\,-\,D link:
 	\begin{align*}
 		\boxed{C_{DF} = \frac{1}{2}\text{min}\bigl\{\log_2\bigl(1 + \frac{\mathcal{E}_S|h_{SR}|^2}{\sigma_n^2}\bigr),\,\log_2\bigl(1 + \frac{\mathcal{E}_R|h_{RD}|^2}{\sigma_n^2}\bigr)\bigr\} }	
@@ -199,7 +199,7 @@ In DF relaying, the relay detects and decodes the signal received from the sourc
 		&= 1 - \exp\Bigl(-\frac{\bar{\gamma}_{SR} + \bar{\gamma}_{RD}}{\bar{\gamma}_{SR}\bar{\gamma}_{RD}}	\cdot\gamma_T\Bigr)
 		\end{align*}
 		\item[$\rightarrow$] equivalent SNR $\gamma_{eq} = \min\bigl\{\gamma_{SR}, \gamma_{RD}\bigr\} $ is also exponentially distributed with \\ $\bar{\gamma}_{eq} = \frac{\bar{\gamma}_{SR}\bar{\gamma}_{RD}}{\bar{\gamma}_{SR} + \bar{\gamma}_{RD}} $ 
-		\item Diversity gain: Assume $\bar{\gamma}_{SR} = \alpha\bar{\gamma} $
+		\item Diversity gain: Assume $\bar{\gamma}_{SR} = \alpha\bar{\gamma},\ \bar{\gamma}_{RD} = \beta\bar{\gamma} $
 		\begin{align*}
 			\rightarrow P_{out} & \xrightarrow{\bar{\gamma} \rightarrow \inf} 1 - \Bigl(1-\frac{\alpha + \beta}{\alpha\beta}\cdot\frac{\gamma_T}{\bar{\gamma}}\Bigr) + \mathcal{O}\bigl(\bar{\gamma}^{-1}\bigr) = \\ 
 			&= \frac{\alpha + \beta}{\alpha\beta}\cdot\frac{\gamma_T}{\bar{\gamma}} + \mathcal{O}\bigl(\bar{\gamma}^{-1}\bigr) = \\
@@ -262,7 +262,7 @@ In DF relaying, the relay detects and decodes the signal received from the sourc
 	\item Choice of A: The goal is to ensure an (average) transmit power of $\mathcal{E}_R $	
 \end{itemize}
 \paragraph{a) Variable gain relaying:}
-In this case we introduce an instantaneous power constraint. \textit{Anm.: A muss abh\"angig von $h_{SR} $ sein, um es kompensieren zu k\"onnen.}
+In this case we introduce an instantaneous power constraint.
 \begin{align*}
 	\mathcal{E}_{x,n}\bigl\{|S_R|^2\bigr\} &= \mathcal{E}_{x,n}\bigl\{A^2\bigl(|h_{SR}|^2|x|^2 + |n_R|^2\bigr)\bigr\} = \\ &= A^2\bigl(|h_{SR}|^2\mathcal{E}_S + \sigma_n^2\bigr) \overset{!}{=} \mathcal{E}_R \\ \rightarrow A^2 &= \frac{\mathcal{E}_R}{|h_{SR}|^2\mathcal{E}_S + \sigma_n^2}	 
 \end{align*}
@@ -278,7 +278,7 @@ In this case we introduce an instantaneous power constraint. \textit{Anm.: A mus
 	\item A is not channel dependent
 	\item Instantaneous power of $S_R $ depends on channel and may actually vary widely
 \end{itemize}
-Equivalent SNR for variable gain AF relaying (inly relayed link)
+Equivalent SNR for \textbf{variable gain AF relaying} (only relayed link)
 \begin{align*}
 	y_{D,2} = Ah_{RD}h_{SR}x + h_{RD}An_R + n_{D,2}
 \end{align*}
@@ -289,18 +289,16 @@ high SNR: $\gamma_{SR},\,\gamma_{RD} \gg 1 $
 \begin{align}
 	\boxed{\gamma_{eq}^{AF} = \frac{\gamma_{SR}\gamma_{RD}}{\gamma_{SR} + \gamma_{RD}}} \label{eq:Formel_01}
 \end{align}
-\textit{Anm.: Vgl. Formel \ref{eq:Formel_01} mit Berechnung zweier paralleler Widerst\"ande.}\\
-Comparison with equivalent SNF of DF:
+Comparison with equivalent SNR of DF:
 \begin{align}
 	\boxed{\gamma_{eq}^{DF} = \min\bigl\{\gamma_{SR},\,\gamma_{RD}\bigr\}}\label{eq:Formel_02}
 \end{align}
 \underline{3 cases:}
 \begin{align}
 	&\text{a)}\quad \gamma_{SR} = \gamma_{RD} = \gamma\quad \rightarrow \quad \gamma_{eq}^{AF} = \frac{1}{2}\gamma = \frac{1}{2}\gamma_{eq}^{DF}\label{eq:Formel_03} \\
-	&\text{b)}\quad \gamma_{SR} \gg \gamma_{RD} \quad \rightarrow \quad \gamma_{eq}^{AF} = \gamma_{RD} = \gamma_{eq}^{DF}\label{eq:Formel_04} \\
-	&\text{c)}\quad \gamma_{SR} \ll \gamma_{RD} \quad \rightarrow \quad \gamma_{eq}^{AF} = \gamma_{SR} = \gamma_{eq}^{DF}\label{eq:Formel_05}
+	&\text{b)}\quad \gamma_{SR} \gg \gamma_{RD} \quad \rightarrow \quad \gamma_{eq}^{AF} \approx \gamma_{RD} = \gamma_{eq}^{DF}\label{eq:Formel_04} \\
+	&\text{c)}\quad \gamma_{SR} \ll \gamma_{RD} \quad \rightarrow \quad \gamma_{eq}^{AF} \approx \gamma_{SR} = \gamma_{eq}^{DF}\label{eq:Formel_05}
 \end{align}
-\textit{Anm.: F\"alle \ref{eq:Formel_04} und \ref{eq:Formel_05} sind am wahrscheinlichsten.}
 Decision errors mostly occur if one of the two link SNRs is much smaller than the other. The probability, that both SNRs are small at the same time is much smaller, than the probability, that just one link SNR is small. 
 \begin{itemize}
 	\item[$\rightarrow$] $\gamma_{eq}^{AF} = \gamma_{eq}^{DF} $ holds most of the time
