@@ -1105,7 +1105,7 @@ $\Phi_{ee}$ is not in general a diagonal matrix
 	\end{itemize}
 	\item Deviation of $\mathbf{F}_{\text{opt}}$
 	\begin{itemize}
-		\item $\Phi_{ee}= \mathcal{E}\{\mathbf{ee}^H\} = \mathcal{E}\{(\mathbf{Fy} - \mathbf{x})(\mathbf{Fy} - \mathbf{x})^H \} = \mathbf{F}\cdot\boldsymbol{\Phi}_{yy}\cdot\mathbf{F}^H - \mathbf{F}\cdot\boldsymbol{\Phi}_{yx} - \boldsymbol{\Phi}_{xx}\cdot\boldsymbol{\Phi}_{xy}\cdot\mathbf{F}^H + \boldsymbol{\Phi}_{xx} $
+		\item $\Phi_{ee}= \mathcal{E}\{\mathbf{ee}^H\} = \mathcal{E}\{(\mathbf{Fy} - \mathbf{x})(\mathbf{Fy} - \mathbf{x})^H \} = \mathbf{F}\cdot\boldsymbol{\Phi}_{yy}\cdot\mathbf{F}^H - \mathbf{F}\cdot\boldsymbol{\Phi}_{yx} - \cdot\boldsymbol{\Phi}_{xy}\cdot\mathbf{F}^H + \boldsymbol{\Phi}_{xx} $
 		\item[] with:
 		\begin{align*}
 			\boldsymbol{\Phi}_{yy} &= \mathcal{E}\{ \mathbf{yy}^H\} = \mathcal{E}\{(\mathbf{Hx} + \mathbf{n})(\mathbf{Hx} + \mathbf{n})^H\} = \mathcal{E}_s \cdot\mathbf{H}\mathbf{H}^H + \sigma_n^2\cdot\mathbf{I}_{N_R\times N_T}\\
@@ -1120,7 +1120,8 @@ $\Phi_{ee}$ is not in general a diagonal matrix
 		\end{itemize}
 		\item Comparison:
 		\begin{align*}
-			 \mathbf{F}_{\text{MMSE}} = \bigl( \mathbf{H}^H\mathbf{H} + \frac{\sigma_n^2}{\mathcal{E}_s}\mathbf{I} \bigr)^{-1}\cdot\mathbf{H}^H &\xrightarrow[{\frac{\sigma_n^2}{\mathcal{E}_s} \to 0}]{}\bigl(\mathbf{H}^H\cdot\mathbf{H}\bigr)^{-1}\mathbf{H}^H = \mathbf{F}_{ZF}\\ &\xrightarrow[\frac{\sigma_n^2}{\mathcal{E}_s} \to\infty]{} \frac{\mathcal{E}_s}{\sigma_n^2} \cdot\mathbf{H}^H = \mathbf{F}_{MF} \quad \widehat{=} \text{matched filter}
+			 \mathbf{F}_{\text{MMSE}} = \bigl( \mathbf{H}^H\mathbf{H} + \frac{\sigma_n^2}{\mathcal{E}_s}\mathbf{I} \bigr)^{-1}\cdot\mathbf{H}^H 
+&\xrightarrow[{\frac{\sigma_n^2}{\mathcal{E}_s} \to 0}]{}\bigl(\mathbf{H}^H\cdot\mathbf{H}\bigr)^{-1}\mathbf{H}^H = \mathbf{F}_{ZF}\\ 		&\xrightarrow[\frac{\sigma_n^2}{\mathcal{E}_s} \to\infty]{} \frac{\mathcal{E}_s}{\sigma_n^2} \cdot\mathbf{H}^H = \mathbf{F}_{MF} \quad \widehat{=} \text{matched filter}
 		\end{align*}
 		\item[$\Rightarrow$] For high SNR, $\frac{\mathcal{E}_s}{\sigma_n^2}$, the MMSE filter approaches the ZF-Filter, for low SNR, it approaches the matched filter. \medskip\\ $\rightarrow$ MMSE receiver yields the same diversity gain as the ZF receiver \medskip\\ $G_d^{MMSE} = G_d^{ZF} = N_R - N_T + 1\leq G_d^{ML} = N_R$
 		\item End-to-End Channel: $\mathbf{K} = \mathbf{FH} = \bigl(\mathbf{H}^H\mathbf{H} + \frac{\sigma_n^2}{\mathcal{E}_s}\cdot\mathbf{I}\bigr)^{-1}\cdot\mathbf{H}^H\cdot\mathbf{H} \neq \text{diagonal matrix}$
@@ -1167,13 +1168,13 @@ but:
 	\item $\mathbf{r}^\prime = \mathbf{Cr} \rightarrow \mathbf{e}^\prime = [e^\prime_1, \dots, e^\prime_{N_T}]^T = \mathbf{r}^\prime - \mathbf{x}  = \mathbf{Cr} - \mathbf{x} = \mathbf{CFy} - \mathbf{x} $
 	\item $\boldsymbol{\Phi}_{e^\prime e^\prime} = \mathcal{E}\Bigl\{\bigr(\mathbf{CFy} - \mathbf{x}\bigr)\bigl(\mathbf{CFy} - \mathbf{x}\bigr)^H\Bigr\} = \mathbf{CF}\boldsymbol{\Phi}_{yy}\mathbf{F}^H\mathbf{C}^H - \mathbf{CF}\boldsymbol{\Phi}_{yx} - \boldsymbol{\Phi}_{xy}\mathbf{F}^H\mathbf{C}^H + \boldsymbol{\Phi}_{xx}$
 	\item $ \mathbf{F} = 	\mathbf{F}_{\text{opt}} \rightarrow \mathbf{F}_{\text{opt}}\boldsymbol{\Phi}_{yy} = \boldsymbol{\Phi}_{xy} = \mathcal{E}_s\cdot\mathbf{H}^H $
-	\item[$\rightarrow$] $\boldsymbol{\Phi}_{e^\prime e^\prime} = \mathcal{E}_s\mathbf{C}\underbrace{\mathbf{H}^H\mathbf{F}^H}_{\mathbf{K}^H}\mathbf{C}^H - \mathcal{E}_s\mathbf{C}\underbrace{\mathbf{FH}}_{\mathbf{K}} - \mathcal{E}_s\underbrace{\mathbf{H}^H\mathbf{F}^H}_{\mathbf{K}^H}\mathbf{C}  + \mathcal{E}_s\mathbf{I} \\ \quad = \mathcal{E}_s\bigl[\mathbf{I} + (\mathbf{C} - \mathbf{I})\mathbf{K}^H\mathbf{C}^H - \mathbf{CK}\bigr]$  
+	\item[$\rightarrow$] $\boldsymbol{\Phi}_{e^\prime e^\prime} = \mathcal{E}_s\mathbf{C}\underbrace{\mathbf{H}^H\mathbf{F}^H}_{\mathbf{K}^H}\mathbf{C}^H - \mathcal{E}_s\mathbf{C}\underbrace{\mathbf{FH}}_{\mathbf{K}} - \mathcal{E}_s\underbrace{\mathbf{H}^H\mathbf{F}^H}_{\mathbf{K}^H}\mathbf{C}^H  + \mathcal{E}_s\mathbf{I} \\ \quad = \mathcal{E}_s\bigl[\mathbf{I} + (\mathbf{C} - \mathbf{I})\mathbf{K}^H\mathbf{C}^H - \mathbf{CK}\bigr]$  
 	\item[] \textit{Anmerkung: nur Hauptdiagonalelemente interessieren, da diese die Varianz darstellen}
 	\item[$\rightarrow$] maindiagonal elements of $\boldsymbol{\Phi}_{e^\prime e^\prime} =  $ variances of $ e^\prime _m \quad = \mathcal{E}_s\Bigl ( 1 + \bigl (\frac{1}{K_{mm}} - 1\bigr )   K_{mm}\frac{1}{K_{mm}}  - \frac{1}{K_{mm}}  K_{mm}\Bigr )  = 
 	\frac{1 - K_{mm}}{K_{mm}}$
 	\item[$\rightarrow$] vgl. Abbildung \ref{MMSE}
 	\item[$\rightarrow$]$SNR_{unbiased}=\dfrac{\mathcal{E}_s}{[\boldsymbol{\Phi}_{e^\prime e^\prime}]_{mm}}=\dfrac{\mathcal{E}_s}{\mathcal{E}_s\dfrac{1-K_{mm}}{K_{mm}}}
-	=\dfrac{K_{mm}}{1-K_{mm}}, \quad 1\leq m \leq N_T$
+	=\dfrac{K_{mm}}{1-K_{mm}} = \frac{1}{1 - K_{mm}} - 1 = SNR_{biased} - 1, \quad 1\leq m \leq N_T$
 	\item[$\rightarrow$]the SNR after bias removal is by ``$1$'' smaller than the biased SNR $\rightarrow$ general result valid for any type of
 	MMSE estimation
 \end{itemize}
@@ -1340,7 +1341,7 @@ but:
 \end{figure}
 \begin{itemize}
 	\item $\mathbf{B}=\mathbf{L}-\mathbf{I}$ has to be lower triangular matrx with all-zero main diagonal elements because of causality.
-	\item $\mathbf{d}=\mathbf{Fy}-\mathbf{B}\hat{\tilde{\mathbf{x}}} \quad \rightarrow \mathbf{e}=\mathbf{d}-\hat{\mathbf{x}}=\mathbf{Fy}-\underbrace{(\mathbf{B}+\mathbf{I})}_{\mathbf{L}}\tilde{\mathbf{x}}$\\
+	\item $\mathbf{d}=\mathbf{Fy}-\mathbf{B}\hat{\tilde{\mathbf{x}}} \quad \rightarrow \mathbf{e}=\mathbf{d}-\tilde{\mathbf{x}}=\mathbf{Fy}-\underbrace{(\mathbf{B}+\mathbf{I})}_{\mathbf{L}}\tilde{\mathbf{x}}$\\
 	where we assume $\hat{\tilde{\mathbf{x}}}=\tilde{\mathbf{x}}$ for filter optimization
 	\item Optimal $\mathbf{F}$ for given $\mathbf{L}$ \\
 	\begin{align*}
@@ -1359,7 +1360,7 @@ but:
 		\boldsymbol{\Phi}_{\tilde{x}y}&=\mathcal{E}_s\tilde{\mathbf{H}}^H
 	\end{align*}
 	\begin{align*}
-		\rightarrow \mathbf{F}=\mathbf{L}\tilde{\mathbf{H}}^H(\tilde{\mathbf{H}}\tilde{\mathbf{H}}^h+\dfrac{\sigma_n^2}{\mathcal{E}_s}\mathbf{I})^{-1}
+		\rightarrow \mathbf{F}=\mathbf{L}\tilde{\mathbf{H}}^H(\tilde{\mathbf{H}}\tilde{\mathbf{H}}^H + \dfrac{\sigma_n^2}{\mathcal{E}_s}\mathbf{I})^{-1}
 		=\mathbf{L}\overbrace{(\tilde{\mathbf{H}}^H\tilde{\mathbf{H}}+\dfrac{\sigma_n^2}{\mathcal{E}_s}\mathbf{I})^{-1}\tilde{\mathbf{H}}^H}^{\text{MMSE Linear Equalizer}}
 	\end{align*}
 	\begin{figure}[h]
@@ -1379,18 +1380,17 @@ but:
 	\begin{itemize}
 		\item[$\rightarrow$]$\boldsymbol{\Phi}_{ee}=\sigma_n^2\mathbf{L}(\tilde{\mathbf{H}}^H\tilde{\mathbf{H}}+\dfrac{\sigma_n^2}{\mathcal{E}_s}\mathbf{I})^{-1}\mathbf{L}^H$
 		\item[$\rightarrow$] need lower triangular matrix $\mathbf{L}$ which minimizes $\mathrm{tr}\{\boldsymbol{\Phi}_{ee}\}$
-		\item[$\rightarrow$] the optimum $\mathbf{L}$ whitenes $\boldsymbol{\Phi}_{ee}$ $\rightarrow$  $\boldsymbol{\Phi}_{ee}$ becomes diagonal matrix i.e. $\mathbf{L}$ exploits the correlation after linear MMSE filtering
-		to reduce noise variance!
+		\item[$\rightarrow$] the optimum $\mathbf{L}$ whitenes $\boldsymbol{\Phi}_{ee}$ $\rightarrow$  $\boldsymbol{\Phi}_{ee}$ becomes diagonal matrix,\\ i.e. $\mathbf{L}$ exploits the correlation after linear MMSE filtering to reduce noise variance!
 		\item[$\rightarrow$] $\mathbf{L}$ is obtained via Cholesky factorization
 		\begin{align*}
 			\tilde{\mathbf{H}}^H\tilde{\mathbf{H}}+\dfrac{\sigma_n^2}{\mathcal{E}_s}\mathbf{I}=\mathbf{LDL}^H
 		\end{align*}
-		\item[$\rightarrow$] $\boldsymbol{\Phi}_{ee}=\sigma_n^2 \mathbf{L}(\mathbf{LDL}^H)^{-1}\mathbf{L}=\sigma_n^2\mathbf{LL}^{-1}\mathbf{D}^{-1}\mathbf{L}^{-H}\mathbf{L}=\sigma_n^2\mathbf{D}^{-1}\widehat{=}$ diagonal matrix
+		\item[$\rightarrow$] $\boldsymbol{\Phi}_{ee}=\sigma_n^2 \mathbf{L}(\mathbf{LDL}^H)^{-1}\mathbf{L}=\sigma_n^2\mathbf{LL}^{-1}\mathbf{D}^{-1}\mathbf{L}^{-H}\mathbf{L}^H=\sigma_n^2\mathbf{D}^{-1}\mathrel{\widehat{=}}$ diagonal matrix
 	\end{itemize}
 	\item Summary of MMSE calculation
 	\begin{itemize}
-		\item $\mathbf{B}=\mathbf{L}-\mathbf{I}$ where $\mathbf{H}^H\mathbf{H}+\dfrac{\sigma_n^2}{\mathcal{E}_s}\mathbf{I}=\mathbf{LDL}^H$
-		\item $\mathbf{F}=\mathbf{L} \underbrace{(\mathbf{H}^H\mathbf{H}+\dfrac{\sigma_n^2}{\mathcal{E}_s}\mathbf{I})^{-1}\tilde{\mathbf{H}}}_{\mathbf{F}_{Linear}}$
+		\item $\mathbf{B}=\mathbf{L}-\mathbf{I}$ where $\tilde{\mathbf{H}}^H\tilde{\mathbf{H}}+\dfrac{\sigma_n^2}{\mathcal{E}_s}\mathbf{I}=\mathbf{LDL}^H$
+		\item $\mathbf{F}=\mathbf{L} \underbrace{(\tilde{\mathbf{H}}^H\tilde{\mathbf{H}}+\dfrac{\sigma_n^2}{\mathcal{E}_s}\mathbf{I})^{-1}\tilde{\mathbf{H}}^H}_{\mathbf{F}_{Linear}}$
 		\item $\mathbf{L}$ is a prediction error filter, which whitenes the error signal $\mathbf{e}$
 		\item SNR:
 		\begin{align*}
@@ -1404,7 +1404,7 @@ but:
 				\mathbf{L}^{-H} \tilde{\mathbf{H}}^H\tilde{\mathbf{H}}\\
 				&= \dfrac{1}{\sigma_n^2} \boldsymbol{\Phi}_{ee} \mathbf{L}^{-H}(\tilde{\mathbf{H}}^H\tilde{\mathbf{H}}+\dfrac{\sigma_n^2}{\mathcal{E}_s}\mathbf{I}-\dfrac{\sigma_n^2}{\mathcal{E}_s}\mathbf{I})
 				\mathbf{L}^{-1}\mathbf{L}\\
-				&= \dfrac{1}{\sigma_n^2}[\underbrace{\mathbf{L}^{-H}(\tilde{\mathbf{H}}^H\tilde{\mathbf{H}}+\dfrac{\sigma_n^2}{\mathcal{E}_s}\mathbf{I})\mathbf{L}^{-1}}_{\sigma_n^2\boldsymbol{\Phi}_{ee}^{-1}}
+				&= \dfrac{1}{\sigma_n^2}\boldsymbol{\Phi}_{ee}[\underbrace{\mathbf{L}^{-H}(\tilde{\mathbf{H}}^H\tilde{\mathbf{H}}+\dfrac{\sigma_n^2}{\mathcal{E}_s}\mathbf{I})\mathbf{L}^{-1}}_{\sigma_n^2\boldsymbol{\Phi}_{ee}^{-1}}
 				\mathbf{L}-\dfrac{\sigma_n^2}{\mathcal{E}_s}\mathbf{L}^{-H}]\\
 				&=\mathbf{L}-\dfrac{1}{\mathcal{E}_s}\boldsymbol{\Phi}_{ee}\mathbf{L}^{-H}
 		\end{align*}
